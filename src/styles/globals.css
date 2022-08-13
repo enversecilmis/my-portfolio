@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+* {
+    transition: background-color .3s ease;
+}
+
+*:focus:not(:focus-visible){
+    outline: none;
+}
+body,
+body[data-theme="light"] {
+    --color-bg: #ddd;
+    --color-txt: #444;
+}
+
+body[data-theme="dark"] {
+    --color-bg: #444;
+    --color-txt: #ddd;
+}

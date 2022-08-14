@@ -1,0 +1,102 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20%) translateZ(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateZ(50px);
+    }
+}
+
+.goalContainer {
+    background-color: #44444411;
+    padding-top: 20vh;
+    box-sizing: content-box;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 80vh;
+
+    .hoverBox {
+        position: absolute;
+        top: 0;
+        pointer-events: none;
+        height: 100%;
+        width: 100%;
+    }
+    
+    .goalRotateContainer {
+        perspective: 1000px;
+        transform: perspective(1000px);
+        transform: perspective(1000px) rotateX(var(--rot-x, 0deg)) rotateY(var(--rot-y, 0deg));
+        transition: transform ease;
+        transform-style: preserve-3d;
+        position: relative;
+        
+        transition: transform .5s ease;
+        &:hover {
+            transition: transform;
+        }
+        
+
+        #goal {
+            font-size: clamp(25px, 10vw, 96px);
+
+            line-height: 1;
+            text-align: center;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            transform-style: preserve-3d;
+            transform: translateZ(50px);
+            animation: fadeInUp 1s;
+            color: var(--color-txt);
+            pointer-events: none;
+        }
+
+        .verticalLines {
+
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+
+            display: flex;
+            justify-content: space-evenly;
+
+            transform-style: preserve-3d;
+            z-index: -10;
+
+            .verticalLine {
+                width: 1px;
+                height: 100%;
+                background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--color-bg-contrast-t) 50%, rgba(255, 255, 255, 0) 100%);
+            }
+        }
+        .horizontalLines {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            transform-style: preserve-3d;
+
+            z-index: -10;
+
+            .horizontalLine {
+                height: 1px;
+                width: 100%;
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--color-bg-contrast-t) 50%, rgba(255, 255, 255, 0) 100%);
+            }
+        }
+    }
+
+}

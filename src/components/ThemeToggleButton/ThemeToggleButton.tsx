@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react"
+import { FiSun, FiMoon } from "react-icons/fi";
+import styles from "./ThemeToggleButton.module.scss"
 
 
 
-
+// ************** !!!!!!!!! ******************
+//
+// TODO: Theme'i local state'ten global state'e taşı 
+//
+// ************** !!!!!!!!! ******************
 
 
 const ThemeToggleButton: React.FC<{  }> = ({  }) => {
@@ -28,15 +34,15 @@ const ThemeToggleButton: React.FC<{  }> = ({  }) => {
 
 
     const toggleTheme = () => setActiveTheme(inactiveTheme)
+    const ButtonIcon = activeTheme === "dark"? <FiMoon size={25} /> : <FiSun size={25} />
 
     return (
         <button
             aria-label={`Change to ${inactiveTheme} mode`}
             title={`Change to ${inactiveTheme} mode`}
-            className="border border-black rounded-lg hover:bg-gray-50 active:bg-gray-400"
             onClick={toggleTheme}
         >
-            Toggle Theme
+            {ButtonIcon}
         </button>
     )
 }

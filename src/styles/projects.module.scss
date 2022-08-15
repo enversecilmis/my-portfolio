@@ -1,0 +1,24 @@
+@keyframes AnimationName {
+    0%{background-position:0% 46%}
+    50%{background-position:100% 55%}
+    100%{background-position:0% 46%}
+}
+
+.container {
+    background: linear-gradient(270deg, #246655, #626624);
+    background-size: 400% 400%;
+
+    -webkit-animation: AnimationName 5s ease infinite;
+    -moz-animation: AnimationName 5s ease infinite;
+    animation: AnimationName 5s ease infinite;
+
+    & h1, h2 {
+        text-shadow: 0px 0px 6px;
+    }
+
+    & a {
+        &:hover {
+            text-shadow: 0px 0px 10px red;
+        }
+    }
+}

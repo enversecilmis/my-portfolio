@@ -1,16 +1,17 @@
-import type { NextPage } from "next";
-import dynamic from "next/dynamic";
 import Head from "next/head";
+import { ReactElement } from "react";
 import HeaderNav from "../components/HeaderNav/HeaderNav";
 import Intro from "../components/Intro/Intro";
-import ThemeToggleButton from "../components/ThemeToggleButton/ThemeToggleButton";
+import Slider from "../components/Slider/Slider";
+import BasicLayout from "../layouts/BasicLayout";
 import styles from "../styles/home.module.scss"
+import { NextPageWithLayout } from "./_app";
 
 
 
 
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   return (
     <>
       <Head>
@@ -18,9 +19,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <HeaderNav />
       <div className={styles.container}>
         <Intro />
+        <Slider />
         
 
       </div>
@@ -30,6 +31,14 @@ const Home: NextPage = () => {
 
 
 
+
+Home.getLayout = (page: ReactElement) => {
+  return (
+    <BasicLayout>
+      {page}
+    </BasicLayout>
+  )
+}
 
 
 export default Home;

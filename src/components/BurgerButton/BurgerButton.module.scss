@@ -1,0 +1,46 @@
+.mobileMenuButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    user-select: none;
+
+
+
+    &:before {
+        display: block;
+        width: 22px;
+        height: 1px;
+        background-color: #bbb;
+        content: "";
+
+        transform: translateY(-4px);
+        transition: transform .15s ease;
+    }
+
+    &:after {
+        display: block;
+        width: 22px;
+        height: 1px;
+        background-color: #bbb;
+        content: "";
+
+        transform: translateY(4px) rotate();
+        transition: transform .15s ease;
+    }
+}
+
+
+
+.open {
+    &:before {
+        transform: rotate(45deg);
+    }
+    &:after {
+        transform: rotate(-45deg);
+    }
+}

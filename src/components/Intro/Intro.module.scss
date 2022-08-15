@@ -10,6 +10,7 @@
 }
 
 .goalContainer {
+    overflow: hidden;
     background-color: #44444411;
     padding-top: 20vh;
     box-sizing: content-box;
@@ -57,7 +58,6 @@
         }
 
         .verticalLines {
-
             position: absolute;
             top: -50%;
             left: -50%;
@@ -77,6 +77,9 @@
             }
         }
         .horizontalLines {
+            border-radius: 50px;
+            // background-color: #ff000017;
+
             position: absolute;
             top: -50%;
             left: -50%;

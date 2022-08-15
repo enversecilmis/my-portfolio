@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-modal": "^3.13.1",
+    "bezier-easing": "^2.1.0",
     "next": "12.2.3",
     "pusher": "^5.1.1-beta",
     "pusher-js": "^7.3.0",

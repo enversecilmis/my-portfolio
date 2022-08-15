@@ -32,8 +32,8 @@ body[data-theme="light"] {
     --color-txt:            var(--color-6);
     --color-txt-lc:         var(--color-4);
     --color-txt-blue:       #7895d4;
-    --color-scroll-bg:      #ddd;
-    --color-scroll-bar:     #333;
+    --color-scroll-bg:      #aaa;
+    --color-scroll-bar:     #555;
 }
 
 body[data-theme="dark"] {
@@ -44,7 +44,7 @@ body[data-theme="dark"] {
     --color-txt-lc:         var(--color-3);
     --color-txt-blue:       #667fb5;
     --color-scroll-bg:      #333;
-    --color-scroll-bar:     #aaa;
+    --color-scroll-bar:     #777;
 }
 /***** Variables *****/
 
@@ -69,7 +69,8 @@ html, body, #__next {
 
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 14px;
+    height: 10px;
   }
   
   /* Track */
@@ -80,24 +81,13 @@ html, body, #__next {
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: var(--color-scroll-bar);
-    border-radius: 10px;
+    background-color: var(--color-scroll-bar);
+    border-radius: 999px;
+    background-clip: padding-box;
+    border: 3px solid transparent;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #666;
+    background-color: #666;
   }
-
-
-
-  @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20%) translateZ(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) translateZ(50px);
-    }
-}

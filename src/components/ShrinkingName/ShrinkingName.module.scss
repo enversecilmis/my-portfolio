@@ -1,0 +1,11 @@
+.fullname {
+    font-size: 40px;
+    font-weight: 100;
+    white-space: nowrap;
+    color: #9c9c9c;
+
+    #lastname {
+        // color: #667fb5;
+        color: var(--color-txt-blue);
+    }
+}

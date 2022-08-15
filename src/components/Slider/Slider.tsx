@@ -12,7 +12,7 @@ const Slider: React.FC<{  }> = ({  }) => {
 
     return (
         <div  className={styles.container}>
-            
+            asdsd
         </div>
     )
 }

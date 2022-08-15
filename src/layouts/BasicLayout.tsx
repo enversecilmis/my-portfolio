@@ -14,7 +14,7 @@ const BasicLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         <>
             <HeaderNav />
             <ContactButton />
-            <main>{children}</main>
+            {children}
         </>
     )
 }

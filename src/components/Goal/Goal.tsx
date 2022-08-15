@@ -112,7 +112,7 @@ const Goal: React.FC<{  }> = ({  }) => {
                     onMouseEnter={mouseEnterHandler}
                     ref={box}
                 >
-                    <h2 id={styles.goal} className="lg:text-8xl md:text-7xl sm:text-6xl text-5xl text-">
+                    <h2 id={styles.goal} className="lg:text-8xl md:text-7xl sm:text-6xl text-5xl">
                     On My Way <br />
                     to <br />
                     Fullstack

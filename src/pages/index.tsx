@@ -20,7 +20,6 @@ const Home: NextPageWithLayout = () => {
 
       <div className={styles.container}>
         <Goal />
-        <Slider />
         
 
       </div>

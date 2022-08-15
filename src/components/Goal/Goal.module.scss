@@ -11,7 +11,7 @@
 
 .goalContainer {
     overflow: hidden;
-    background-color: #44444411;
+    // background-color: #44444421;
     padding-top: 20vh;
     box-sizing: content-box;
 
@@ -22,13 +22,6 @@
     width: 100%;
     height: 80vh;
 
-    .hoverBox {
-        position: absolute;
-        top: 0;
-        pointer-events: none;
-        height: 100%;
-        width: 100%;
-    }
     
     .goalRotateContainer {
         perspective: 1000px;
@@ -53,7 +46,7 @@
             transform-style: preserve-3d;
             transform: translateZ(50px);
             animation: fadeInUp 1s;
-            color: var(--color-txt);
+            color: var(--color-txt-lc);
             pointer-events: none;
         }
 
@@ -63,7 +56,6 @@
             left: -50%;
             width: 200%;
             height: 200%;
-
             display: flex;
             justify-content: space-evenly;
 
@@ -73,12 +65,12 @@
             .verticalLine {
                 width: 1px;
                 height: 100%;
-                background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--color-bg-contrast-t) 50%, rgba(255, 255, 255, 0) 100%);
+                background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
             }
         }
         .horizontalLines {
             border-radius: 50px;
-            // background-color: #ff000017;
+
 
             position: absolute;
             top: -50%;
@@ -97,7 +89,7 @@
             .horizontalLine {
                 height: 1px;
                 width: 100%;
-                background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--color-bg-contrast-t) 50%, rgba(255, 255, 255, 0) 100%);
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
             }
         }
     }

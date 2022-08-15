@@ -1,0 +1,37 @@
+<svg width="300" height="169" viewBox="0 0 300 169" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="screen">
+<rect id="frame" width="300" height="169" rx="10" fill="#D9D9D9"/>
+<g id="ui">
+<g id="rects">
+<rect id="rect5" x="260" y="122" width="30" height="30" fill="#B7B7B7"/>
+<rect id="rect4" x="197.5" y="122" width="30" height="30" fill="#B7B7B7"/>
+<rect id="rect3" x="135" y="122" width="30" height="30" fill="#B7B7B7"/>
+<rect id="rect2" x="72.5" y="122" width="30" height="30" fill="#B7B7B7"/>
+<rect id="rect1" x="10" y="122" width="30" height="30" fill="#B7B7B7"/>
+</g>
+<g id="articlesection">
+<rect id="article" x="10" y="72" width="280" height="32" rx="6" fill="#B7B7B7"/>
+<rect id="title" x="10" y="59" width="280" height="7" rx="3.5" fill="#B7B7B7"/>
+</g>
+<g id="header">
+<rect id="logo" x="10" y="25" width="12" height="12" rx="6" fill="#9CA6CB"/>
+<g id="links">
+<rect id="link4" x="252.313" y="27" width="37.6865" height="7.33945" rx="3.66972" fill="#9CA6CB"/>
+<rect id="link3" x="189.503" y="27" width="37.6865" height="7.33945" rx="3.66972" fill="#9CA6CB"/>
+<rect id="link2" x="126.692" y="27" width="37.6865" height="7.33945" rx="3.66972" fill="#9CA6CB"/>
+<rect id="link1" x="63.8807" y="27" width="37.6865" height="7.33945" rx="3.66972" fill="#9CA6CB"/>
+</g>
+</g>
+<g id="cornerbuttons">
+<circle id="buttonred" cx="10" cy="10" r="3" fill="#FF605C"/>
+<circle id="buttongreen" cx="34" cy="10" r="3" fill="#00CA4E"/>
+<circle id="buttonyellow" cx="22" cy="10" r="3" fill="#FFBD44"/>
+</g>
+<g id="menubutton">
+<rect id="Rectangle 6" x="277" y="13" width="13" height="1" fill="#9CA6CB"/>
+<rect id="Rectangle 8" x="277" y="16" width="13" height="1" fill="#9CA6CB"/>
+<rect id="Rectangle 7" x="277" y="19" width="13" height="1" fill="#9CA6CB"/>
+</g>
+</g>
+</g>
+</svg>

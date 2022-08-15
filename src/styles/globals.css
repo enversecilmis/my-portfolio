@@ -9,42 +9,69 @@
 /***** Variables *****/
 body {
     --color-1: #e6ebed;
-    --color-2: #ffc100;
-    --color-3: #1e9adf;
-    --color-4: #636466;
-    --color-5: #063852;
-    --color-6: #293a43;
-    --color-7: #ffaa00;
     --color-1-t: #e6ebed77;
-    --color-2-t: #ffc10077;
+    --color-1-lc: #bdc2c4;
+    --color-1-lct: #bdc2c477;
+    
+    --color-2: #293a43;
+    --color-2-t: #293a4377;
+    --color-2-lc: #435864;
+    --color-2-lct: #43586477;
+
+    --color-3: #1e9adf;
     --color-3-t: #1e9adf77;
+    
+    --color-4: #636466;
     --color-4-t: #63646677;
+    
+    --color-5: #063852;
     --color-5-t: #06385277;
-    --color-6-t: #293a4377;
+    
+    --color-6: #ffc100;
+    --color-6-t: #ffc10077;
+
+    --color-7: #ffaa00;
     --color-7-t: #ffaa0077;
+    
+    --color-red-t: #ff000017;
+    
+
+    
     background-color: var(--color-bg);
 }
 body,
 body[data-theme="light"] {
     --color-bg:             var(--color-1);
-    --color-bg-contrast-t:  var(--color-5-t);
+    --color-bg-lc:          var(--color-2-lc);
+    --color-bg-lct:         var(--color-1-lct);
     --color-bg-header:      var(--color-4);
-    --color-txt:            var(--color-6);
-    --color-txt-lc:         var(--color-4);
+    --color-txt:            var(--color-2);
+    --color-txt-lc:         var(--color-2-lc);
+    --color-txt-lct:         var(--color-2-lct);
     --color-txt-blue:       #7895d4;
+    --color-yellow:         var(--color-6);
     --color-scroll-bg:      #aaa;
     --color-scroll-bar:     #555;
+
+    --color-theme-grad-1: rgba(150,153,168,1);
+    --color-theme-grad-2: rgb(164, 179, 189);
 }
 
 body[data-theme="dark"] {
-    --color-bg:             var(--color-6);
-    --color-bg-contrast-t:  var(--color-1-t);
+    --color-bg:             var(--color-2);
+    --color-bg-lc:          var(--color-2-lc);
+    --color-bg-lct:         var(--color-2-lct);
     --color-bg-header:      var(--color-5);
     --color-txt:            var(--color-1);
-    --color-txt-lc:         var(--color-3);
+    --color-txt-lc:         var(--color-1-lc);
+    --color-txt-lct:         var(--color-1-lct);
     --color-txt-blue:       #667fb5;
+    --color-yellow:         var(--color-6);
     --color-scroll-bg:      #333;
     --color-scroll-bar:     #777;
+
+    --color-theme-grad-1: rgba(30,33,48,1);
+    --color-theme-grad-2: rgb(44, 59, 69);
 }
 /***** Variables *****/
 
@@ -53,7 +80,10 @@ body[data-theme="dark"] {
 
 
 * {
-    transition: background-color .3s ease, color .3s ease;
+    transition: background-color .3s ease, color 0.3s;
+}
+svg {
+  transition: none;
 }
 *:focus:not(:focus-visible){
     outline: none;
@@ -63,9 +93,7 @@ body[data-theme="dark"] {
 
 
 
-html, body, #__next {
-    height: 100%;
-}
+
 
 
 ::-webkit-scrollbar {

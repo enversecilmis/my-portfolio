@@ -1,0 +1,157 @@
+$color: #cbccce;
+
+
+@keyframes pulse {
+    50% {
+        opacity: .5;
+    }
+}
+
+.container {
+    z-index: 100;
+}
+
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+
+    background-color: rgb(50, 50, 50, .5);
+    
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    @media screen and (max-width: 640px) {
+        right: 30px;
+        bottom: 30px;
+    }
+
+    width: 60px;
+    height: 60px;
+    border-width: 2px;
+    border-color: $color;
+    
+    border-radius: 50%;
+
+    outline: none;
+
+    
+    .btnIcon {
+        color: var(--color-txt);
+        & path {
+            stroke: $color;
+        }
+    }
+
+    scale: 1;
+    opacity: 1;
+    transition: all .5s ease;
+}
+
+.buttonOpen {
+    transition: all .5s ease;
+    opacity: 0;
+    transform: scale(0);
+}
+
+
+
+
+
+.modalGradient1 {
+    background: rgb(66, 31, 207);
+    background: linear-gradient(140deg, rgb(61, 13, 205) 0%, rgba(8,145,178,1) 100%);
+}
+.modalGradient2 {
+    background: rgb(91,33,182);
+    background: linear-gradient(140deg, rgba(91,33,182,1) 0%, rgba(98,43,180,1) 44%, rgba(8,145,178,1) 100%);
+}
+.modalGradient3 {
+    background: rgb(91,33,182);
+    background: linear-gradient(140deg, rgba(91,33,182,1) 0%, rgba(111,43,180,.97) 54%, rgba(8,145,178,1) 100%);
+}
+.modalGradient4 {
+    background: rgb(162,68,31);
+    background: linear-gradient(160deg, rgba(162,68,31,1) 0%, rgba(186,22,122,1) 43%, rgba(90,8,178,1) 100%);
+}
+.modalGradient5 {
+    background: rgb(162,68,31);
+    background: linear-gradient(200deg, rgb(196, 71, 29) 0%, rgba(186,22,122,1) 58%, rgba(105,2,119,1) 100%);
+}
+.modalGradient6 {
+    background: rgb(162,68,31);
+}
+.messageModal {
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 380px;
+    height: 580px;
+    border-radius: 10px;
+    outline: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+    box-shadow: -10px 10px 20px 0px rgba(0,0,0,0.5);
+    filter: grayscale(.4);
+    
+    @media screen and (max-width: 450px) {
+        right: 0px;    
+    }
+}
+
+.fadeIn {
+    opacity: 1;
+    transform: translateY(-20px);
+    transition: transform .3s, opacity .3s ease;
+}
+.fadeOut {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform .3s, opacity .3s ease;
+}
+
+
+
+.messageModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+
+
+.connectButtonBase {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(243, 244, 246);
+    border-width: 1px;
+    border-radius: 200px;
+    transition: all .3s ease;
+    height: 42px;
+    width: 90px;
+}
+.connectButton {
+    &:hover {
+        color: rgb(31, 41, 55);
+        background-color: rgb(243, 244, 246);
+        transition: all .3s ease;
+    }
+}
+
+.connectButtonConnecting {
+    width: 42px;
+    cursor: default;
+    transition: width .2s;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

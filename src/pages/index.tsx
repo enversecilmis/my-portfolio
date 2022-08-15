@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { ReactElement } from "react";
-import HeaderNav from "../components/HeaderNav/HeaderNav";
-import Intro from "../components/Intro/Intro";
+import Goal from "../components/Goal/Goal";
 import Slider from "../components/Slider/Slider";
 import BasicLayout from "../layouts/BasicLayout";
 import styles from "../styles/home.module.scss"
@@ -20,7 +19,7 @@ const Home: NextPageWithLayout = () => {
       </Head>
 
       <div className={styles.container}>
-        <Intro />
+        <Goal />
         <Slider />
         
 

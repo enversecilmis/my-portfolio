@@ -1,4 +1,4 @@
-import styles from './Intro.module.scss'
+import styles from './Goal.module.scss'
 import { CSSProperties, MouseEventHandler, useEffect, useRef, useState } from 'react'
 
 
@@ -6,7 +6,7 @@ import { CSSProperties, MouseEventHandler, useEffect, useRef, useState } from 'r
 
 
 
-const Intro: React.FC<{  }> = ({  }) => {
+const Goal: React.FC<{  }> = ({  }) => {
     const box = useRef<HTMLHeadingElement>(null)
     const origin = useRef({x: 0, y: 0})
     const interval = useRef<NodeJS.Timer>()
@@ -140,4 +140,4 @@ const Intro: React.FC<{  }> = ({  }) => {
 
 
 
-export default Intro
+export default Goal

@@ -11,7 +11,7 @@ import Image from 'next/image';
 const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => {
 
     const [curItemIdx, setCurItemIdx] = useState(0)
-    const lastIdx = 5
+    const lastIdx = 6
 
 
     const nextSlide = () => {
@@ -61,7 +61,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Client Side Rendering ile kullanıcı tarafında renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image alt='client side rendering' src="/csr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image placeholder='blur' blurDataURL='/image.png' alt='client side rendering' src="/csr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
@@ -70,7 +70,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Server Side Rendering ile serverda renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image alt='server side rendering' src="/ssr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image placeholder='blur' blurDataURL='/image.png' alt='server side rendering' src="/ssr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
@@ -79,7 +79,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Static Site Generation ile önceden renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image alt='static site generation' src="/ssg.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image placeholder='blur' blurDataURL='/image.png' alt='static site generation' src="/ssg.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
@@ -88,7 +88,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Incremental Static Regeneration ile cache&apos;li ssr.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image alt='incremental static regeneration' src="/isr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image placeholder='blur' blurDataURL='/image.png' alt='incremental static regeneration' src="/isr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,11 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
 
 
                 <div className={styles.axx}>
-                    <h4 className={styles.title}>Erişebilirlik</h4>
+                    <h4 className={styles.title}>Başlık</h4>
+                    <div className='w-full h-full flex'>
+                        <div className='w-1/2 bg-amber-200'></div>
+                        <div className='w-1/2 bg-amber-300'></div>
+                    </div>
                 </div>
             </div>
         </div>

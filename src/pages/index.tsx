@@ -84,6 +84,7 @@ const Home: NextPageWithLayout = () => {
             <li>- Tailwind</li>
             <li>- Sass</li>
             <li>- Vercel (hosting)</li>
+            <li>- Figma (Responsive Layout SVG, render stratejileri PNG&apos;leri)</li>
           </ul>
         </TitledSection>
 

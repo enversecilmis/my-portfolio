@@ -45,7 +45,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                 <div className={`${styles.layoutAnimContainer}`}>
                     <h4 className={styles.title}>Responsive Layout</h4>
                     <div className={styles.content}>
-                        <p className={styles.description}>Responsive tasarımla uygulama arayüzünün her türlü cihazda/ekranda düzgün görünmesi sağlanıyor.</p>
+                        <p className={styles.description}>Responsive tasarımla arayüzün her türlü cihazda/ekranda düzgün görünmesi sağlanıyor.</p>
                         <ResponsiveLayoutAnimation className={styles.resLaySvg}/>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                         <div className={styles.section}>
                             <div className={styles.description}>
                                 <span className={styles.subTitle}>CSR</span>
-                                <span className={styles.descText}>Client Side Rendering ile kullanıcı tarafında renderlama.</span>
+                                <span className={styles.descText}>&quot;Client Side Rendering&quot; ile kullanıcı tarafında Javascript ile HTML oluşturulur.</span>
                             </div>
                             <div className={styles.imgContainer}>
                                 <Image placeholder='blur' blurDataURL='/image.png' alt='client side rendering' src="/csr.png" layout='fill' objectFit='contain' className={styles.img}/>
@@ -67,7 +67,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                         <div className={styles.section}>
                             <div className={styles.description}>
                                 <span className={styles.subTitle}>SSR</span>
-                                <span className={styles.descText}>Server Side Rendering ile serverda renderlama.</span>
+                                <span className={styles.descText}>&quot;Server Side Rendering&quot; ile gelen isteğe göre oluşturulan sayfa kullanıcıya gönderilir.</span>
                             </div>
                             <div className={styles.imgContainer}>
                                 <Image placeholder='blur' blurDataURL='/image.png' alt='server side rendering' src="/ssr.png" layout='fill' objectFit='contain' className={styles.img}/>
@@ -76,7 +76,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                         <div className={styles.section}>
                             <div className={styles.description}>
                                 <span className={styles.subTitle}>SSG</span>
-                                <span className={styles.descText}>Static Site Generation ile önceden renderlama.</span>
+                                <span className={styles.descText}>&quot;Static Site Generation&quot; ile önceden oluşturulan sayfa istek geldiği anda kullanıcıya gönderilir.</span>
                             </div>
                             <div className={styles.imgContainer}>
                                 <Image placeholder='blur' blurDataURL='/image.png' alt='static site generation' src="/ssg.png" layout='fill' objectFit='contain' className={styles.img}/>
@@ -85,7 +85,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                         <div className={styles.section}>
                             <div className={styles.description}>
                                 <span className={styles.subTitle}>ISR</span>
-                                <span className={styles.descText}>Incremental Static Regeneration ile cache&apos;li ssr.</span>
+                                <span className={styles.descText}>&quot;Incremental Static Regeneration&quot; ile önceden oluşturulan sayfa belli aralıklarla tekrar güncellenir.</span>
                             </div>
                             <div className={styles.imgContainer}>
                                 <Image placeholder='blur' blurDataURL='/image.png' alt='incremental static regeneration' src="/isr.png" layout='fill' objectFit='contain' className={styles.img}/>

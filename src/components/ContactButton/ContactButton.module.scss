@@ -20,8 +20,9 @@ $color: #cbccce;
     width: 60px;
     height: 60px;
 
-    background-color: rgb(0, 0, 0, .07);
-    border-width: 2px;
+    background-color: #1e9adf22;
+    background-color: var(--color-trans);
+    border-width: 1px;
     border-color: var(--color-txt-lc);
     border-radius: 50%;
 
@@ -79,7 +80,7 @@ $color: #cbccce;
     width: 100%;
     max-width: 380px;
     height: 580px;
-    border-radius: 10px;
+    border-radius: 15px;
     outline: none;
     opacity: 0;
     transition: opacity .2s ease;
@@ -116,30 +117,7 @@ $color: #cbccce;
 
 
 
-.connectButtonBase {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-width: 1px;
-    border-radius: 200px;
-    border-color: var(--color-txt);
-    transition: all .3s ease;
-    height: 42px;
-    width: 90px;
-}
-.connectButton {
-    &:hover {
-        background-color: var(--color-bg);
-        transition: all .3s ease;
-    }
-}
 
-.connectButtonConnecting {
-    width: 42px;
-    cursor: default;
-    transition: width .2s;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
 
 
 
@@ -166,8 +144,7 @@ $color: #cbccce;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-top: 56px;
-    margin-bottom: 56px;
+    margin-top: 35px;
     padding-left: 4px;
     padding-right: 4px;
     width: 100%;
@@ -176,12 +153,63 @@ $color: #cbccce;
     div {
         height: .5px;
         width: 100%;
-        background-color: var(--color-txt-lc);
+        background-color: var(--color-txt);
     }
     p {
         margin-left: 8px;
         margin-right: 8px;
-        color: var(--color-txt-lc);
+        color: var(--color-txt);
         font-weight: 400;
     }
 }
+
+.title {
+    margin-top: 5px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.wplink {
+    margin-top: 8px;
+    margin-bottom: 20px;
+    color: var(--color-txt-lc);
+
+    &:hover {
+        color: var(--color-wp);
+    }
+}
+
+.input {
+    background-color: var(--color-bg);
+    color: var(--color-txt);
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 20px;
+    width: 100%;
+    margin-top: 10px;
+    resize: none;
+    
+    &:focus {
+        outline: 2px solid var(--color-3);
+        outline-offset: -2px;
+    }
+}
+
+.sendButton {
+    background-color: #177117;
+    width: 100%;
+    border-radius: 5px;
+    height: 35px;
+    font-size: 25px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ddd;
+    margin-top: 5px;
+
+    &:hover {
+        background-color: #2b912b;
+    }
+}
+

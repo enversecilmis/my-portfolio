@@ -61,7 +61,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Client Side Rendering ile kullanıcı tarafında renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image src="/csr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image alt='client side rendering' src="/csr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
@@ -70,7 +70,7 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Server Side Rendering ile serverda renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image src="/ssr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image alt='server side rendering' src="/ssr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
@@ -79,16 +79,16 @@ const HorizontalScroller: React.FC<{ className?: string }> = ({ className }) => 
                                 <span className={styles.descText}>Static Site Generation ile önceden renderlama.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image src="/ssg.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image alt='static site generation' src="/ssg.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                         <div className={styles.section}>
                             <div className={styles.description}>
                                 <span className={styles.subTitle}>ISR</span>
-                                <span className={styles.descText}>Incremental Static Regeneration ile cache'li ssr.</span>
+                                <span className={styles.descText}>Incremental Static Regeneration ile cache&apos;li ssr.</span>
                             </div>
                             <div className={styles.imgContainer}>
-                                <Image src="/isr.png" layout='fill' objectFit='contain' className={styles.img}/>
+                                <Image alt='incremental static regeneration' src="/isr.png" layout='fill' objectFit='contain' className={styles.img}/>
                             </div>
                         </div>
                     </div>

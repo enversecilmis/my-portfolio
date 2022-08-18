@@ -22,9 +22,9 @@ const ShrinkingName: React.FC<{  }> = ({  }) => {
     
     return (
         <h1 className={styles.fullname}>
-            E<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*40 }}>nver </span>
+            E<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*30 }}>nver </span>
             <span id={styles.lastname}>
-            S<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*40 }}>eçilmiş</span>
+            S<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*30 }}>eçilmiş</span>
             </span>
         </h1>
     )

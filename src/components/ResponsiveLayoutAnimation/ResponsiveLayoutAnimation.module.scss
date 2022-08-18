@@ -1,0 +1,247 @@
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes dropIn {
+    15% {
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    30%, 100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+
+
+.svgBase {
+    opacity: 0;
+}
+$responsive-anim-delay: 3s;
+$responsive-anim-duration: 7s;
+#svgAnimate {
+    animation: fadeInUp 1s ease forwards;
+    #screen {
+        #frameRect {
+            animation: frame-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+        }
+
+        #ui {
+            #cornerbuttons circle{
+                animation: corner-buttons-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+            }
+            #menubutton rect{
+                opacity: 0;
+                animation: menubutton-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+            }
+            #links rect {
+                transform-origin: 50% 50%;
+                animation: links-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+            }
+            #logo {
+                animation: logo-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+            }
+            #articlesection rect {
+                animation: article-section-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+            }
+
+            #boxes {
+                rect {
+                    opacity: 0;
+                }
+                #box1 {
+                    transform: translate(20px, 0);
+                    animation: dropIn 6s calc(var(--boxorder)*.200s) ease forwards, box1-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+                }
+                #box2 {
+                    transform: translate(10px, 0);
+                    animation: dropIn 6s calc(var(--boxorder)*.200s) ease forwards, box2-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+                }
+                #box3 {
+                    animation: dropIn 6s calc(var(--boxorder)*.200s) ease forwards, box3-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+                }
+                #box4 {
+                    transform: translate(-10px, 0);
+                    animation: dropIn 6s calc(var(--boxorder)*.200s) ease forwards, box4-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+                }
+                #box5 {
+                    transform: translate(-20px, 0);
+                    animation: dropIn 6s calc(var(--boxorder)*.200s) ease forwards, box5-a $responsive-anim-duration $responsive-anim-delay ease-in-out infinite;
+                }
+            }
+        }
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+@keyframes frame-a {
+    0% {
+        width: 100%;
+        transform: translateX(0);
+    }
+    10%, 50% {
+        width: 30%;
+        transform: translateX(35%);
+    }
+    60%, 100% {
+        width: 100%;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes corner-buttons-a {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    10%, 50% {
+        opacity: 0;
+        transform: translateX(35%);
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes menubutton-a {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        opacity: 1;
+        transform: translate(-32.5%, -6px);
+    }
+    60%, 100% {
+        opacity: 0;
+        transform: translate(0, 0);
+    }
+}
+
+
+@keyframes links-a {
+    0% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+    10%, 50% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+
+@keyframes logo-a {
+    0% {
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        transform: translate(28%, -5px);
+    }
+    60%, 100% {
+        transform: translate(0, 0);
+    }
+}
+
+
+@keyframes article-section-a {
+    0% {
+        width: 93%;
+        transform: translateX(0);
+    }
+    10%, 50% {
+        width: 25%;
+        transform: translateX(34.2%);
+    }
+    60%, 100% {
+        width: 93%;
+        transform: translateX(0);
+    }
+}
+
+
+@keyframes box1-a {
+    0% {
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        transform: translate(85px, -5px);
+    }
+    60%, 100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes box2-a {
+    0% {
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        transform: translate(72.5px, -5px);
+    }
+    60%, 100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes box3-a {
+    0% {
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        transform: translate(-20px, 30px)
+    }
+    60%, 100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes box4-a {
+    0% {
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        transform: translate(-32.5px, 30px)
+    }
+    60%, 100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes box5-a {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    10%, 50% {
+        opacity: 0;
+        transform: translate(-87.5px, 65px)
+    }
+    60%, 100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}

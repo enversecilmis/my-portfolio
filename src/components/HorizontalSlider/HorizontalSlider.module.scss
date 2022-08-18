@@ -1,0 +1,52 @@
+.container {
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+    position: relative;
+
+
+    .innerContainer {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-x: scroll;
+        box-sizing: border-box;
+        top: 10px;
+        
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        
+
+        .itemContainer {
+            min-width: 100%;
+            width: fit-content;
+            flex-shrink: 1;
+            scroll-snap-align: center;
+            display: flex;
+            overflow: visible;
+            height: 100%;
+        }
+    }
+
+    .leftArrow {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+
+        height: 50px;
+        width: 50px;
+    }
+    .rightArrow {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 100;
+
+        height: 50px;
+        width: 50px;
+    }
+}

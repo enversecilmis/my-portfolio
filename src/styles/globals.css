@@ -15,7 +15,7 @@ body {
     
     --color-2: #293a43;
     --color-2-t: #293a4377;
-    --color-2-lc: #435864;
+    --color-2-lc: #4d6370;
     --color-2-lct: #43586477;
 
     --color-3: #1e9adf;
@@ -32,9 +32,14 @@ body {
 
     --color-7: #ffaa00;
     --color-7-t: #ffaa0077;
+
+    --color-8: #fcd34d;
+    --color-8-t: #fcd34d77;
     
     --color-red-t: #ff000017;
-    
+
+    --color-bg-enough: #507aa3;
+    --color-wp: #075E54;
 
     
     background-color: var(--color-bg);
@@ -42,19 +47,21 @@ body {
 body,
 body[data-theme="light"] {
     --color-bg:             var(--color-1);
-    --color-bg-lc:          var(--color-2-lc);
+    --color-bg-lc:          var(--color-1-lc);
     --color-bg-lct:         var(--color-1-lct);
     --color-bg-header:      var(--color-4);
     --color-txt:            var(--color-2);
     --color-txt-lc:         var(--color-2-lc);
-    --color-txt-lct:         var(--color-2-lct);
-    --color-txt-blue:       #7895d4;
+    --color-txt-lct:        var(--color-2-lct);
+    --color-txt-blue:       #7898dd;
     --color-yellow:         var(--color-6);
     --color-scroll-bg:      #aaa;
     --color-scroll-bar:     #555;
 
-    --color-theme-grad-1: rgba(150,153,168,1);
-    --color-theme-grad-2: rgb(164, 179, 189);
+    --color-theme-grad-1:   rgba(150,153,168,1);
+    --color-theme-grad-2:   rgb(164, 179, 189);
+    --color-trans:          #44444421;
+    --color-wp: #075E54;
 }
 
 body[data-theme="dark"] {
@@ -64,14 +71,16 @@ body[data-theme="dark"] {
     --color-bg-header:      var(--color-5);
     --color-txt:            var(--color-1);
     --color-txt-lc:         var(--color-1-lc);
-    --color-txt-lct:         var(--color-1-lct);
+    --color-txt-lct:        var(--color-1-lct);
     --color-txt-blue:       #667fb5;
     --color-yellow:         var(--color-6);
     --color-scroll-bg:      #333;
     --color-scroll-bar:     #777;
 
-    --color-theme-grad-1: rgba(30,33,48,1);
-    --color-theme-grad-2: rgb(44, 59, 69);
+    --color-theme-grad-1:   rgba(30,33,48,1);
+    --color-theme-grad-2:   rgb(44, 59, 69);
+    --color-trans:          #bbbbbb21;
+    --color-wp: #25D366;
 }
 /***** Variables *****/
 
@@ -80,17 +89,25 @@ body[data-theme="dark"] {
 
 
 * {
-    transition: background-color .3s ease, color 0.3s;
+  transition: background-color .3s ease;
 }
-svg {
-  transition: none;
+
+*:focus {
+  outline: 2px solid var(--color-3);
+  outline-offset: -2px;
 }
 *:focus:not(:focus-visible){
     outline: none;
 }
 
 
-
+.rotate-into-view {
+  transform-origin: top;
+  transition: transform 1s cubic-bezier(.55,.28,.03,1.5), opacity 1s cubic-bezier(.55,.28,.03,1.5);
+  transform: perspective(1000px) translateZ(0px) translateY(0px) rotateX(0deg);
+  transform: perspective(1000px) translateZ(-50px) rotateX(-90deg);
+  opacity: 0;
+}
 
 
 
@@ -101,13 +118,11 @@ svg {
     height: 10px;
   }
   
-  /* Track */
   ::-webkit-scrollbar-track {
     background: var(--color-scroll-bg);
     padding-left: 1px;
   }
   
-  /* Handle */
   ::-webkit-scrollbar-thumb {
     background-color: var(--color-scroll-bar);
     border-radius: 999px;
@@ -115,7 +130,8 @@ svg {
     border: 3px solid transparent;
   }
   
-  /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background-color: #666;
   }
+
+

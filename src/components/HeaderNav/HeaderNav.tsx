@@ -25,10 +25,10 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                 <nav className="h-full w-1/3 flex items-center justify-end">
                     <div className="ml-10 h-full w-full flex items-center justify-end md:justify-between">
                         <Link href="/">
-                            <a className="md:inline hidden">Home</a>
+                            <a className="md:inline hidden">Ana Sayfa</a>
                         </Link>
                         <Link href="/projects" >
-                            <a className="md:inline hidden">Projects</a>
+                            <a className="md:inline hidden">Projeler</a>
                         </Link>
                         <a className="md:inline hidden" rel="noopener noreferrer" target={"_blank"} href="https://github.com/enversecilmis">
                             <GoMarkGithub size={20}/>

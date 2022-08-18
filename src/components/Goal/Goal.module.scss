@@ -11,7 +11,8 @@
 
 .goalContainer {
     overflow: hidden;
-    // background-color: #44444421;
+    // background-color: var(--color-transparent);
+
     padding-top: 20vh;
     box-sizing: content-box;
 
@@ -20,7 +21,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 80vh;
+    height: 60vh;
 
     
     .goalRotateContainer {

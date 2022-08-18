@@ -2,4 +2,89 @@
     height: 100%;
     background-color: var(--color-bg);
     color: var(--color-txt);
+    
+
+
+    .introductionSection {
+        margin-top: 300px;
+        
+        .iconTextContainer {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+
+            stroke: var(--color-txt);
+            fill: var(--color-txt);
+
+            .icon {
+                width: 2em;
+                height: 2em;
+                flex-shrink: 0;
+            }
+            .text {
+                margin-left: 25px;
+            }
+        }
+    }
+
+    .knowledgeSection {
+        margin-top: 300px;
+        
+        .knowledgeContent {
+            margin-top: 100px;
+            height: 400px;
+            width: 100%;
+        }
+
+    }
+
+
+    .techStackSection {
+        margin-top: 300px;
+    }
+
+    .siteInfo {
+        margin-top: 260px;
+    }
+}
+
+
+
+
+
+.parentheses {
+    color: var(--color-txt-lc);
+    
+    .link {
+        font-size: .9em;
+        color: var(--color-txt-blue);
+        &:hover {
+            color: var(--color-txt-lc);
+        }
+    }
+}
+
+.linkText {
+    color: var(--color-txt-blue);
+    &:hover {
+        color: var(--color-txt-lc);
+    }
+}
+.code {
+    background-color: var(--color-bg-lct);
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    &:hover {
+        color: var(--color-txt-lc);
+    }
+}
+
+
+
+@media screen and (max-width: 640px) {
+    .iconTextContainer {
+        flex-direction: column;
+    }
 }

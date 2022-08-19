@@ -71,7 +71,7 @@ const Home: NextPageWithLayout = () => {
         <TitledSection className={styles.techStackSection} title="Kullandığım Tech Stack">
           <div className="mt-14">
             <p><a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://t3.gg/">Theo</a> tarafından oluşturulan <a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://init.tips/">T3-Stack</a> teknoloji setini kullanıyorum.</p>
-            <p>Topluluğunun geliştirdiği <a href="https://github.com/t3-oss/create-t3-app"><code className={styles.code}>create-t3-app</code></a> de bunu oldukça kolay bir hale getiriyor.</p>
+            <p>Topluluğunun geliştirdiği <a href="https://github.com/t3-oss/create-t3-app"  rel="noopener noreferrer" target="_blank"><code className={styles.code}>create-t3-app</code></a> de bunu oldukça kolay bir hale getiriyor.</p>
             <p>Theo ise <a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://ping.gg/">Ping Labs</a>&apos; in kurucusu, twitch yayıncısı ve bir youtuber.</p>
             <p>İçerikleri, basit eğitici videolardan bıkmış olanlar için bire bir.</p>
           </div>

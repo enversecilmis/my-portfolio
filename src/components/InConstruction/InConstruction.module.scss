@@ -14,6 +14,7 @@
     transition: left .5s, opacity .5s;
     color: var(--color-txt);
     z-index: 999;
+    pointer-events: none;
 
     .icon {
         font-size: 30px;
@@ -56,4 +57,5 @@
 .open {
     left: 10px;
     opacity: 1;
+    pointer-events: all;
 }

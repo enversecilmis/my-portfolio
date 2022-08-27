@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { FiSun, FiMoon } from "react-icons/fi";
+import { FiLoader } from "react-icons/fi";
+import { BsCircleHalf, BsBrightnessHighFill, BsMoonFill } from "react-icons/bs";
 import styles from "./ThemeToggleButton.module.scss"
-
 
 
 // ************** !!!!!!!!! ******************
@@ -9,38 +9,60 @@ import styles from "./ThemeToggleButton.module.scss"
 // TODO: Theme'i local state'ten global state'e taşı 
 //
 // ************** !!!!!!!!! ******************
+const themeChangeListener = (event: MediaQueryListEvent) => {
+	document.body.dataset.theme = event.matches ? "dark" : "light";
+}
+const buttons = [ <BsCircleHalf size={25} />, <BsBrightnessHighFill size={25} />, <BsMoonFill size={25} />]
+const prefs = ['system', 'light', 'dark']
+
+
 
 
 const ThemeToggleButton: React.FC<{  }> = ({  }) => {
-
-    const [activeTheme, setActiveTheme] = useState("")
-    const inactiveTheme = activeTheme === "light" ? "dark" : "light"
-
+    const [themePref, setThemePref] = useState("")
+    
 
 
     useEffect(() => {
-        const savedTheme = window.localStorage.getItem("theme")
-        if(savedTheme)
-            setActiveTheme(savedTheme)
+        const storedPref = window.localStorage.getItem("theme-preference") as string
+        setThemePref(storedPref)
     }, [])
 
+
     useEffect(() => {
-        if(!activeTheme) return
+        if (themePref !== 'system'){
+            document.body.dataset.theme = themePref
+            return
+        }
+        
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+        document.body.dataset.theme = mediaQuery.matches ? 'dark' : 'light'
 
-        document.body.dataset.theme = activeTheme
-        window.localStorage.setItem("theme", activeTheme)
-    }, [activeTheme])
+        mediaQuery.addEventListener('change', themeChangeListener)
+        return mediaQuery.removeEventListener('change', themeChangeListener)
+    }, [themePref])
+
+
+    const idx = prefs.indexOf(themePref)
+    const nextIdx = idx+1 === prefs.length ? 0 : idx+1
+    const ButtonIcon = buttons[idx]
+
+    const setNextPref = () => {
+        const nextPref = prefs[nextIdx] as string
+        setThemePref(nextPref)
+        window.localStorage.setItem("theme-preference", nextPref)
+    }
 
 
 
-    const toggleTheme = () => setActiveTheme(inactiveTheme)
-    const ButtonIcon = activeTheme === "dark"? <FiMoon size={25} /> : <FiSun size={25} />
+    if (!themePref) return <FiLoader size={25} className="animate-spin" />
+        
 
     return (
         <button
-            aria-label={`Change to ${inactiveTheme} mode`}
-            title={`Change to ${inactiveTheme} mode`}
-            onClick={toggleTheme}
+            aria-label={`Change theme preference to ${prefs[nextIdx]}`}
+            title={`Change theme preference to ${prefs[nextIdx]}`}
+            onClick={setNextPref}
         >
             {ButtonIcon}
         </button>

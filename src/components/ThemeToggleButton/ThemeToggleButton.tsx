@@ -12,7 +12,11 @@ import styles from "./ThemeToggleButton.module.scss"
 const themeChangeListener = (event: MediaQueryListEvent) => {
 	document.body.dataset.theme = event.matches ? "dark" : "light";
 }
-const buttons = [ <BsCircleHalf size={25} />, <BsBrightnessHighFill size={25} />, <BsMoonFill size={25} />]
+const buttons = [
+    <BsCircleHalf key="system" size={25} />,
+    <BsBrightnessHighFill key="light" size={25} />,
+    <BsMoonFill key="dark" size={25} />
+]
 const prefs = ['system', 'light', 'dark']
 
 

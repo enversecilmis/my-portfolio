@@ -13,9 +13,9 @@ const themeChangeListener = (event: MediaQueryListEvent) => {
 	document.body.dataset.theme = event.matches ? "dark" : "light";
 }
 const buttons = [
-    <BsCircleHalf key="system" size={25} />,
-    <BsBrightnessHighFill key="light" size={25} />,
-    <BsMoonFill key="dark" size={25} />
+    <BsCircleHalf key="systempreficon" size={25} />,
+    <BsBrightnessHighFill key="lightpreficon" size={25} />,
+    <BsMoonFill key="darkpreficon" size={25} />,
 ]
 const prefs = ['system', 'light', 'dark']
 
@@ -59,7 +59,7 @@ const ThemeToggleButton: React.FC<{  }> = ({  }) => {
 
 
 
-    if (!themePref) return <FiLoader size={25} className="animate-spin" />
+    if (!themePref) return <FiLoader key="prefloadericon" size={25} className="animate-spin" />
         
 
     return (

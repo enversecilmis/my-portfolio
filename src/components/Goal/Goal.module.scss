@@ -9,90 +9,69 @@
     }
 }
 
-.goalContainer {
-    overflow: hidden;
-    // background-color: var(--color-transparent);
-
-    padding-top: 20vh;
-    box-sizing: content-box;
-
-    position: relative;
+.container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 60vh;
+    justify-content: center;
+    height: 80vh;
+    overflow: hidden;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
 
-    
-    .goalRotateContainer {
-        perspective: 1000px;
-        transform: perspective(1000px);
-        transform: perspective(1000px) rotateX(var(--rot-x, 0deg)) rotateY(var(--rot-y, 0deg));
-        transition: transform ease;
-        transform-style: preserve-3d;
-        position: relative;
-        
-        transition: transform .5s ease;
-        &:hover {
-            transition: transform;
-        }
-        
+    .hoverContainer {
+        height: 100%;
 
-        #goal {
-            font-size: clamp(25px, 10vw, 96px);
-
-            line-height: 1;
-            text-align: center;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            transform-style: preserve-3d;
-            transform: translateZ(50px);
-            animation: fadeInUp 1s;
-            color: var(--color-txt-lc);
-            pointer-events: none;
-        }
-
-        .verticalLines {
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            display: flex;
-            justify-content: space-evenly;
-
-            transform-style: preserve-3d;
-            z-index: -10;
-
-            .verticalLine {
-                width: 1px;
-                height: 100%;
-                background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
-            }
-        }
-        .horizontalLines {
-            border-radius: 50px;
-
-
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-
+        .rotationContainer {
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: space-evenly;
-
+            justify-content: center;
+            align-items: center;
             transform-style: preserve-3d;
+            user-select: none;
+            width: 100%;
+            height: 100%;
 
-            z-index: -10;
-
-            .horizontalLine {
-                height: 1px;
+            .text {
+                animation: fadeInUp 1s ease forwards;
+                
+                font-size: clamp(25px, 10vw, 96px);
+                line-height: 1;
+                text-align: center;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                transform: translateZ(40px);
+                color: var(--color-txt-lc);
+                pointer-events: none;
+            }
+        
+            .vLines {
+                transform: translateZ(-40px);
+                position: absolute;
+                display: flex;
+                justify-content: space-evenly;
                 width: 100%;
-                background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
+                height: 100%;
+                z-index: -10;
+                div {
+                    background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
+                }
+            }
+            
+            .hLines {
+                transform: translateZ(-40px);
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                width: 100%;
+                height: 100%;
+                z-index: -10;
+            
+                div {
+                    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, var(--color-txt-lct) 50%, rgba(255, 255, 255, 0) 100%);
+                }
             }
         }
-    }
-
+    }    
 }

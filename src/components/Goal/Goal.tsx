@@ -1,5 +1,7 @@
+import { useRef } from "react"
+import { useGesture } from "@use-gesture/react"
+import { animated, config, useSpring } from "@react-spring/web"
 import styles from './Goal.module.scss'
-import { CSSProperties, MouseEventHandler, useEffect, useRef, useState } from 'react'
 
 
 
@@ -7,131 +9,67 @@ import { CSSProperties, MouseEventHandler, useEffect, useRef, useState } from 'r
 
 
 const Goal: React.FC<{  }> = ({  }) => {
-    const box = useRef<HTMLHeadingElement>(null)
-    const origin = useRef({x: 0, y: 0})
-    const interval = useRef<NodeJS.Timer>()
+    const hoverContainer = useRef<HTMLDivElement>(null)
+
+    const [{ rotateX, rotateY }, api] = useSpring(() => ({
+        rotateX: 0,
+        rotateY: 0,
+        config: config.stiff,
+    }))
 
 
-
-
-
-    useEffect(() => {
-        return () => clearInterval(interval.current)
-    }, [])
-
-
-
-
-
-    const mouseMoveHandler:MouseEventHandler<HTMLDivElement> = (e) => {
-        if(!box.current) return
-
-        const boundingRect = box.current?.getBoundingClientRect()
-
-        const centerX = boundingRect.left + boundingRect.width/2 + origin.current.x
-        const centerY = boundingRect.top + boundingRect.height/2 + origin.current.y        
-        
-        box.current.style.setProperty('--rot-x', `${-(e.pageY - centerY)/25}deg`)
-        box.current.style.setProperty('--rot-y', `${(e.pageX - centerX)/25}deg`)
-    }
-
-
-
-    const mouseLeaveHandler: MouseEventHandler<HTMLDivElement> = (e) => {
-        if(!box.current) return
-
-        const { left, top, width, height } = box.current?.getBoundingClientRect()
-
-        const centerX = left + width/2 + origin.current.x
-        const centerY = top + height/2 + origin.current.y 
-
-        box.current.style.setProperty('--rot-x', `0deg`)
-        box.current.style.setProperty('--rot-y', `0deg`)
-        clearInterval(interval.current)
-    }
-
-
-
-    const mouseEnterHandler: MouseEventHandler<HTMLDivElement> = (e) => {
-        if(!box.current) return
-        const rect = box.current?.getBoundingClientRect()
-
-
-        const centerX = rect.left + rect.width/2
-        const centerY = rect.top + rect.height/2
-
-
-        const distX = e.clientX - centerX
-        const distY = e.clientY - centerY
-
-
-        origin.current = {
-            x: distX,
-            y: distY
+    useGesture({
+        onMove: ({ xy: [px,py], }) => {
+            const {left, width, height, top} = hoverContainer.current?.getBoundingClientRect() as DOMRect
+            const centerX = left + width/2
+            const centerY = top + height/2
+            api({
+                rotateX: -(py - centerY)/25,
+                rotateY: (px - centerX)/25,
+            })
+        },
+        onHover: ({ hovering }) => {
+            !hovering &&
+            api({
+                rotateX: 0,
+                rotateY: 0,
+            })
         }
-
-
-        const duration = 150
-        const iterations = duration / 17
-        
-
-        const perIterationX = distX / iterations
-        const perIterationY = distY / iterations
-
-
-
-        let i = 0
-        interval.current = setInterval(() => {
-            if(i > iterations){
-                origin.current = { x:0, y:0 }
-                clearInterval(interval.current)
-            }
-
-            origin.current.x -= perIterationX
-            origin.current.y -= perIterationY
-            i++
-        }, 17)
-        
-        
-        
-        
-        
-    }
-
-
-
+    }, {target: hoverContainer})
 
 
 
     return (
-        <section className={styles.goalContainer}>
-                <div
-                    className={styles.goalRotateContainer}
-                    onMouseMove={mouseMoveHandler}
-                    onMouseLeave={mouseLeaveHandler}
-                    onMouseEnter={mouseEnterHandler}
-                    ref={box}
+        <div className={styles.container}>
+            <div className={styles.hoverContainer} ref={hoverContainer}>
+                <animated.div
+                    className={styles.rotationContainer}
+                    style={{
+                        transform: "perspective(500px)",
+                        rotateX,
+                        rotateY,
+                    }}
                 >
-                    <h2 id={styles.goal} className="lg:text-8xl md:text-7xl sm:text-6xl text-5xl">
-                    On My Way <br />
-                    to <br />
-                    Fullstack
-                    </h2>
-
-                    <div className={styles.verticalLines}>
-                        <div className={styles.verticalLine}></div>
-                        <div className={styles.verticalLine}></div>
-                        <div className={styles.verticalLine}></div>
-                        <div className={styles.verticalLine}></div>
+                    <div className={styles.text}>
+                        <p>On My Way</p>
+                        <p>to</p>
+                        <p>Fullstack</p>
                     </div>
-                    <div className={styles.horizontalLines}>
-                        <div className={styles.horizontalLine}></div>
-                        <div className={styles.horizontalLine}></div>
-                        <div className={styles.horizontalLine}></div>
+                    <div className={styles.vLines}>
+                        <div className="w-px h-full"></div>
+                        <div className="w-px h-full"></div>
+                        <div className="w-px h-full"></div>
+                        <div className="w-px h-full"></div>
                     </div>
-                </div>
+                    <div className={styles.hLines}>
+                        <div className="h-px w-full"></div>
+                        <div className="h-px w-full"></div>
+                        <div className="h-px w-full"></div>
+                    </div>
 
-        </section>
+                </animated.div>
+            </div>
+        </div>
     )
 }
 

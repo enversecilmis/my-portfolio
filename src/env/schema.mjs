@@ -7,7 +7,9 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   // FOO: z.string(),
+  ANALYZE: z.string()
 });
+
 
 /**
  * Specify your client-side environment variables schema here.

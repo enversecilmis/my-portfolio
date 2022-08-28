@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^12.2.5",
     "@react-spring/web": "^9.5.2",
     "@types/react-modal": "^3.13.1",
     "@use-gesture/react": "^10.2.18",

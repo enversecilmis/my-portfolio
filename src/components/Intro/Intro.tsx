@@ -16,7 +16,7 @@ const Intro: React.FC<{ className?: string | undefined }> = ({ className }) => {
             </div>
 
             <div className={styles.introText}>
-                <h4 className={styles.title}>Hello World!</h4>
+                <p className={styles.title}>Hello World!</p>
                 <p className={styles.text}>
                     Merhaba! Bu websitesini kendimi tanıtmak, kısaca bildiğim konseptleri göstermek ve yaptığım projeleri sergilemek için hazırladım.
                 </p>

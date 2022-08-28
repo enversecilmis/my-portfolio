@@ -9,7 +9,6 @@ import TitledSection from "../components/TitledSection/TitledSection";
 import { FaUniversity } from "react-icons/fa";
 import { GiStairsGoal } from "react-icons/gi";
 import RoutineIcon from "../components/RoutineIcon";
-import ResponsiveLayoutAnimation from "../components/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
 import HorizontalScroller from "../components/HorizontalScroller/HorizontalScroller";
 
 
@@ -31,8 +30,6 @@ const Home: NextPageWithLayout = () => {
         <Intro className="mt-48"/>
 
 
-
-        {/* introduction */}
         <TitledSection className={styles.introductionSection} title="Kim bu Enver?">
           <div className={styles.iconTextContainer}>
               <FaUniversity className={styles.icon}/>
@@ -59,8 +56,6 @@ const Home: NextPageWithLayout = () => {
         </TitledSection>
 
 
-
-        {/* what i know */}
         <TitledSection className={styles.knowledgeSection} title="Ne Biliyorum?">
           <div className={styles.knowledgeContent}>
             <HorizontalScroller/>

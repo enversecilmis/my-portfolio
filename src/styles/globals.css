@@ -135,3 +135,64 @@ body[data-theme="dark"] {
   }
 
 
+
+
+
+
+/* global animation utils */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(0px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(-20px);
+  }
+}
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 0;
+      transform: translateY(0px);
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    scale: .5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: .5;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn .3s ease forwards;
+}
+.fadeOut {
+  animation: fadeOut .3s ease forwards;
+  pointer-events: none;
+}
+
+.scaleIn {
+  animation: scaleIn .3s ease forwards;
+}
+.scaleOut {
+  animation: scaleOut .3s ease forwards;
+  pointer-events: none;
+}

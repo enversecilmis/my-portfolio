@@ -1,112 +1,176 @@
-$color: #cbccce;
-
-@keyframes pulse {
-    50% {
-        opacity: .5;
-    }
-}
-
-
-
-
-
 .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: fixed;
     right: 50px;
     bottom: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 60px;
     height: 60px;
-
-    background-color: #1e9adf22;
+    
+    color: var(--color-txt-lc);
     background-color: var(--color-trans);
     border-width: 1px;
     border-color: var(--color-txt-lc);
     border-radius: 50%;
 
-    scale: 1;
-    opacity: 1;
     transition: all .5s ease;
-    
     z-index: 100;
-    outline: none;
-
 
     @media screen and (max-width: 640px) {
         right: 30px;
         bottom: 30px;
     }
-
-    
-    .btnIcon {
-        color: var(--color-txt-lc);
-        transition-duration: 100ms;
-    }
 }
 
 
-
-.open {
-    transition: all .5s ease;
-    opacity: 0;
-    transform: scale(0);
-}
-
-
-
-
-
-.modalGradient1 {
-    background: rgb(66, 31, 207);
-    background: linear-gradient(140deg, rgb(61, 13, 205) 0%, rgba(8,145,178,1) 100%);
-}
-.modalGradient2 {
-    background: rgb(162,68,31);
-    background: linear-gradient(200deg, rgb(196, 71, 29) 0%, rgba(186,22,122,1) 58%, rgba(105,2,119,1) 100%);
-}
-.themeGradient {
-    background-image: radial-gradient( circle farthest-corner at -4% -12.9%, var(--color-theme-grad-1) 0.3%, var(--color-theme-grad-2) 90.2% );
-}
-.messageModal {
+.contactModal {
     position: fixed;
     bottom: 20px;
     right: 40px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    width: 100%;
     max-width: 380px;
+    width: 100%;
     height: 580px;
-    border-radius: 15px;
-    outline: none;
+
     opacity: 0;
-    transition: opacity .2s ease;
-    box-shadow: -10px 10px 20px 0px rgba(0,0,0,0.2);
-    filter: grayscale(.4);
     color: var(--color-txt);
+    border-radius: 15px;
+    box-shadow: -5px 5px 20px 0px rgba(0,0,0,.2);
+    filter: grayscale(.4);
+    transition: transform .3s, opacity .3s ease;
+
+    .modalHeader {
+        display: flex;
+        justify-content: space-between;
+        width: 85%;
+        margin-top: 5px;
+        font-size: 24px;
+        font-weight: 500;
+    }
+
+    .modelContentContainer {
+        width: 85%;
+        height: 100%;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+        .links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: space-between;
+            
+            a {
+                margin-top: 10px;
+            }
+        }
+
+        .lineContainer {
+            display: flex;
+            align-items: center;
+            
+            .lineText {
+                padding-left: 10px;
+                padding-right: 10px;
+                color: var(--color-txt-lc);
+            }
+            .line {
+                width: 100%;
+                height: .5px;
+                background-color: var(--color-txt-lct);
+            }
+        }
     
-    @media screen and (max-width: 450px) {
-        right: 0px;    
+        .emailForm {
+            border-radius: 10px;    
+            color: var(--color-txt);
+    
+            .input {
+                width: 100%;
+                margin-top: 20px;
+                
+                font-size: 18px;
+                resize: none;
+    
+                background: transparent;
+                border-bottom: 1px solid var(--color-txt-lct);
+                transition: .3s;
+                &:focus {
+                    outline: none;
+                    border-bottom: 1px solid var(--color-txt);
+                }
+            }
+            
+            .inputBox {
+                position: relative;
+                
+                label {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    color: var(--color-txt-lct);
+                    transition: .4s;
+                    font-size: 18px;
+                }
+                
+                .input:focus~label,
+                .input:not(:placeholder-shown)~label {
+                    bottom: 20px;
+                    color: var(--color-txt-blue);
+                    font-size: 16px;
+                }
+    
+                .input {
+                    &:not(:placeholder-shown) {
+                        border-bottom-color: rgb(223, 74, 74);
+                    }
+    
+                    &:valid {
+                        border-bottom: 1px solid var(--color-txt);
+                    }
+                }
+            }
+    
+            .sendButton {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                width: 100%;
+                height: 35px;
+                margin-top: 5px;
+            
+                color: #ddd;
+                background-color: #177117;
+                border-radius: 5px;
+                font-size: 15px;
+                font-weight: 600;
+            
+                &:hover {
+                    background-color: #2b912b;
+                }
+            }
+        }
+    }
+
+    .gradientButtons {
+        width: 100%;
+        padding: 15px;
+        display: flex;
+        justify-content: flex-end;
     }
 }
 
-.fadeIn {
-    opacity: 1;
-    transform: translateY(-20px);
-    transition: transform .3s, opacity .3s ease;
-}
-.fadeOut {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: transform .3s, opacity .3s ease;
-}
 
-
-
-.messageModalOverlay {
+.contactModalOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -140,34 +204,7 @@ $color: #cbccce;
 }
 
 
-.orLine {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: 35px;
-    padding-left: 4px;
-    padding-right: 4px;
-    width: 100%;
-    opacity: 50%;
 
-    div {
-        height: .5px;
-        width: 100%;
-        background-color: var(--color-txt);
-    }
-    p {
-        margin-left: 8px;
-        margin-right: 8px;
-        color: var(--color-txt);
-        font-weight: 400;
-    }
-}
-
-.title {
-    margin-top: 5px;
-    font-size: 24px;
-    font-weight: 500;
-}
 
 .wplink {
     margin-top: 8px;
@@ -179,37 +216,24 @@ $color: #cbccce;
     }
 }
 
-.input {
-    background-color: var(--color-bg);
-    color: var(--color-txt);
-    border-radius: 5px;
-    padding-left: 5px;
-    font-size: 20px;
-    width: 100%;
-    margin-top: 10px;
-    resize: none;
-    
-    &:focus {
-        outline: 2px solid var(--color-3);
-        outline-offset: -2px;
-    }
+
+
+
+
+
+
+
+
+
+
+.modalGradient1 {
+    background: rgb(66, 31, 207);
+    background: linear-gradient(140deg, rgb(61, 13, 205) 0%, rgba(8,145,178,1) 100%);
 }
-
-.sendButton {
-    background-color: #177117;
-    width: 100%;
-    border-radius: 5px;
-    height: 35px;
-    font-size: 25px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #ddd;
-    margin-top: 5px;
-
-    &:hover {
-        background-color: #2b912b;
-    }
+.modalGradient2 {
+    background: rgb(162,68,31);
+    background: linear-gradient(200deg, rgb(196, 71, 29) 0%, rgba(186,22,122,1) 58%, rgba(105,2,119,1) 100%);
 }
-
+.themeGradient {
+    background-image: radial-gradient( circle farthest-corner at -4% -12.9%, var(--color-theme-grad-1) 0.3%, var(--color-theme-grad-2) 90.2% );
+}

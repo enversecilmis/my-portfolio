@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
+import ThemePrefProvider from "../contexts/ThemeContext";
 
 
 
@@ -16,7 +17,9 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const getLayout = Component.getLayout ?? (page => page)
 
 return (
-    getLayout(<Component {...pageProps}/>)
+  <ThemePrefProvider>
+      {getLayout(<Component {...pageProps}/>)}
+  </ThemePrefProvider>
   )
 }
 

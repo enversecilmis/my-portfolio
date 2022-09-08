@@ -31,7 +31,7 @@ const prefs = [
 
 
 
-const ThemeToggleButton: React.FC<{  }> = ({  }) => {
+const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
     const [themePref, setThemePref] = useThemePref()
     
 
@@ -75,7 +75,7 @@ const ThemeToggleButton: React.FC<{  }> = ({  }) => {
             aria-label={`Change theme preference to ${prefs[nextIdx]}`}
             title={`Change theme preference to ${prefs[nextIdx]}`}
             onClick={setNextPref}
-            className={styles.button}
+            className={`${styles.button} ${className}`}
         >
             {ButtonIcon}
         </button>

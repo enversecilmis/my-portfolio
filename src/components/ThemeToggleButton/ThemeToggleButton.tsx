@@ -9,9 +9,9 @@ import { useThemePref } from "../../contexts/ThemeContext";
 
 
 const buttonIcons = [
-    <BsCircleHalf key="systempreficon" size={25} />,
-    <BsBrightnessHighFill key="lightpreficon" size={25} />,
-    <BsMoonFill key="darkpreficon" size={25} />,
+    <BsCircleHalf key="systempreficon"  />,
+    <BsBrightnessHighFill key="lightpreficon"  />,
+    <BsMoonFill key="darkpreficon"  />,
 ]
 const prefs = [
     'system',
@@ -27,7 +27,7 @@ const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
     
 
     if (!themePref || themePref === "loading")
-        return <FiLoader key="prefloadericon" size={25} className="animate-spin" />
+        return <FiLoader key="prefloadericon"  className="animate-spin" />
 
 
     const idx = prefs.indexOf(themePref)

@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
 import ShrinkingName from "../ShrinkingName/ShrinkingName";
 import BurgerButton from "../BurgerButton/BurgerButton";
-
+import LanguageButton from "../LanguageButton/LanguageButton";
 
 
 
@@ -20,14 +20,20 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
 
                 <nav className={styles.largeScreenNav}>
                     <Link href="/">
-                        <a>Ana Sayfa</a>
+                        <a className={styles.link}>Ana Sayfa</a>
                     </Link>
                     <Link href="/projects" >
-                        <a>Projeler</a>
+                        <a className={styles.link}>Projeler</a>
                     </Link>
-                    <a rel="noopener noreferrer" target={"_blank"} href="https://github.com/enversecilmis">
+                    <a
+                        className={styles.link}
+                        rel="noopener noreferrer"
+                        target={"_blank"}
+                        href="https://github.com/enversecilmis"
+                    >
                         GitHub
                     </a>
+                    <LanguageButton/>
                     <ThemeToggleButton/>
                 </nav>
 
@@ -52,7 +58,10 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                         <a rel="noopener noreferrer" onClick={() => setIsMobileNavOpen(false)} target={"_blank"} href="https://github.com/enversecilmis">
                             GitHub
                         </a>
-                        <ThemeToggleButton className={styles.themeButton}/>
+                        <div className={styles.configs}>
+                            <LanguageButton/>
+                            <ThemeToggleButton className={styles.themeButton}/>
+                        </div>
                     </nav>
                 </Modal>
             </div>

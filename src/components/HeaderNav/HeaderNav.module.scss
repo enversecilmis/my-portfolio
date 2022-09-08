@@ -2,6 +2,7 @@
 
 
 .header {
+    font-size: 20px;
     position: sticky;
     top: 0;
     height: 70px;
@@ -33,16 +34,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-
+            gap: 30px;
+            
             height: 100%;
-            width: 33%;
             margin-left: 40px;
 
             @include device(tablet) {
                 display: none;
             }
             
-            a {
+            .link {
                 color: #bbb;
                 transition: color .3s;
                 &:hover{
@@ -77,10 +78,13 @@
         font-size: 30px;
         color: #bbb;
     }
-    .themeButton {
+    .configs {
         position: absolute;
         right: 50px;
-        top: 120px,
+        top: 120px;
+        display: flex;
+        gap: 20px;
+        font-size: 30px;
     }
 }
 

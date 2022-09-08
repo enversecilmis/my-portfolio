@@ -97,7 +97,7 @@ body[data-theme="dark"] {
   outline-offset: -2px;
 }
 *:focus:not(:focus-visible){
-    outline: none;
+  outline: none;
 }
 
 

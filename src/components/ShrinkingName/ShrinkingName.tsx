@@ -9,17 +9,14 @@ const ShrinkingName: React.FC<{  }> = ({  }) => {
     const [shrinkAmount, setShrinkAmount] = useState(1)
     
 
-
     useEffect(() => {
-        const scrollHandle = () => setShrinkAmount(1 - (window.scrollY / 450))
+        const scrollHandle = () => setShrinkAmount( Math.max(1-(window.scrollY / 450), 0) )
         
         document.addEventListener("scroll", scrollHandle)
         return () => document.removeEventListener("scroll", scrollHandle)
     }, [])
 
 
-
-    
     return (
         <h1 className={styles.fullname}>
             E<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*30 }}>nver </span>

@@ -19,7 +19,7 @@ const LanguageButton: React.FC<{ className?: string }> = ({ className }) => {
 
 			<div className={styles.languagesContainer}>
 				{locales?.map((val) => (
-					<Link href={asPath} locale={val}>
+					<Link href={asPath} locale={val} scroll={false}>
 						<a className={`${styles.localeOption} ${val === locale ? styles.currentLocale:""}`}>
 							{val}
 						</a>

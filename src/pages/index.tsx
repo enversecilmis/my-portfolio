@@ -11,16 +11,24 @@ import { GiStairsGoal } from "react-icons/gi";
 import RoutineIcon from "../components/RoutineIcon";
 import HorizontalScroller from "../components/HorizontalScroller/HorizontalScroller";
 
+import homeTextsEn from "../locale/en/home";
+import homeTextsTr from "../locale/tr/home";
+import { useRouter } from "next/router";
+
+
 
 
 
 
 
 const Home: NextPageWithLayout = () => {
+  const {locale} = useRouter()
+  const t = locale === 'en'? homeTextsEn : homeTextsTr
+
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>{t.pageTitle}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,20 +38,26 @@ const Home: NextPageWithLayout = () => {
         <Intro className="mt-48"/>
 
 
-        <TitledSection className={styles.introductionSection} title="Kim bu Enver?">
+        <TitledSection className={styles.introductionSection} title={t.whoAmI}>
           <div className={styles.iconTextContainer}>
               <FaUniversity className={styles.icon}/>
-              <span className={styles.text}>KTÜ Yazılım Mühendisliği 4.sınıf öğrencisiyim. Okul dışında web ve mobil uygulama geliştirmeye ağırlık veriyorum. <span className={styles.parentheses}>(Next.js, React Native)</span></span>
+              <span className={styles.text}>
+                {t.school}
+                <span className={styles.parentheses}>(Next.js, React Native)</span>
+              </span>
           </div>
 
           <div className={styles.iconTextContainer}>
             <GiStairsGoal className={styles.icon}/>
-            <span className={styles.text}>Tamtakır geliştirici <span className={styles.parentheses}>(fullstack developer)</span> olma amacıyla her gün kararlı bir şekilde ilerliyorum.</span>
+            <span className={styles.text}>
+              {t.goal}
+            </span>
           </div>
 
           <div className={styles.iconTextContainer}>
             <RoutineIcon className={styles.icon}/>
-            <span className={styles.text}>Rutin olarak takip ettiğim kaynaklar sayesinde bilgimi derinleştirirken aynı zamanda gelişen teknolojiler hakkında güncel kalıyorum.
+            <span className={styles.text}>
+              {t.routine}
               <span className={styles.parentheses}> (
                 <a className={styles.link} rel="noopener noreferrer" target="_blank" href="https://t3.gg/"> Theo, </a>
                 <a className={styles.link} rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/c/ReactNext">ReactNext, </a>
@@ -56,30 +70,29 @@ const Home: NextPageWithLayout = () => {
         </TitledSection>
 
 
-        <TitledSection className={styles.knowledgeSection} title="Ne Biliyorum?">
+        <TitledSection className={styles.knowledgeSection} title={t.whatICanDo}>
           <div className={styles.knowledgeContent}>
             <HorizontalScroller/>
           </div>
         </TitledSection>
 
 
-        <TitledSection className={styles.techStackSection} title="Kullandığım Tech Stack">
+        <TitledSection className={styles.techStackSection} title={t.techStack}>
           <div className="mt-14">
-            <p><a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://t3.gg/">Theo</a> tarafından oluşturulan <a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://init.tips/">T3-Stack</a> teknoloji setini kullanıyorum.</p>
-            <p>Topluluğunun geliştirdiği <a href="https://github.com/t3-oss/create-t3-app"  rel="noopener noreferrer" target="_blank"><code className={styles.code}>create-t3-app</code></a> de bunu oldukça kolay bir hale getiriyor.</p>
-            <p>Theo ise <a className={styles.linkText} rel="noopener noreferrer" target="_blank" href="https://ping.gg/">Ping Labs</a>&apos; in kurucusu, twitch yayıncısı ve bir youtuber.</p>
-            <p>İçerikleri, basit eğitici videolardan bıkmış olanlar için bire bir.</p>
+            <p>
+              {t.techStackp}
+            </p>
           </div>
         </TitledSection>
 
 
-        <TitledSection className={styles.siteInfo} title="Bu Site İçin Kullandığım Teknolojiler">
+        <TitledSection className={styles.siteInfo} title={t.usedTech}>
           <ul className="mt-10">
             <li>- Next.js</li>
             <li>- Tailwind</li>
             <li>- Sass</li>
             <li>- Vercel (hosting)</li>
-            <li>- Figma (Responsive Layout SVG, render stratejileri PNG&apos;leri)</li>
+            <li>- Figma ({t.usedTechParenthesis})</li>
           </ul>
         </TitledSection>
 
@@ -87,7 +100,6 @@ const Home: NextPageWithLayout = () => {
     </>
   );
 };
-
 
 
 

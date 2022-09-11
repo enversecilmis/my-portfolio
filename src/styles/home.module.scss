@@ -5,6 +5,10 @@
     height: 100%;
     background-color: var(--color-bg);
     color: var(--color-txt);
+
+    display: flex;
+    flex-direction: column;
+    gap: 300px;
     
 
     .introSection {
@@ -19,26 +23,6 @@
         height: auto;
     
         background-color: var(--color-trans);
-
-        @include device(tablet) {
-            flex-direction: column;
-            align-items: center;
-
-            .ppContainer {
-                left: 0;
-            }
-            .introText {
-                top: -80px;
-                .title {
-                    align-self: initial;
-                    font-size: 40px;
-                }
-                .text {
-                    font-size: 20px;
-                }
-            }
-        }
-    
     
         .ppContainer {
             position: relative;
@@ -77,40 +61,11 @@
                 color: var(--color-txt);
                 text-align: justify;
             }
-    
-           
         }
     }
     
-    
-    
-    
-    
-    @media screen and (max-width: 640px) {
-        .container {
-            flex-direction: column;
-            align-items: center;
-    
-            .ppContainer {
-                left: 0;
-            }
-    
-            .introText {
-                top: -80px;
-                .title {
-                    align-self: initial;
-                    font-size: 40px;
-                }
-                .text {
-                    font-size: 20px;
-                }
-            }
-        }
-    }
 
     .whoAmISection {
-        margin-top: 300px;
-        
         .iconTextContainer {
             margin-top: 40px;
             display: flex;
@@ -131,27 +86,19 @@
     }
 
     .knowledgeSection {
-        margin-top: 300px;
-        
         .knowledgeContent {
             margin-top: 100px;
             height: 400px;
             width: 100%;
         }
-
     }
-
 
     .techStackSection {
-        margin-top: 300px;
     }
 
-    .siteInfo {
-        margin-top: 260px;
+    .siteInfoSection {
     }
 }
-
-
 
 
 
@@ -186,7 +133,35 @@
 
 
 
-@media screen and (max-width: 640px) {
+
+
+
+
+
+
+
+
+
+@include device(tablet) {
+    .introSection {
+        flex-direction: column;
+        align-items: center;
+
+        .ppContainer {
+            left: 0;
+        }
+        .introText {
+            top: -80px;
+            .title {
+                align-self: initial;
+                font-size: 40px;
+            }
+            .text {
+                font-size: 20px;
+            }
+        }
+    }
+
     .iconTextContainer {
         flex-direction: column;
     }

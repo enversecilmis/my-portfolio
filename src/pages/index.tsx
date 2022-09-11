@@ -2,7 +2,6 @@ import Head from "next/head";
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "./_app";
 import Goal from "../components/Goal/Goal";
-import Intro from "../components/Intro/Intro";
 import BasicLayout from "../layouts/BasicLayout";
 import styles from "../styles/home.module.scss"
 import TitledSection from "../components/TitledSection/TitledSection";
@@ -14,6 +13,7 @@ import HorizontalScroller from "../components/HorizontalScroller/HorizontalScrol
 import homeTextsEn from "../locale/en/home";
 import homeTextsTr from "../locale/tr/home";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 
 
@@ -35,10 +35,21 @@ const Home: NextPageWithLayout = () => {
 
       <div className={styles.container}>
         <Goal />
-        <Intro className="mt-48"/>
+
+        <section  className={styles.introSection}>
+            <div className={styles.ppContainer}>
+                <Image src="/pp.jpg" alt='profile picture' layout={"fill"} objectFit={"contain"} className={styles.pp} />
+            </div>
+            <div className={styles.introText}>
+                <p className={styles.title}>Hello World!</p>
+                <p className={styles.text}>
+                  {t.intro}
+                </p>
+            </div>
+        </section>
 
 
-        <TitledSection className={styles.introductionSection} title={t.whoAmI}>
+        <TitledSection className={styles.whoAmISection} title={t.whoAmI}>
           <div className={styles.iconTextContainer}>
               <FaUniversity className={styles.icon}/>
               <span className={styles.text}>

@@ -1,0 +1,38 @@
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    
+    width: 100%;
+    height: fit-content;
+    
+    overflow: hidden;
+
+    .previousButton {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+    }
+    .nextButton {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+    }
+
+    .itemContainer {
+        position: relative;
+        width: 100%;
+        flex-shrink: 0;
+        transition: left .4s ease;
+    }
+    .activeItemContainer {
+        display: block;
+    }
+    .nonActiveItemContainer {
+        display: hidden;
+    }
+}

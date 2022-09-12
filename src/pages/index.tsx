@@ -1,34 +1,34 @@
+import Image from "next/image";
 import Head from "next/head";
+import { GetStaticProps } from "next";
 import { ReactElement } from "react";
 import { NextPageWithLayout } from "./_app";
+
 import Goal from "../components/Goal/Goal";
 import BasicLayout from "../layouts/BasicLayout";
-import styles from "../styles/home.module.scss"
 import TitledSection from "../components/TitledSection/TitledSection";
 import { FaUniversity } from "react-icons/fa";
 import { GiStairsGoal } from "react-icons/gi";
 import RoutineIcon from "../components/RoutineIcon";
 import HorizontalScroller from "../components/HorizontalScroller/HorizontalScroller";
 
-import homeTextsEn from "../locale/en/home";
-import homeTextsTr from "../locale/tr/home";
-import { useRouter } from "next/router";
-import Image from "next/image";
+import styles from "../styles/home.module.scss"
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 
 
 
 
 
-
-const Home: NextPageWithLayout = () => {
-  const {locale} = useRouter()
-  const t = locale === 'en'? homeTextsEn : homeTextsTr
-
+const Home: NextPageWithLayout = (props) => {
+  const { t } = useTranslation('home')
+  
+  
   return (
     <>
       <Head>
-        <title>{t.pageTitle}</title>
+        <title>{t('pageTitle')}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -43,17 +43,17 @@ const Home: NextPageWithLayout = () => {
             <div className={styles.introText}>
                 <p className={styles.title}>Hello World!</p>
                 <p className={styles.text}>
-                  {t.intro}
+                  {t('intro')}
                 </p>
             </div>
         </section>
 
 
-        <TitledSection className={styles.whoAmISection} title={t.whoAmI}>
+        <TitledSection className={styles.whoAmISection} title={t('whoAmI')}>
           <div className={styles.iconTextContainer}>
               <FaUniversity className={styles.icon}/>
               <span className={styles.text}>
-                {t.school}
+                {t('school')}
                 <span className={styles.parentheses}>(Next.js, React Native)</span>
               </span>
           </div>
@@ -61,14 +61,14 @@ const Home: NextPageWithLayout = () => {
           <div className={styles.iconTextContainer}>
             <GiStairsGoal className={styles.icon}/>
             <span className={styles.text}>
-              {t.goal}
+              {t('goal')}
             </span>
           </div>
 
           <div className={styles.iconTextContainer}>
             <RoutineIcon className={styles.icon}/>
             <span className={styles.text}>
-              {t.routine}
+              {t('routine')}
               <span className={styles.parentheses}> (
                 <a className={styles.link} rel="noopener noreferrer" target="_blank" href="https://t3.gg/"> Theo, </a>
                 <a className={styles.link} rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/c/ReactNext">ReactNext, </a>
@@ -81,29 +81,29 @@ const Home: NextPageWithLayout = () => {
         </TitledSection>
 
 
-        <TitledSection className={styles.knowledgeSection} title={t.whatICanDo}>
+        <TitledSection className={styles.knowledgeSection} title={t('whatICanDo')}>
           <div className={styles.knowledgeContent}>
             <HorizontalScroller/>
           </div>
         </TitledSection>
 
 
-        <TitledSection className={styles.techStackSection} title={t.techStack}>
+        <TitledSection className={styles.techStackSection} title={t('techStack')}>
           <div className="mt-14">
             <p>
-              {t.techStackp}
+              {t('techStackp')}
             </p>
           </div>
         </TitledSection>
 
 
-        <TitledSection className={styles.siteInfo} title={t.usedTech}>
+        <TitledSection className={styles.siteInfo} title={t('usedTech')}>
           <ul className="mt-10">
             <li>- Next.js</li>
             <li>- Tailwind</li>
             <li>- Sass</li>
             <li>- Vercel (hosting)</li>
-            <li>- Figma ({t.usedTechParenthesis})</li>
+            <li>- Figma ({t('usedTechParenthesis')})</li>
           </ul>
         </TitledSection>
 
@@ -116,12 +116,22 @@ const Home: NextPageWithLayout = () => {
 
 
 
+
 Home.getLayout = (page: ReactElement) => {
   return (
     <BasicLayout>
       {page}
     </BasicLayout>
   )
+}
+
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common", "home"])),
+    }
+  }
 }
 
 export default Home;

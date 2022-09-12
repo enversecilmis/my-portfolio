@@ -3,6 +3,7 @@ import { ReactElement, ReactNode } from "react";
 import { NextPage } from "next";
 import { AppProps } from "next/app";
 import ThemePrefProvider from "../contexts/ThemeContext";
+import { appWithTranslation } from "next-i18next";
 
 
 
@@ -31,4 +32,4 @@ export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)

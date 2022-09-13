@@ -8,6 +8,15 @@
     
     overflow: hidden;
 
+    .sliderTitle {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        
+        font-size: 30px;
+        transition: opacity .6s;
+        animation: titleFadeIn .7s;
+    }
     .previousButton {
         position: absolute;
         left: 0;
@@ -33,6 +42,11 @@
         display: block;
     }
     .nonActiveItemContainer {
-        display: hidden;
     }
+}
+
+
+@keyframes titleFadeIn {
+    from { opacity: .4; }
+    to { opacity: 1; }
 }

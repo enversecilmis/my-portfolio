@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
 import styles from './HorizontalSlider.module.scss'
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
@@ -6,13 +6,18 @@ import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 type SliderProps = {
 	className?: string
-	children?: ReactNode | ReactNode[]
+	children: JSX.Element | JSX.Element[]
 	previousButtonChild?: ReactNode
 	nextButtonChild?: ReactNode
 	previousButtonClassName?: string,
 	nextButtonClassName?: string
 	activeItemClassName?: string
 	nonActiveItemClassName?: string
+}
+type SliderItemProps = {
+	children: ReactNode | ReactNode[]
+	className?: string
+	sliderTitle?: string
 }
 
 
@@ -32,8 +37,10 @@ const HorizontalSlider: React.FC<SliderProps> = ({
 
 	const [activeIndex, setActiveIndex] = useState(0)
 	const childCount = React.Children.count(children)
-
+	const titles: string[] = React.Children.map(children, child => child.props.sliderTitle || '')
 	
+	
+
 	const previous = () => {
 		setActiveIndex(p => p-1 < 0 ? childCount-1 : p-1)
 	}
@@ -51,6 +58,11 @@ const HorizontalSlider: React.FC<SliderProps> = ({
 			<button className={nextButtonClassName} onClick={next}>
 				{nextButtonChild}
 			</button>
+
+
+			<SliderTitle key={titles[activeIndex]} className={styles.sliderTitle}>
+				{titles[activeIndex]}
+			</SliderTitle>
 
 			{React.Children.map(children, (child, idx) => (
 				<div
@@ -76,4 +88,23 @@ HorizontalSlider.defaultProps = {
 	nonActiveItemClassName: styles.nonActiveItemContainer,
 }
 
+
+
+
+
+const SliderTitle: React.FC<{title?: string, className?: string, children?: string}> = ({title, className, children}) => {
+
+	
+	return (
+		<h4 className={className}>{children}</h4>
+	)
+}
+
+const SliderItem: React.FC<SliderItemProps> = ({ children, className }) => (
+	<div className={className}>{children}</div>
+)
+
+export {
+	SliderItem
+}
 export default HorizontalSlider

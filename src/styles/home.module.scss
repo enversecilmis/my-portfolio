@@ -66,7 +66,7 @@
 
     .whoAmISection {
         .iconTextContainer {
-            margin-top: 40px;
+            margin-top: 50px;
             display: flex;
             align-items: center;
 
@@ -86,10 +86,44 @@
 
     .knowledgeSection {
         .knowledgeContent {
-            margin-top: 100px;
+            margin-top: 50px;
             height: 400px;
             width: 100%;
         }
+    }
+    .whatICanDoSection {
+        .intro {
+            margin-top: 50px;
+        }
+        .sliderContainer {
+            margin-top: 100px;
+            .sliderTitle {
+                line-height: 40px;
+                color: var(--color-txt-blue);
+                font-size: 40px;
+                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            }
+            .slider {
+                align-items: center;
+                
+                .responsiveSlide {
+                    padding: 50px 40px 0px 40px;
+                    display: flex;
+                    align-items: center;
+                }
+                .csrSlide {
+                    padding: 50px 40px 0px 40px;
+
+                    .description {
+                        margin-bottom: 50px;
+                        .subTitle {
+                            color: var(--color-txt-blue);
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 
 }
@@ -152,6 +186,15 @@
             }
             .text {
                 font-size: 20px;
+            }
+        }
+    }
+    .whatICanDoSection {
+        .sliderContainer {
+            .slider {
+                .responsiveSlide {
+                    flex-direction: column;
+                }
             }
         }
     }

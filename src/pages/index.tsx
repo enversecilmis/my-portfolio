@@ -15,9 +15,14 @@ import HorizontalScroller from "../components/HorizontalScroller/HorizontalScrol
 import styles from "../styles/home.module.scss"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import HorizontalSlider, { SliderItem } from "../components/HorizontalSlider/HorizontalSlider";
+import ResponsiveLayoutAnimation from "../components/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
 
 
-
+import csrImage from '../../public/csr.png';
+import ssrImage from '../../public/ssr.png';
+import ssgImage from '../../public/ssg.png';
+import isrImage from '../../public/isr.png';
 
 
 
@@ -79,12 +84,49 @@ const Home: NextPageWithLayout = (props) => {
             </span>
           </div>
         </TitledSection>
+        
 
+        <TitledSection className={styles.whatICanDoSection} title={t('whatICanDo')}>
+          <p className={styles.intro}>{t('whatIcanDoIntro')}</p>
+          <HorizontalSlider
+            className={styles.sliderContainer}
+            sliderClassName={styles.slider}
+            titleClassName={styles.sliderTitle}
+          >
+            <SliderItem sliderTitle={t('responsiveDesign')} className={styles.responsiveSlide}>
+              <p className={styles.description}>{t('responsiveExplain')}</p>
+              <ResponsiveLayoutAnimation className={styles.resLaySvg}/>
+            </SliderItem>
 
-        <TitledSection className={styles.knowledgeSection} title={t('whatICanDo')}>
-          <div className={styles.knowledgeContent}>
-            <HorizontalScroller/>
-          </div>
+            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+              <div className={styles.description}>
+                <h5 className={styles.subTitle}>CSR</h5>
+                <span className={styles.descText}>{t('csr')}</span>
+              </div>
+              <Image placeholder='blur' alt='client side rendering' src={csrImage}/>
+            </SliderItem>
+            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+              <div className={styles.description}>
+                <h5 className={styles.subTitle}>SSR</h5>
+                <span className={styles.descText}>{t('ssr')}</span>
+              </div>
+              <Image placeholder='blur' alt='client side rendering' src={ssrImage}/>
+            </SliderItem>
+            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+              <div className={styles.description}>
+                <h5 className={styles.subTitle}>SSG</h5>
+                <span className={styles.descText}>{t('ssg')}</span>
+              </div>
+              <Image placeholder='blur' alt='client side rendering' src={ssgImage}/>
+            </SliderItem>
+            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+              <div className={styles.description}>
+                <h5 className={styles.subTitle}>ISR</h5>
+                <span className={styles.descText}>{t('isr')}</span>
+              </div>
+              <Image placeholder='blur' alt='client side rendering' src={isrImage}/>
+            </SliderItem>
+          </HorizontalSlider>
         </TitledSection>
 
 
@@ -106,7 +148,6 @@ const Home: NextPageWithLayout = (props) => {
             <li>- Figma ({t('usedTechParenthesis')})</li>
           </ul>
         </TitledSection>
-
       </div>
     </>
   );

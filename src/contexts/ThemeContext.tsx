@@ -1,8 +1,8 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from "react"
 
 
-type ThemePref = 'system' | 'dark' | 'light' | 'loading'
-type NextThemePref = 'system' | 'dark' | 'light' | 'loading'
+type ThemePref = 'system' | 'dark' | 'light' | undefined
+type NextThemePref = 'system' | 'dark' | 'light' | undefined
 type SetThemePref = Dispatch<SetStateAction<ThemePref>>
 
 type ContextType = [
@@ -10,8 +10,6 @@ type ContextType = [
     SetThemePref,
     NextThemePref
 ]
-
-
 
 
 
@@ -25,7 +23,7 @@ const ThemePrefContext = createContext<ContextType | undefined>(undefined)
 
 
 const ThemePrefProvider: React.FC<{ children?: ReactNode }> = ({ children }) => {
-    const [themePref, setThemePref] = useState<ThemePref>('loading')
+    const [themePref, setThemePref] = useState<ThemePref>()
 
 
     useEffect(() => {
@@ -35,6 +33,10 @@ const ThemePrefProvider: React.FC<{ children?: ReactNode }> = ({ children }) => 
 
 
     useEffect(() => {
+        if(!themePref) return
+
+        window.localStorage.setItem("theme-preference", themePref)
+
         if (themePref !== 'system'){
             document.body.dataset.theme = themePref
             return
@@ -53,16 +55,17 @@ const ThemePrefProvider: React.FC<{ children?: ReactNode }> = ({ children }) => 
     
 
 
+
     const idx = prefs.indexOf(themePref)
     const nextIdx = idx+1 === prefs.length ? 0 : idx+1
-
+    const nextPref = themePref? prefs[nextIdx] : undefined
     
     return (
         <ThemePrefContext.Provider
             value={[
                 themePref,
                 setThemePref,
-                prefs[nextIdx] as ThemePref
+                nextPref
             ]}>
             {children}
         </ThemePrefContext.Provider>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { FiLoader } from "react-icons/fi";
 import { BsCircleHalf, BsBrightnessHighFill, BsMoonFill } from "react-icons/bs";
 import styles from "./ThemeToggleButton.module.scss"
@@ -26,7 +25,7 @@ const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
     const [themePref, setThemePref, nextThemePref] = useThemePref()
     
 
-    if (!themePref || themePref === "loading")
+    if (!themePref)
         return <FiLoader key="prefloadericon"  className="animate-spin" />
 
 

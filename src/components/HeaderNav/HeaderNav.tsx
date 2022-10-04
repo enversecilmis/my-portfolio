@@ -6,11 +6,13 @@ import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
 import ShrinkingName from "../ShrinkingName/ShrinkingName";
 import BurgerButton from "../BurgerButton/BurgerButton";
 import LanguageButton from "../LanguageButton/LanguageButton";
+import { useTranslation } from "next-i18next";
 
 
 
 const HeaderNav: React.FC<{  }> = ({ }) => {
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
+    const { t } = useTranslation("header")
 
 
     return (
@@ -20,10 +22,10 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
 
                 <nav className={styles.largeScreenNav}>
                     <Link href="/">
-                        <a className={styles.link}>Ana Sayfa</a>
+                        <a className={styles.link}>{t('home')}</a>
                     </Link>
                     <Link href="/projects" >
-                        <a className={styles.link}>Projeler</a>
+                        <a className={styles.link}>{t('projects')}</a>
                     </Link>
                     <a
                         className={styles.link}
@@ -45,15 +47,15 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                     onRequestClose={() => setIsMobileNavOpen(false)}
                     className={`${styles.navModalContainer}`}
                     overlayClassName={styles.navModalOverlay}
-                    contentLabel="Navigation Menu"
+                    contentLabel={t('contentLabel')}
                     closeTimeoutMS={300}
                 >
                     <nav className={`${styles.mobileNav} ${isMobileNavOpen? styles.fadeIn:styles.fadeOut}`}>
                         <Link href="/">
-                            <a onClick={() => setIsMobileNavOpen(false)}>Home</a>
+                            <a onClick={() => setIsMobileNavOpen(false)}>{t('home')}</a>
                         </Link>
                         <Link href="/projects" >
-                            <a onClick={() => setIsMobileNavOpen(false)}>Projects</a>
+                            <a onClick={() => setIsMobileNavOpen(false)}>{t('projects')}</a>
                         </Link>
                         <a rel="noopener noreferrer" onClick={() => setIsMobileNavOpen(false)} target={"_blank"} href="https://github.com/enversecilmis">
                             GitHub

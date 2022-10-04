@@ -2,6 +2,7 @@ import { FiLoader } from "react-icons/fi";
 import { BsCircleHalf, BsBrightnessHighFill, BsMoonFill } from "react-icons/bs";
 import styles from "./ThemeToggleButton.module.scss"
 import { useThemePref } from "../../contexts/ThemeContext";
+import { useTranslation } from "next-i18next";
 
 
 
@@ -23,9 +24,10 @@ const prefs = [
 
 const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
     const [themePref, setThemePref, nextThemePref] = useThemePref()
+    const { t } = useTranslation('header')
     
 
-    if (!themePref)
+    if (!themePref || !nextThemePref)
         return <FiLoader key="prefloadericon"  className="animate-spin" />
 
 
@@ -34,8 +36,8 @@ const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
 
     return (
         <button
-            aria-label={`Tema tercihini '${nextThemePref}' olarak ayarla. (şu an: '${themePref}')`}
-            title={`Tema tercihini '${nextThemePref}' olarak ayarla. (şu an: '${themePref}')`}
+            aria-label={`${t('changeTheme')} ${t(nextThemePref)}`}
+            title={`${t('changeTheme')} ${t(nextThemePref)}`}
             onClick={() => setThemePref(nextThemePref)}
             className={`${styles.button} ${className}`}
         >

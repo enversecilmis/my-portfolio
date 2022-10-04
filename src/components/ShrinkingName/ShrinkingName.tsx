@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './ShrinkingName.module.scss'
 
 
@@ -6,11 +6,14 @@ import styles from './ShrinkingName.module.scss'
 
 
 const ShrinkingName: React.FC<{  }> = ({  }) => {
-    const [shrinkAmount, setShrinkAmount] = useState(1)
+    const fullname = useRef<HTMLHeadingElement>(null)
     
-
     useEffect(() => {
-        const scrollHandle = () => setShrinkAmount( Math.max(1-(window.scrollY / 450), 0) )
+        const scrollHandle = () => {
+            const shrinkAmount = Math.max(1-(window.scrollY / 450), 0)
+            fullname.current?.style.setProperty('--shrinking-name-opacity', `${shrinkAmount}`)
+            fullname.current?.style.setProperty('--shrinking-name-fontsize', `${shrinkAmount*30}px`)
+        }
         
         document.addEventListener("scroll", scrollHandle)
         return () => document.removeEventListener("scroll", scrollHandle)
@@ -18,12 +21,12 @@ const ShrinkingName: React.FC<{  }> = ({  }) => {
 
 
     return (
-        <h1 className={styles.fullname}>
-            E<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*30 }}>nver </span>
+        <h2 className={styles.fullname} ref={fullname}>
+            E<span className={styles.shrink}>nver </span>
             <span id={styles.lastname}>
-            S<span style={{ opacity: shrinkAmount, fontSize: shrinkAmount*30 }}>eçilmiş</span>
+                S<span className={styles.shrink}>eçilmiş</span>
             </span>
-        </h1>
+        </h2>
     )
 }
 

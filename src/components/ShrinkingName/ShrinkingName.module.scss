@@ -1,8 +1,15 @@
 .fullname {
+    --shrinking-name-opacity: 1;
+    --shrinking-name-fontsize: 30px;
     font-size: 40px;
     font-weight: 100;
     white-space: nowrap;
     color: #9c9c9c;
+    
+    .shrink {
+        opacity: var(--shrinking-name-opacity);
+        font-size: var(--shrinking-name-fontsize);
+    }
 
     #lastname {
         // color: #667fb5;

@@ -1,16 +1,12 @@
 import Image from "next/image";
 import Head from "next/head";
-import { GetStaticProps } from "next";
-import { ReactElement } from "react";
-import { NextPageWithLayout } from "./_app";
+import { GetStaticProps, NextPage } from "next";
 
 import Goal from "../components/Goal/Goal";
-import BasicLayout from "../layouts/BasicLayout";
 import TitledSection from "../components/TitledSection/TitledSection";
 import { FaUniversity } from "react-icons/fa";
 import { GiStairsGoal } from "react-icons/gi";
 import RoutineIcon from "../components/RoutineIcon";
-import HorizontalScroller from "../components/HorizontalScroller/HorizontalScroller";
 
 import styles from "../styles/home.module.scss"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -23,10 +19,12 @@ import csrImage from '../../public/csr.png';
 import ssrImage from '../../public/ssr.png';
 import ssgImage from '../../public/ssg.png';
 import isrImage from '../../public/isr.png';
+import HeaderNav from "../components/HeaderNav/HeaderNav";
+import ContactButton from "../components/ContactButton/ContactButton";
 
 
 
-const Home: NextPageWithLayout = (props) => {
+const Home: NextPage = (props) => {
   const { t } = useTranslation('home')
   
   
@@ -37,6 +35,8 @@ const Home: NextPageWithLayout = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <HeaderNav />
+      <ContactButton />
 
       <div className={styles.container}>
         <Goal />
@@ -157,14 +157,6 @@ const Home: NextPageWithLayout = (props) => {
 
 
 
-
-Home.getLayout = (page: ReactElement) => {
-  return (
-    <BasicLayout>
-      {page}
-    </BasicLayout>
-  )
-}
 
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

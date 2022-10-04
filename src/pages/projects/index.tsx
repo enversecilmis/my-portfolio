@@ -1,17 +1,15 @@
 import Head from "next/head";
-import { NextPageWithLayout } from "../_app";
-import { ReactElement } from "react";
 import styles from "../../styles/projects.module.scss";
-import BasicLayout from "../../layouts/BasicLayout";
 import Link from "next/link";
 import { HiHome } from "react-icons/hi";
+import { NextPage } from "next";
 
 
 
 
 
 
-const Projects: NextPageWithLayout = () => {
+const Projects: NextPage = () => {
 
 
     return (
@@ -42,14 +40,5 @@ const Projects: NextPageWithLayout = () => {
 
 
 
-
-
-Projects.getLayout = (page: ReactElement) => {
-    return (
-      <BasicLayout>
-        {page}
-      </BasicLayout>
-    )
-  }
 
 export default Projects

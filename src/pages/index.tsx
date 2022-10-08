@@ -21,6 +21,7 @@ import ssgImage from '../../public/ssg.png';
 import isrImage from '../../public/isr.png';
 import HeaderNav from "../components/HeaderNav/HeaderNav";
 import ContactButton from "../components/ContactButton/ContactButton";
+import Notifications from "../components/Notifications.tsx/Notifications";
 
 
 
@@ -37,6 +38,7 @@ const Home: NextPage = (props) => {
 
       <HeaderNav />
       <ContactButton />
+      <Notifications />
 
       <div className={styles.container}>
         <Goal />

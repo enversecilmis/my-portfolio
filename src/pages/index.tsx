@@ -22,12 +22,25 @@ import isrImage from '../../public/isr.png';
 import HeaderNav from "../components/HeaderNav/HeaderNav";
 import ContactButton from "../components/ContactButton/ContactButton";
 import Notifications from "../components/Notifications.tsx/Notifications";
+import { useEffect } from "react";
+import { useNotification } from "../contexts/NotificationContext";
 
 
 
 const Home: NextPage = (props) => {
   const { t } = useTranslation('home')
+  const notificationT = useTranslation("notifications")
+  const { pushNotification } = useNotification()
   
+  
+  useEffect(() => {
+    const showed = window.sessionStorage.getItem("notificationShowed")
+    
+    if(!showed){
+      pushNotification(notificationT.t('inConstruction'), { type: "info" })
+      window.sessionStorage.setItem("notificationShowed", "true")
+    }
+  }, [])
   
   return (
     <>
@@ -164,7 +177,7 @@ const Home: NextPage = (props) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ["common", "home", "header"])),
+      ...(await serverSideTranslations(locale as string, ["common", "home", "header", "notifications"])),
     }
   }
 }

@@ -41,7 +41,6 @@
 
             transform: translateX(-200px);
             opacity: 0;
-
             animation: fadeInRight .4s ease-in-out forwards;
             
             &.error {
@@ -54,9 +53,10 @@
                 background-color: var(--color-info);
             }
             .typeIcon {
-                font-size: 30px;
+                font-size: 40px;
                 padding-right: 5px;
                 color: var(--color-txt);
+                filter: opacity(.8);
                 align-self: center;
                 flex-shrink: 0;
             }

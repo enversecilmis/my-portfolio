@@ -3,15 +3,15 @@ import { IoClose } from 'react-icons/io5'
 import { useNotification } from '../../contexts/NotificationContext'
 import { BsInfoCircle } from "react-icons/bs";
 import { BiError, BiErrorCircle } from 'react-icons/bi';
-import { useEffect, useRef } from 'react';
-
-
+import { useEffect, useLayoutEffect, useRef } from 'react';
 
 // ***  TODO ***
 //
-// Advanced auto scroll
+// Proper auto scroll
 //
 // *************
+
+
 
 
 const Notifications: React.FC<{  }> = ({  }) => {
@@ -19,27 +19,24 @@ const Notifications: React.FC<{  }> = ({  }) => {
     const lastItem = useRef<HTMLDivElement>(null)
     const { notifications, deleteNotification } = useNotification()
 
-    const newestKey = useRef(0)
 
-    useEffect(() => {
-
-        
+    useEffect(() => {        
         lastItem.current?.scrollIntoView({behavior: "smooth"})
     }, [notifications])
 
 
     return (
         <div  className={styles.container}>
-            <div className={styles.notificationsContainer}>
+            <ul className={styles.notificationsContainer}>
                 {notifications.map(({key, message, type}) => (
-                <div key={key} className={`${styles.notificationContainer} ${styles[type]}`}>
+                <li key={key} className={`${styles.notificationContainer} ${styles[type]}`}>
                     {type === "error"?
                         <BiError className={styles.typeIcon}/>:
                     type === "warning"?
                         <BiErrorCircle className={styles.typeIcon}/>:
                         <BsInfoCircle className={styles.typeIcon}/>
                     }
-                    <p className={styles.notification}>{key} {message}</p>
+                    <p className={styles.notification}>{message}</p>
                     <button
                         className={styles.closeButton}
                         title="Delete notification"
@@ -47,11 +44,11 @@ const Notifications: React.FC<{  }> = ({  }) => {
                     >
                         <IoClose className={styles.closeIcon}/>
                     </button>
-                </div>
+                </li>
                 ))}
                 <div ref={lastItem}></div>
                 
-            </div>
+            </ul>
         </div>
     )
 }

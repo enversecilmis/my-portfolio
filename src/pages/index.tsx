@@ -19,15 +19,14 @@ import csrImage from '../../public/csr.png';
 import ssrImage from '../../public/ssr.png';
 import ssgImage from '../../public/ssg.png';
 import isrImage from '../../public/isr.png';
-import HeaderNav from "../components/HeaderNav/HeaderNav";
-import ContactButton from "../components/ContactButton/ContactButton";
-import Notifications from "../components/Notifications.tsx/Notifications";
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { useNotification } from "../contexts/NotificationContext";
+import { NextPageWithLayout } from "./_app";
+import BasicLayout from "../layouts/BasicLayout";
 
 
 
-const Home: NextPage = (props) => {
+const Home: NextPageWithLayout = (props) => {
   const { t } = useTranslation('home')
   const notificationT = useTranslation("notifications")
   const { pushNotification } = useNotification()
@@ -49,9 +48,6 @@ const Home: NextPage = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <HeaderNav />
-      <ContactButton />
-      <Notifications />
 
       <div className={styles.container}>
         <Goal />
@@ -170,6 +166,13 @@ const Home: NextPage = (props) => {
 
 
 
+Home.getLayout = (page: ReactElement) => {
+  return (
+    <BasicLayout>
+      {page}
+    </BasicLayout>
+  )
+}
 
 
 

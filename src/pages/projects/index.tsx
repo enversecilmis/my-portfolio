@@ -4,13 +4,16 @@ import { GetStaticProps, NextPage } from "next";
 import HeaderNav from "../../components/HeaderNav/HeaderNav";
 import ContactButton from "../../components/ContactButton/ContactButton";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextPageWithLayout } from "../_app";
+import { ReactElement } from "react";
+import BasicLayout from "../../layouts/BasicLayout";
 
 
 
 
 
 
-const Projects: NextPage = () => {
+const Projects: NextPageWithLayout = () => {
 
 
     return (
@@ -20,8 +23,6 @@ const Projects: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <HeaderNav/>
-            <ContactButton/>
             
             <div className={styles.container}>
               
@@ -32,6 +33,14 @@ const Projects: NextPage = () => {
             </div>
         </div>
     )
+}
+
+Projects.getLayout = (page: ReactElement) => {
+  return (
+    <BasicLayout>
+      {page}
+    </BasicLayout>
+  )
 }
 
 

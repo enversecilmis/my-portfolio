@@ -10,6 +10,8 @@
     "whatIcanDoIntro": "Next.js ve Vercel'in sağladığı avantajlarla iyi SEO'ya sahip performanslı websiteleri yapabiliyorum.",
     "responsiveDesign": "Responsive Tasarım",
     "responsiveExplain": "Responsive tasarımla her türlü cihaza/ekrana uyum sağlayan arayüzler.",
+    "multilanguageSupport": "Çoklu Dil Desteği",
+    "multilanguageExplain": "Bölgeye/dile özel içeriğe sahip web siteleri.",
     "renderingStrategies": "Renderlama Stratejileri",
     "csr": "Tamamen dinamik ve kullanıcıya özel, istemci tarafında oluşturulan içerikler.",
     "ssr": "İyi SEO gerektiren dinamik içerikler için sunucu tarafında renderlama.",

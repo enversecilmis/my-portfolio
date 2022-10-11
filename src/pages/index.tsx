@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Head from "next/head";
-import { GetStaticProps, NextPage } from "next";
+import { GetStaticProps } from "next";
 
 import Goal from "../components/Goal/Goal";
 import TitledSection from "../components/TitledSection/TitledSection";
@@ -12,9 +12,8 @@ import styles from "../styles/home.module.scss"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import HorizontalSlider, { SliderItem } from "../components/HorizontalSlider/HorizontalSlider";
+
 import ResponsiveLayoutAnimation from "../components/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
-
-
 import csrImage from '../../public/csr.png';
 import ssrImage from '../../public/ssr.png';
 import ssgImage from '../../public/ssg.png';
@@ -23,6 +22,7 @@ import { ReactElement, useEffect } from "react";
 import { useNotification } from "../contexts/NotificationContext";
 import { NextPageWithLayout } from "./_app";
 import BasicLayout from "../layouts/BasicLayout";
+import I18nIcon from "../components/I18nIcon";
 
 
 
@@ -107,6 +107,11 @@ const Home: NextPageWithLayout = (props) => {
             <SliderItem sliderTitle={t('responsiveDesign')} className={styles.responsiveSlide}>
               <p className={styles.description}>{t('responsiveExplain')}</p>
               <ResponsiveLayoutAnimation className={styles.resLaySvg}/>
+            </SliderItem>
+
+            <SliderItem sliderTitle={t('multilanguageSupport')} className={styles.i18nSlide}>
+              <p className={styles.description}>{t('multilanguageExplain')}</p>
+              <I18nIcon className={styles.image} size={400}/>
             </SliderItem>
 
             <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>

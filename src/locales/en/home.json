@@ -10,6 +10,8 @@
     "whatIcanDoIntro": "With the power of Next.js and Vercel, I can make websites that has good SEO and performance.",
     "responsiveDesign": "Responsive Layouts",
     "responsiveExplain": "Apps that can adapt to any device/screen.",
+    "multilanguageSupport": "Multi Language Support",
+    "multilanguageExplain": "Websites that has region/language specific content.",
     "renderingStrategies": "Rendering Strategies",
     "csr": "Fully dynamic, user specific content that's generated on the client.",
     "ssr": "Server side rendering for dynamic content that needs good SEO.",

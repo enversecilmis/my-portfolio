@@ -34,15 +34,13 @@
         max-height: 100%;
         
         .notificationContainer {
+            position: relative;
             display: flex;
             align-items: flex-start;
             border-radius: 7px;
             padding-left: 10px;
 
-            transform: translateX(-200px);
-            opacity: 0;
-            animation: fadeInRight .4s ease-in-out forwards;
-            
+
             &.error {
                 background-color: var(--color-error);
             }

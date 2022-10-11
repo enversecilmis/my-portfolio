@@ -3,7 +3,8 @@ import { IoClose } from 'react-icons/io5'
 import { useNotification } from '../../contexts/NotificationContext'
 import { BsInfoCircle } from "react-icons/bs";
 import { BiError, BiErrorCircle } from 'react-icons/bi';
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { useTransition, animated, easings } from '@react-spring/web';
 
 // ***  TODO ***
 //
@@ -19,6 +20,26 @@ const Notifications: React.FC<{  }> = ({  }) => {
     const lastItem = useRef<HTMLDivElement>(null)
     const { notifications, deleteNotification } = useNotification()
 
+    const transitions = useTransition(notifications, {
+        from: {
+            opacity: 0,
+            left: "-300px",
+        },
+        enter: {
+            opacity: 1,
+            left: "0px",
+        },
+        leave: {
+            opacity: 0,
+            left: "-300px",
+        },
+        delay: 0,
+        config: {
+            duration: 500,
+            easing: easings.easeOutExpo
+        }
+    })
+ 
 
     useEffect(() => {        
         lastItem.current?.scrollIntoView({behavior: "smooth"})
@@ -28,24 +49,41 @@ const Notifications: React.FC<{  }> = ({  }) => {
     return (
         <div  className={styles.container}>
             <ul className={styles.notificationsContainer}>
-                {notifications.map(({key, message, type}) => (
-                <li key={key} className={`${styles.notificationContainer} ${styles[type]}`}>
-                    {type === "error"?
+                {transitions((style,item) => (
+                <animated.li
+                    key={item.key}
+                    className={`${styles.notificationContainer} ${styles[item.type]}`}
+                    style={{
+                        opacity: style.opacity,
+                        left: style.left
+                    }}
+                >
+                    {item.type === "error"?
                         <BiError className={styles.typeIcon}/>:
-                    type === "warning"?
+                    item.type === "warning"?
                         <BiErrorCircle className={styles.typeIcon}/>:
                         <BsInfoCircle className={styles.typeIcon}/>
                     }
-                    <p className={styles.notification}>{message}</p>
+                    <p className={styles.notification}>{item.message}</p>
                     <button
                         className={styles.closeButton}
                         title="Delete notification"
-                        onClick={() => deleteNotification(key)}
+                        onClick={() => deleteNotification(item.key)}
                     >
                         <IoClose className={styles.closeIcon}/>
                     </button>
-                </li>
+                </animated.li>
                 ))}
+                {/* {transitions((style,item) => (
+                    <animated.li
+                        key={item.key}
+                        style={{
+                            opacity: style.opacity,
+                        }}
+                    >
+                        {item.message}
+                    </animated.li>
+                ))} */}
                 <div ref={lastItem}></div>
                 
             </ul>

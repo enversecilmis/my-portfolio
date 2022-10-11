@@ -17,8 +17,6 @@
     "ssr": "İyi SEO gerektiren dinamik içerikler için sunucu tarafında renderlama.",
     "ssg": "Statik sayfalar için direkt sunulmak üzere HTML oluşturma.",
     "isr": "Belli aralıklarla yeniden oluşturulan statik HTML sayfaları. Böylece hem içerik güncel kalıyor hem de sayfanın iletimi hızlı oluyor.",
-    "performantAnimationTitle": "Performant Animations",
-    "performantAnimationText": "For little animations that doesn't relate to the apps state",
 
     "techStack": "Kullandığım Tech Stack",
     "techStackp": "Theo tarafından oluşturulan T3-Stack teknoloji setini kullanıyorum. Topluluğunun geliştirdiği create-t3-app de bunu oldukça kolay bir hale getiriyor. Theo ise Ping Labs' in kurucusu, twitch yayıncısı ve bir youtuber. İçerikleri, basit eğitici videolardan bıkmış olanlar için bire bir.",

@@ -50,7 +50,7 @@ const ThemePrefProvider: React.FC<{ children?: ReactNode }> = ({ children }) => 
         }
 
         mediaQuery.addEventListener('change', themeChangeListener)
-        return mediaQuery.removeEventListener('change', themeChangeListener)
+        return () => mediaQuery.removeEventListener('change', themeChangeListener)
     }, [themePref])
     
 

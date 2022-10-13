@@ -67,6 +67,7 @@
             flex-direction: column;
             align-items: flex-start;
             justify-content: space-between;
+            text-decoration: underline;
             
             a {
                 margin-top: 10px;
@@ -76,7 +77,8 @@
         .lineContainer {
             display: flex;
             align-items: center;
-            
+            filter: opacity(.7);
+
             .lineText {
                 padding-left: 10px;
                 padding-right: 10px;
@@ -218,22 +220,6 @@
 
 
 
-
-
-
-
-
-
-
-
-.modalGradient1 {
-    background: rgb(66, 31, 207);
-    background: linear-gradient(140deg, rgb(61, 13, 205) 0%, rgba(8,145,178,1) 100%);
-}
-.modalGradient2 {
-    background: rgb(162,68,31);
-    background: linear-gradient(200deg, rgb(196, 71, 29) 0%, rgba(186,22,122,1) 58%, rgba(105,2,119,1) 100%);
-}
 .themeGradient {
     background-image: radial-gradient( circle farthest-corner at -4% -12.9%, var(--color-theme-grad-1) 0.3%, var(--color-theme-grad-2) 90.2% );
 }

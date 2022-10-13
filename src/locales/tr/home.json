@@ -1,13 +1,14 @@
 {
     "pageTitle": "Ana Sayfa",
-    "intro": "Merhaba! Bu websitesini kendimi tanıtmak, kısaca bildiğim konseptleri göstermek ve yaptığım projeleri sergilemek için hazırladım.",
+    "intro": "Merhaba! Bu websitesini kendimi tanıtmak, kısaca bildiklerimi göstermek ve yaptığım projeleri sergilemek için hazırladım.",
     "whoAmI": "Kim Bu Enver?",
     "school": "KTÜ Yazılım Mühendisliği 4.sınıf öğrencisiyim. Okul dışında web ve mobil uygulama geliştirmeye ağırlık veriyorum.",
     "goal": "'Fullstack developer' olma amacıyla her gün kararlı bir şekilde ilerliyorum.",
     "routine": "Rutin olarak takip ettiğim kaynaklar sayesinde bilgimi derinleştirirken aynı zamanda gelişen teknolojiler hakkında güncel kalıyorum.",
     
     "whatICanDo": "Ne Yapabiliyorum?",
-    "whatIcanDoIntro": "Next.js ve Vercel'in sağladığı avantajlarla iyi SEO'ya sahip performanslı websiteleri yapabiliyorum.",
+    "whatICanDoNext": "Next.js ile iyi SEO'ya sahip performanslı web uygulamaları.",
+    "whatICanDoRN": "React Native ile cross-platform mobil uygulamalar.",
     "responsiveDesign": "Responsive Tasarım",
     "responsiveExplain": "Responsive tasarımla her türlü cihaza/ekrana uyum sağlayan arayüzler.",
     "multilanguageSupport": "Çoklu Dil Desteği",
@@ -17,9 +18,6 @@
     "ssr": "İyi SEO gerektiren dinamik içerikler için sunucu tarafında renderlama.",
     "ssg": "Statik sayfalar için direkt sunulmak üzere HTML oluşturma.",
     "isr": "Belli aralıklarla yeniden oluşturulan statik HTML sayfaları. Böylece hem içerik güncel kalıyor hem de sayfanın iletimi hızlı oluyor.",
-
-    "techStack": "Kullandığım Tech Stack",
-    "techStackp": "Theo tarafından oluşturulan T3-Stack teknoloji setini kullanıyorum. Topluluğunun geliştirdiği create-t3-app de bunu oldukça kolay bir hale getiriyor. Theo ise Ping Labs' in kurucusu, twitch yayıncısı ve bir youtuber. İçerikleri, basit eğitici videolardan bıkmış olanlar için bire bir.",
 
     "usedTech": "Bu Site İçin Kullandığım Teknolojiler",
     "usedTechParenthesis": "Responsive Layout SVG, render stratejileri PNG'leri"

@@ -70,7 +70,7 @@ const Home: NextPageWithLayout = (props) => {
               <FaUniversity className={styles.icon}/>
               <span className={styles.text}>
                 {t('school')}
-                <span className={styles.parentheses}>(Next.js, React Native)</span>
+                <span className={styles.parentheses}> (Next.js, React Native)</span>
               </span>
           </div>
 
@@ -98,7 +98,10 @@ const Home: NextPageWithLayout = (props) => {
         
 
         <TitledSection className={styles.whatICanDoSection} title={t('whatICanDo')}>
-          <p className={styles.intro}>{t('whatIcanDoIntro')}</p>
+          <div>
+            <p className={styles.text}>- {t('whatICanDoNext')}</p>
+            <p className={styles.text}>- {t('whatICanDoRN')}</p>
+          </div>
           <HorizontalSlider
             className={styles.sliderContainer}
             sliderClassName={styles.slider}
@@ -146,16 +149,7 @@ const Home: NextPageWithLayout = (props) => {
         </TitledSection>
 
 
-        <TitledSection className={styles.techStackSection} title={t('techStack')}>
-          <div className="mt-14">
-            <p>
-              {t('techStackp')}
-            </p>
-          </div>
-        </TitledSection>
-
-
-        <TitledSection className={styles.siteInfo} title={t('usedTech')}>
+        <TitledSection className={styles.siteInfoSection} title={t('usedTech')}>
           <ul className="mt-10">
             <li>- Next.js</li>
             <li>- Tailwind</li>

@@ -14,9 +14,9 @@ const TitledSection: React.FC<{
 
 
     return (
-        <section  className={`${styles.container} ${className}`}>
+        <section  className={`${styles.container}`}>
             <h2 className={styles.title}>{title}</h2>
-            <div className={styles.content}>
+            <div className={`${styles.content} ${className}`}>
                 {children}
             </div>
         </section>

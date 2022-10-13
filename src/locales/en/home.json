@@ -7,7 +7,8 @@
     "routine": "With the resources I follow routinely, I deepen my knowledge and stay up-to-date on everchanging software technologies.",
     
     "whatICanDo": "What I Can Do?",
-    "whatIcanDoIntro": "With the power of Next.js and Vercel, I can make websites that has good SEO and performance.",
+    "whatICanDoNext": "Web apps that has good SEO and performance with Next.js.",
+    "whatICanDoRN": "Cross-platform mobile apps with React Native.",
     "responsiveDesign": "Responsive Layouts",
     "responsiveExplain": "Apps that can adapt to any device/screen.",
     "multilanguageSupport": "Multi Language Support",
@@ -17,9 +18,6 @@
     "ssr": "Server side rendering for dynamic content that needs good SEO.",
     "ssg": "Generating HTML for static pages of the website.",
     "isr": "Prerendered pages that are updated on some interval or event. So they are up-to-date and fast to deliver.",
-
-    "techStack": "Tech Stack I Use",
-    "techStackp": "I use T3-Stack that's created by Theo. And community created create-t3-app tool makes it really easy.",
 
     "usedTech": "Tech I Used For This Website",
     "usedTechParenthesis": "Responsive Layout SVG, render strategies images"

@@ -48,7 +48,7 @@ Projects.getLayout = (page: ReactElement) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
       props: {
-        ...(await serverSideTranslations(locale as string, ["common", "projects", "header", "notifications"])),
+        ...(await serverSideTranslations(locale as string, ["common", "projects", "header", "notifications", "contact-button"])),
       }
     }
   }

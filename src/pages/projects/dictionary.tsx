@@ -18,6 +18,7 @@ import TextInput from '../../components/TextInput/TextInput';
 
 import {
     Dictionary,
+    DictionaryHashTable,
     HashStringFunction,
     OnCollisionNextIndexHandler
 } from "../../projects-src/hashtabledict/types";
@@ -29,12 +30,12 @@ import {
     createDictionaryArrayFromString,
     createHashTableFromDictionary,
 } from "../../projects-src/hashtabledict/hashtabledict";
-import { findAPrimeBiggerThan } from '../../projects-src/hashtabledict/utils';
+import { findAPrimeBiggerThan, getStats } from '../../projects-src/hashtabledict/utils';
 import { ACTIONS, inputsReducer } from '../../reducers/dictionaryInputsReducer';
 import { DictionaryTypeException, TableSizeException } from '../../projects-src/hashtabledict/exceptions';
 
 
-// TODO: Fix seperator inputs. (Getting regexp input doesn't work properly.)
+
 
 
 
@@ -43,6 +44,7 @@ const Dictionary: NextPageWithLayout = () => {
     const { t: projectsT } = useTranslation("projects")
     const { pushNotification } = useNotification()
     let dictionaryArray = useRef<Dictionary>()
+    let hashTableDictionary = useRef<DictionaryHashTable>()
 
     
     // Object destructuring inside array doesn't work for some reason. (dispatch becomes undefined)
@@ -57,8 +59,9 @@ const Dictionary: NextPageWithLayout = () => {
         collisionHandlerString: "",
         hashTableSize: 0,
         throwInfiniteLoopError: false,
+        isReady: false
     })
-    const {fileContent, wordSeperator, pairSeperator, hashFunctionString, collisionHandlerString, hashTableSize, throwInfiniteLoopError} = state
+    const {isReady,fileContent, wordSeperator, pairSeperator, hashFunctionString, collisionHandlerString, hashTableSize, throwInfiniteLoopError} = state
 
 
 
@@ -110,13 +113,19 @@ const Dictionary: NextPageWithLayout = () => {
         try {
             if (hashFunction === undefined || collisionHandler === undefined || dictionaryArray.current === undefined)
                 return
-            
-            createHashTableFromDictionary(dictionaryArray.current, {
+
+            const hashTable = createHashTableFromDictionary(dictionaryArray.current, {
                 hashFunction,
                 collisionHandler,
                 hashTableSize,
                 throwInfiniteLoopError,
             })
+            console.log(hashTable.allCollisions.reduce((p,c) => p+c))
+            console.log(getStats(hashTable.allCollisions));
+            
+            hashTableDictionary.current = hashTable
+
+            
         } catch (error: any) {
             if (error instanceof DictionaryTypeException) {
                 const message = `${error.message}\r\nPlease check seperators or the text file.`
@@ -268,7 +277,7 @@ const Dictionary: NextPageWithLayout = () => {
                         />
                     </div>
                 </div>
-                <ThemedButton onClick={validateInputsAndCreateHashTable}>Create Hash Table</ThemedButton>
+                <ThemedButton disabled={!isReady} onClick={validateInputsAndCreateHashTable}>Create Hash Table</ThemedButton>
                 <div></div>
             </div>            
         </>

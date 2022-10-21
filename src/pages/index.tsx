@@ -49,7 +49,7 @@ const Home: NextPageWithLayout = (props) => {
       </Head>
 
 
-      <div className={styles.container}>
+      <main className={styles.container}>
         <Goal />
 
         <section  className={styles.introSection}>
@@ -158,7 +158,7 @@ const Home: NextPageWithLayout = (props) => {
             <li>- Figma ({t('usedTechParenthesis')})</li>
           </ul>
         </TitledSection>
-      </div>
+      </main>
     </>
   );
 };

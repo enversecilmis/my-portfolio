@@ -49,41 +49,43 @@ const Notifications: React.FC<{  }> = ({  }) => {
     return (
         <div  className={styles.container}>
             <ul className={styles.notificationsContainer}>
-                {transitions((style,item) => (
-                <animated.li
-                    key={item.key}
-                    className={`${styles.notificationContainer} ${styles[item.type]}`}
-                    style={{
-                        opacity: style.opacity,
-                        left: style.left
-                    }}
-                >
-                    {item.type === "error"?
-                        <BiError className={styles.typeIcon}/>:
-                    item.type === "warning"?
-                        <BiErrorCircle className={styles.typeIcon}/>:
-                        <BsInfoCircle className={styles.typeIcon}/>
-                    }
-                    <p className={styles.notification}>{item.message}</p>
-                    <button
-                        className={styles.closeButton}
-                        title="Delete notification"
-                        onClick={() => deleteNotification(item.key)}
-                    >
-                        <IoClose className={styles.closeIcon}/>
-                    </button>
-                </animated.li>
-                ))}
-                {/* {transitions((style,item) => (
-                    <animated.li
-                        key={item.key}
-                        style={{
-                            opacity: style.opacity,
-                        }}
-                    >
-                        {item.message}
-                    </animated.li>
-                ))} */}
+                {transitions((style,item) => {
+
+                    const Icon = item.type === "error"?
+                                    <BiError className={styles.typeIcon}/>:
+                                 item.type === "warning"?
+                                    <BiErrorCircle className={styles.typeIcon}/>:
+                                    <BsInfoCircle className={styles.typeIcon}/>
+
+                    return (
+                        <animated.li
+                            key={item.key}
+                            className={`${styles.notificationContainer} ${styles[item.type]}`}
+                            style={{
+                                opacity: style.opacity,
+                                left: style.left
+                            }}
+                        >
+                            <div className={styles.top}>
+                                <p className={styles.source}>{item.source}</p>
+                                <button
+                                    className={styles.closeButton}
+                                    title="Delete notification"
+                                    onClick={() => deleteNotification(item.key)}
+                                >
+                                    <IoClose className={styles.closeIcon}/>
+                                </button>
+                            </div>
+                            <div className={styles.bottom}>
+                                {Icon}
+                                <p className={styles.message}>
+                                    {item.message}
+                                </p>
+                            </div>
+                            
+                        </animated.li>
+                    )
+                })}
                 <div ref={lastItem}></div>
                 
             </ul>

@@ -2,12 +2,13 @@ import { createContext, ReactNode, useContext, useRef, useState } from "react";
 
 
 type NotificationType = "error" | "warning" | "info"
-type Notification = { key: number, type: NotificationType, message: string}
+type Notification = { key: number, type: NotificationType, message: string, source?: string}
 type PushNotificationOptions = {
     durationSeconds?: number
     type?: NotificationType
+    source?: string
 }
-type PushNotificationFunc = (message: string, options?: PushNotificationOptions) => void
+type PushNotificationFunc = (message: string, options?: PushNotificationOptions) => number
 type DeleteNotificationFunc = (key: number) => void
 
 type NotificationContextType = {
@@ -28,8 +29,9 @@ const NotificationProvider: React.FC<{children?: ReactNode}> = ({ children }) =>
     const pushNotification: PushNotificationFunc = (message, options) => {
         const key = itemKey.current
         const type = options?.type || "info"
+        const source = options?.source
 
-        setNotifications(p => [...p, { key, type, message }])
+        setNotifications(p => [...p, { key, type, message, source }])
 
         if(options?.durationSeconds) {
             setTimeout(() => {
@@ -37,6 +39,7 @@ const NotificationProvider: React.FC<{children?: ReactNode}> = ({ children }) =>
             }, options.durationSeconds);
         }
         itemKey.current += 1
+        return key
     }
 
     const deleteNotification: DeleteNotificationFunc = (key) => {

@@ -36,9 +36,45 @@
         .notificationContainer {
             position: relative;
             display: flex;
-            align-items: flex-start;
-            border-radius: 7px;
-            padding-left: 10px;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            border-radius: 10px;
+            .top {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+                .source {
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: var(--color-txt-notif);
+                }
+                .closeButton {
+                    height: fit-content;
+                    .closeIcon {
+                        font-size: 25px;
+                        color: var(--color-txt-notif);
+                    }
+                }
+            }
+            .bottom {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                .typeIcon {
+                    flex-shrink: 0;
+                    font-size: 40px;
+                    size: 40px;
+                    width: 40px;
+                    height: 40px;
+                    color: var(--color-txt-notif);
+                    filter: opacity(.8);
+                }
+                .message {
+                    font-size: 20px;
+                    color: var(--color-txt-notif);
+                }
+            }
 
 
             &.error {
@@ -50,25 +86,7 @@
             &.info {
                 background-color: var(--color-info);
             }
-            .typeIcon {
-                font-size: 40px;
-                padding-right: 5px;
-                color: var(--color-txt);
-                filter: opacity(.8);
-                align-self: center;
-                flex-shrink: 0;
-            }
-            .notification {
-                flex-grow: 1;
-                font-size: 25px;
-                color: var(--color-txt);
-            }
-            .closeButton {
-                .closeIcon {
-                    font-size: 28px;
-                    color: var(--color-txt);
-                }
-            }
+            
         }
     }
 }

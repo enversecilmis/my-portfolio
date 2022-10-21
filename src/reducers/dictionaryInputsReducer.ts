@@ -8,7 +8,8 @@ export type Inputs = {
     hashFunctionString: string,
     collisionHandlerString: string,
     hashTableSize: number,
-    throwInfiniteLoopError: boolean
+    throwInfiniteLoopError: boolean,
+    isReady: boolean,
 }
 
 export enum ACTIONS {
@@ -47,13 +48,20 @@ export const inputsReducer: Reducer<Inputs, ActionWithTypedPayload> = (
     state: Inputs,
     action: ActionWithTypedPayload
 ): Inputs => {
+    let newState: Inputs
     const { type, payload } = action
     switch(type) {
         case ACTIONS.setHashTableSize:
-            return payload < 0 ?
+            newState = payload < 0 ?
                     { ...state, hashTableSize: 0 }:
                     { ...state, hashTableSize: payload}
         default:
-            return { ...state, [type]: payload }   
+            newState = { ...state, [type]: payload }   
     }
+    const isReady = newState.hashTableSize > 0 &&
+                    newState.pairSeperator.length > 0 &&
+                    newState.wordSeperator.length > 0 &&
+                    newState.hashFunctionString.length > 0 &&
+                    newState.collisionHandlerString.length > 0
+    return { ...newState, isReady }
 }

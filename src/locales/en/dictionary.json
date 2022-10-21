@@ -1,0 +1,4 @@
+{
+    "description": "In this project, dictionary array is converted to a hash table so search time complexity would be O(1) instead of O(n).",
+    "asd": ""
+}

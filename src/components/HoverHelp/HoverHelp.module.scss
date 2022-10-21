@@ -1,0 +1,21 @@
+.container {
+    color: var(--color-txt);
+    .icon {
+        font-size: 25px;
+    }
+    .message {
+        z-index: 10;
+        padding: 0px 5px;
+        border-radius: 3px;
+        opacity: 0;
+        background-color: var(--color-txt);
+        color: var(--color-bg);
+        transition: opacity .3s;
+        pointer-events: none;
+    }
+    &:hover {
+        .message {
+            opacity: 1;
+        }
+    }
+}

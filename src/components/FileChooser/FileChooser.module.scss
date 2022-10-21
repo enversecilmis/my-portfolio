@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .title {
+        color: var(--color-txt-blue);
+        font-size: 20px;
+    }
+}

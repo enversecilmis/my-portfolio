@@ -1,6 +1,24 @@
 import { z } from "zod"
 import { HashStringFunction, OnCollisionNextIndexHandler } from "./types"
 
+
+const getStats = (arr: number[]) => {
+    const max = Math.max(...arr)
+    const min = Math.min(...arr)
+    const total = arr.reduce((acc,cur) => acc+cur)
+    const average = total / arr.length
+    const standardDeviation = (arr.reduce((prev, current) => prev + (current-average)**2)) / arr.length
+    
+    return {
+        max,
+        min,
+        total,
+        average,
+        standardDeviation,
+    }
+}
+
+
 const isPrime = (x: number): boolean => {
     if(x === 2) return true
     if(x%2 === 0 || x < 2) return false
@@ -26,6 +44,7 @@ const findAPrimeBiggerThan = (number: number) => {
         primeCandidate++
     }
 }
+
 
 
 
@@ -58,4 +77,5 @@ export {
     defaultHashStringFunction,
     defaultCollisionHandler,
     zDictionaryArray,
+    getStats,
 }

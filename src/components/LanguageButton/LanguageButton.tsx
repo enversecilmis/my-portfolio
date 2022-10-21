@@ -12,6 +12,11 @@ import Image from 'next/image';
 
 
 
+// TODO: cookie for language prefference
+const setCookie = (locale: string) => {
+    document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
+}
+
 
 const LanguageButton: React.FC<{ className?: string }> = ({ className }) => {
 	const { asPath, locale } = useRouter()

@@ -32,7 +32,7 @@ const FileChooser: React.FC<Props> = ({ label, title, onChange }) => {
             <ThemedButton
                 onClick={openFileChooser}
             >
-                {loading? "loading":label}
+                {label}
             </ThemedButton>
         </div>
     )

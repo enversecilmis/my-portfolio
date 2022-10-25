@@ -1,7 +1,6 @@
 .container {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
 
     .title {
         color: var(--color-txt-blue);

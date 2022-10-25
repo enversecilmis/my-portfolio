@@ -67,6 +67,7 @@ const Notifications: React.FC<{  }> = ({  }) => {
                             }}
                         >
                             <div className={styles.top}>
+                                {Icon}
                                 <p className={styles.source}>{item.source}</p>
                                 <button
                                     className={styles.closeButton}
@@ -77,7 +78,7 @@ const Notifications: React.FC<{  }> = ({  }) => {
                                 </button>
                             </div>
                             <div className={styles.bottom}>
-                                {Icon}
+                                
                                 <p className={styles.message}>
                                     {item.message}
                                 </p>

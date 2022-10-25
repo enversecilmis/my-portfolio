@@ -30,12 +30,23 @@
             display: flex;
             gap: 10px;
             color: var(--color-txt);
-            align-items: center;
+            align-items: flex-start;
             
             .fileInputTitle {
                 font-size: 20px;
                 font-weight: 500;
                 color: var(--color-txt-blue);
+            }
+
+            .inputField {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                .regexp {
+                    display: flex;
+                    width: 100%;
+                }
             }
         }
         .regexInput {
@@ -88,5 +99,31 @@
             }
         }
     }
+
+    .createdTable {
+        .successfullTitle {
+            font-size: 25px;
+            color: var(--color-txt);
+            text-align: center;
+            border-radius: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            animation: greenFade 2s ease forwards;
+        }
+        .tableContent {
+            background-color: crimson;
+            height: 400px;
+            width: 100%;
+            margin-bottom: 200px;
+        }
+    }
 }
 
+@keyframes greenFade {
+    from {
+        background-color: green;
+    }
+    to {
+        background-color: var(--color-bg);
+    }
+}

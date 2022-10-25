@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@floating-ui/react-dom": "^1.0.0",
     "@next/bundle-analyzer": "^12.2.5",
     "@react-spring/web": "^9.5.2",
     "@types/react-modal": "^3.13.1",
     "@use-gesture/react": "^10.2.18",
+    "framer-motion": "^7.6.1",
     "next": "12.2.3",
     "next-i18next": "^12.0.1",
     "react": "18.2.0",

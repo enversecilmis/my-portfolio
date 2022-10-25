@@ -90,9 +90,9 @@ body[data-theme="dark"] {
     --color-scroll-bg:      #333;
     --color-scroll-bar:     #777;
     
-    --color-error: #cb5050ee;
-    --color-warning: #b59c4cee;
-    --color-info: #7591acee;
+    --color-error: #cb5050;
+    --color-warning: #b59c4c;
+    --color-info: #7591ac;
 
     --color-theme-grad-1:   rgba(30,33,48,1);
     --color-theme-grad-2:   rgb(44, 59, 69);

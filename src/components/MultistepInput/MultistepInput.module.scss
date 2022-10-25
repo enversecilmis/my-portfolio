@@ -1,0 +1,24 @@
+.container {
+    width: auto;
+    padding: 10px;
+    border: 1px solid var(--color-txt-lct);
+    border-radius: 7px;
+
+    color: var(--color-txt);
+    background-color: var(--color-bg-lc);
+
+    .stepTag {
+        display: flex;
+        justify-content: flex-end;
+        color: var(--color-txt);
+    }
+    .buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+
+        .button {
+            width: 80px;
+        }
+    }
+}

@@ -1,28 +1,27 @@
-import { ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode } from 'react'
 import styles from './ThemedButton.module.scss'
 
 
 
-type Props = {
+type MyProps = {
     children?: ReactNode
     label?: string
-    onClick?: () => void
-    disabled?: boolean
+    className?: string
 }
+type Props = MyProps & ButtonHTMLAttributes<HTMLButtonElement>
 
 const ThemedButton: React.FC<Props> = ({ 
     children,
     label,
-    onClick,
-    disabled
+    className,
+    ...props
  }) => {
 
 
     return (
         <button
-            className={styles.button}
-            onClick={onClick}
-            disabled={disabled}
+            className={`${styles.button} ${className}`}
+            {...props}
         >
             {label || children}
         </button>

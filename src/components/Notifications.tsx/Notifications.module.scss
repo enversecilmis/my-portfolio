@@ -1,102 +1,72 @@
 .container {
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+
     display: flex;
     flex-direction: column-reverse;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    padding-left: 20px;
-    padding-bottom: 40px;
-    z-index: 100;
-
-    height: fit-content;
-    max-height: 80vh;
+    gap: 10px;
 
     width: clamp(200px, 350px, 100%);
-    pointer-events: none;
+    height: 70vh;
     
-    .notificationsContainer {
+    overflow: hidden;
+    z-index: 100;
+    pointer-events: none;
+
+    &::-webkit-scrollbar {
+        width: 9px;
+    }
+    &::-webkit-scrollbar-track {
+        background: #0000000a;
+    }
+    
+    .notificationItem {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 15px;
-        overflow-y: auto;
+        width: 100%;
+        padding: 5px;
+        border-radius: 7px;
+
+        color: white;
+        background: #272727;
         pointer-events: all;
 
-        &::-webkit-scrollbar {
-            width: 9px;
-        }
-        &::-webkit-scrollbar-track {
-            background: #0000000a;
-        }
-
-        width: 100%;
-        height: fit-content;
-        max-height: 100%;
-        
-        .notificationContainer {
-            position: relative;
+        .top {
+            color: var(--color-txt-notif);
             display: flex;
-            backdrop-filter: blur(5px);
-            flex-direction: column;
-            gap: 5px;
-            padding: 10px;
-            border-radius: 10px;
-            .top {
-                display: flex;
-                justify-content: space-between;
-                padding-bottom: 5px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-                .source {
-                    font-weight: 500;
-                    font-size: 20px;
-                    color: var(--color-txt-notif);
-                }
-                .closeButton {
-                    height: fit-content;
-                    .closeIcon {
-                        font-size: 25px;
-                        color: var(--color-txt-notif);
-                    }
-                }
-                .typeIcon {
-                    flex-shrink: 0;
-                    font-size: 30px;
-                    color: var(--color-txt-notif);
-                    filter: opacity(.8);
-                }
-            }
-            .bottom {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                
-                .message {
-                    font-size: 20px;
-                    color: var(--color-txt-notif);
-                }
-            }
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #00000022;
+            padding-bottom: 5px;
+            font-size: 27px;
 
-
-            &.error {
-                background-color: var(--color-error);
+            .source {
+                font-size: 20px;
+                font-weight: 500;
             }
-            &.warning {
-                background-color: var(--color-warning);
+            .closeButton {
+                border-radius: 50%;
+                &:hover {
+                    background-color: rgba(255, 0, 0, 0.212);
+                }
             }
-            &.info {
-                background-color: var(--color-info);
-            }
-            
         }
-    }
-}
+        .bottom {
+            font-size: 20px;
+            padding: 5px 0px;
+            color: var(--color-txt-notif);
+        }
 
-@keyframes fadeInRight {
-    from {
-        transform: translateX(-200px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0px);
-        opacity: 1;
+        &.error {
+            background-color: var(--color-error);
+        }
+        &.warning {
+            background-color: var(--color-warning);
+        }
+        &.info {
+            background-color: var(--color-info);
+        }
     }
 }

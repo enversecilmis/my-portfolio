@@ -1,10 +1,9 @@
 import styles from './Notifications.module.scss'
-import { IoClose } from 'react-icons/io5'
+import { AnimatePresence, motion, usePresence, HTMLMotionProps } from "framer-motion"
 import { useNotification } from '../../contexts/NotificationContext'
-import { BsInfoCircle } from "react-icons/bs";
-import { BiError, BiErrorCircle } from 'react-icons/bi';
-import { useEffect, useRef } from 'react';
-import { useTransition, animated, easings } from '@react-spring/web';
+import { BiError, BiErrorCircle } from 'react-icons/bi'
+import { BsInfoCircle } from 'react-icons/bs'
+import { IoClose } from 'react-icons/io5'
 
 // ***  TODO ***
 //
@@ -16,87 +15,78 @@ import { useTransition, animated, easings } from '@react-spring/web';
 
 
 const Notifications: React.FC<{  }> = ({  }) => {
+    const { notifications, deleteNotification, pushNotification } = useNotification()
+    const reversed = [...notifications].reverse()
 
-    const lastItem = useRef<HTMLDivElement>(null)
-    const { notifications, deleteNotification } = useNotification()
-
-    const transitions = useTransition(notifications, {
-        from: {
-            opacity: 0,
-            left: "-300px",
-        },
-        enter: {
-            opacity: 1,
-            left: "0px",
-        },
-        leave: {
-            opacity: 0,
-            left: "-300px",
-        },
-        delay: 0,
-        config: {
-            duration: 500,
-            easing: easings.easeOutExpo
-        }
-    })
- 
-
-    useEffect(() => {        
-        lastItem.current?.scrollIntoView({behavior: "smooth"})
-    }, [notifications])
-
+    const TypeIcons = {
+        error: BiError,
+        warning: BiErrorCircle,
+        info: BsInfoCircle
+    }
 
     return (
-        <div  className={styles.container}>
-            <ul className={styles.notificationsContainer}>
-                {transitions((style,item) => {
-
-                    const Icon = item.type === "error"?
-                                    <BiError className={styles.typeIcon}/>:
-                                 item.type === "warning"?
-                                    <BiErrorCircle className={styles.typeIcon}/>:
-                                    <BsInfoCircle className={styles.typeIcon}/>
+        <ul className={styles.container}>
+            <AnimatePresence mode='popLayout'>
+                {reversed.map(notif => {
+                    const TypeIcon = TypeIcons[notif.type]
 
                     return (
-                        <animated.li
-                            key={item.key}
-                            className={`${styles.notificationContainer} ${styles[item.type]}`}
-                            style={{
-                                opacity: style.opacity,
-                                left: style.left
-                            }}
+                        <ListItem
+                            key={notif.key}
+                            className={`${styles.notificationItem} ${styles[notif.type]}`}
                         >
                             <div className={styles.top}>
-                                {Icon}
-                                <p className={styles.source}>{item.source}</p>
+                                <TypeIcon className={styles.typeIcon} />
+                                <span className={styles.source}>{notif.source}</span>
                                 <button
                                     className={styles.closeButton}
-                                    title="Delete notification"
-                                    onClick={() => deleteNotification(item.key)}
+                                    title="Delete Notification"
+                                    onClick={() => deleteNotification(notif.key)}
                                 >
-                                    <IoClose className={styles.closeIcon}/>
+                                    <IoClose/>
                                 </button>
+
                             </div>
                             <div className={styles.bottom}>
-                                
-                                <p className={styles.message}>
-                                    {item.message}
-                                </p>
+                                {notif.message}
                             </div>
-                            
-                        </animated.li>
+
+                        </ListItem>
                     )
                 })}
-                <div ref={lastItem}></div>
-                
-            </ul>
-        </div>
+            </AnimatePresence>
+        </ul>
     )
 }
 
 
 
 
+
+const ListItem: React.FC<HTMLMotionProps<"li">> = ({
+    children,
+    ...props
+}) => {
+    const [isPresent, safeToRemove] = usePresence()
+    return (
+        <motion.li
+            style={{ position: isPresent? "relative":"absolute" }}
+            layout={true}
+            initial="out"
+            animate={isPresent ? "in" : "deleted"}
+            transition={{ type: "keyframes", duration: .3 }}
+            variants={{
+                in: { opacity: 1, left: 0, translateY: 0 },
+                out: { opacity: 0, left: -100, translateY: 0 },
+                deleted: { opacity: 0, left: 0, translateY: 0, zIndex: -1 }
+            }}
+            onAnimationComplete={() => { !isPresent && safeToRemove() }}
+            {...props}
+        >
+            {children}
+        </motion.li>
+    )
+}
 
 
 export default Notifications

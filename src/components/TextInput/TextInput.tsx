@@ -1,34 +1,31 @@
-import { useEffect, useState } from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import styles from './TextInput.module.scss'
 
 
 
 
-type Props = {
-    title?: string
+type MyProps = {
     value?: string
-    onChange: (text: string) => void
+    onChange?: (text: string) => void
 }
+type InputElementProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type">
+type Props = MyProps & InputElementProps
+
+
 const TextInput: React.FC<Props> = ({
-    title,
-    value,
-    onChange
+    onChange = () => {},
+    className,
+    ...props
 }) => {
-
-
     return (
-        <div  className={styles.container}>
-            <span className={styles.title}>{title}</span>
-            <input
-                className={styles.input}
-                type="text"
-                value={value}
-                onChange={e => onChange(e.target.value)}
-            />
-        </div>
+        <input
+            className={`${styles.input} ${className}`}
+            type="text"
+            onChange={e => onChange(e.target.value)}
+            {...props}
+        />
     )
 }
-
 
 
 

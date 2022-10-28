@@ -1,3 +1,5 @@
 {
-    "greeting": "Merhaba Dünya"
+    "greeting": "Merhaba Dünya",
+    "inConstruction": "Bu site hala geliştirme aşamasında",
+    "deleteNotification": "Bildirimi sil"
 }

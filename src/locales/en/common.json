@@ -1,3 +1,5 @@
 {
-    "greeting": "Hello World"
+    "greeting": "Hello World",
+    "inConstruction": "This site is still in development",
+    "deleteNotification": "Delete notification"
 }

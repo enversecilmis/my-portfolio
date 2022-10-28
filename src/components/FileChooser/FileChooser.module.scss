@@ -1,9 +1,10 @@
-.container {
-    display: flex;
-    flex-direction: column;
-
-    .title {
-        color: var(--color-txt-blue);
-        font-size: 20px;
+.button {
+    position: relative;
+    .input {
+        position: absolute;
+        opacity: 0;
+        left: 0;
+        top: 0;
+        pointer-events: none;
     }
 }

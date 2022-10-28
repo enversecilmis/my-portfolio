@@ -9,7 +9,7 @@
     padding-top: 20px;
 
     
-    .title {
+    .pageTitle {
         color: var(--color-txt-blue);
         align-self: center;
         font-size: 30px;
@@ -20,103 +20,71 @@
         text-indent: 30px;
     }
 
-    .inputs {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 100px;
+    .multiStepInputs {
+        position: relative;
+        width: 600px;
+        max-width: 100%;
+        align-self: center;
+        height: 500px;
+        padding: 10px;
 
-        .fileInput {
+        .inputStep {
             display: flex;
+            flex-direction: column;
             gap: 10px;
-            color: var(--color-txt);
-            align-items: flex-start;
-            
-            .fileInputTitle {
-                font-size: 20px;
+            height: 100%;
+
+            .stepTitle {
+                font-size: 25px;
+                text-align: center;
+                margin-bottom: 20px;
                 font-weight: 500;
                 color: var(--color-txt-blue);
             }
-
-            .inputField {
+            .stepContent {
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
+                gap: 10px;
+                align-self: center;
 
-                .regexp {
+                .createArrayButton {
+                    font-size: 20px;
+                }
+                .createdArray {
                     display: flex;
-                    width: 100%;
+                    flex-direction: column;
+                    align-items: center;
+                    .infoText {
+                        color: green;
+                    }
                 }
             }
-        }
-        .regexInput {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .tableSizeInput {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .throwErrorInput {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            
-            .throwErrorTitle {
-                font-weight: 500;
-                font-size: 20px;
-                color: var(--color-txt-blue);
+            .labeledInput {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                .label {
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: var(--color-txt);
+                }
             }
-            #throwLoopError {
-                width: 20px;
-                height: 20px;
-                accent-color: var(--color-txt);
-            }
-        }
-
-        .codeInputs {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-
             .codeInput {
-                width: 0;
-                flex-grow: 1;
-    
-                .editor {
-                    padding-left: 20px;
-                }
-            }
-
-            @include device(smallscreen) {
-                flex-direction: column;
-                .codeInput {
-                    width: auto;
-                }
+                width: 100%;
             }
         }
     }
 
-    .createdTable {
-        .successfullTitle {
-            font-size: 25px;
-            color: var(--color-txt);
-            text-align: center;
-            border-radius: 10px;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            animation: greenFade 2s ease forwards;
-        }
-        .tableContent {
-            background-color: crimson;
-            height: 400px;
-            width: 100%;
-            margin-bottom: 200px;
+    .hashTableContainer {
+        align-self: center;
+
+        .createdHashTableInfo {
+            background-color: green;
+            animation: greenFade 3s forwards;
         }
     }
+
+
 }
 
 @keyframes greenFade {

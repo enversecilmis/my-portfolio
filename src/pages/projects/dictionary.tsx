@@ -10,7 +10,6 @@ import BasicLayout from "../../layouts/BasicLayout";
 import { useNotification } from "../../contexts/NotificationContext";
 import FileChooser from "../../components/FileChooser/FileChooser";
 import CodeInput from "../../components/CodeInput/CodeInput";
-import NumberInput from "../../components/NumberInput/NumberInput";
 import HoverHelp from "../../components/HoverHelp/HoverHelp";
 import ThemedButton from '../../components/ThemedButton/ThemedButton';
 import TextInput from '../../components/TextInput/TextInput';
@@ -29,10 +28,11 @@ import {
     createDictionaryArrayFromString,
     createHashTableFromDictionary,
 } from "../../projects-src/hashtabledict/hashtabledict";
-import { findAPrimeBiggerThan, getStats } from '../../projects-src/hashtabledict/utils';
+import { findAPrimeBiggerThan, getStats, zDictionaryArray } from '../../projects-src/hashtabledict/utils';
 import { DictionaryTypeException, TableSizeException } from '../../projects-src/hashtabledict/exceptions';
 import MultistepInput from '../../components/MultistepInput/MultistepInput';
 import { FileContent } from 'use-file-picker';
+import NumberInput from '../../components/NumberInput/NumberInput';
 
 
 
@@ -48,7 +48,7 @@ const Dictionary: NextPageWithLayout = () => {
     const toScrollElement = useRef<HTMLDivElement>(null)
     const [dictionaryArray, setDictionaryArray] = useState<Dictionary>()
     const [hashTableDictionary, setHashTableDictionary] = useState<DictionaryHashTable>()
-    
+
 
     const [fileContent, setFileContent] = useState<FileContent>()
     const [wordSeperator, setWordSeperator] = useState("")
@@ -57,16 +57,17 @@ const Dictionary: NextPageWithLayout = () => {
     const [hashFunctionString, setHashFunctionString] = useState("")
     const [collisionHandlerString, setCollisionHandlerString] = useState("")
     const [throwInfiniteLoopError, setThrowInfiniteLoopError] = useState(false)
+    const [isCreatingDictArr, setIsCreatingDictArr] = useState(false)
     const isReady = hashTableSize > 0 &&
-                    pairSeperator.length > 0 &&
-                    wordSeperator.length > 0 &&
-                    hashFunctionString.length > 0 &&
-                    collisionHandlerString.length > 0
+        pairSeperator.length > 0 &&
+        wordSeperator.length > 0 &&
+        hashFunctionString.length > 0 &&
+        collisionHandlerString.length > 0
 
 
     useEffect(() => {
         if (!toScrollElement.current) return
-        toScrollElement.current.scrollIntoView({behavior: "smooth"})
+        toScrollElement.current.scrollIntoView({ behavior: "smooth" })
     }, [hashTableDictionary])
 
 
@@ -75,13 +76,16 @@ const Dictionary: NextPageWithLayout = () => {
         let hashFunction: HashStringFunction | undefined
         let collisionHandler: OnCollisionNextIndexHandler | undefined
 
-        // Validate functions.
+        // Validate hash function.
         try {
             const hashFunctionEval = eval(`(input) => {${hashFunctionString}}`)
-            const hashFuncTest = hashFunctionEval("helo");
-            if (typeof hashFuncTest !== "number")
+            const hashFuncOutput = hashFunctionEval("helo");
+
+            if (typeof hashFuncOutput !== "number")
                 throw new Error("Return type is not a number.")
+
             hashFunction = hashFunctionEval
+
         } catch (error: any) {
             hashFunction = undefined
             pushNotification(error.toString() as string, {
@@ -90,20 +94,25 @@ const Dictionary: NextPageWithLayout = () => {
             })
         }
 
+        // Validate collision handler.
         try {
             const collisionHandlerEval = eval(`(currentHashValue, input, iteration) => {${collisionHandlerString}}`)
-            const collisionFuncTest = collisionHandlerEval(19, "helo", 1)
-            if(typeof collisionFuncTest !== "number")
+            const collisionFuncOutput = collisionHandlerEval(19, "helo", 1)
+
+            if (typeof collisionFuncOutput !== "number")
                 throw new Error("Return type is not a number.")
+
             collisionHandler = collisionHandlerEval
+
         } catch (error: any) {
             collisionHandler = undefined
             pushNotification(error.toString(), {
                 type: "error",
                 source: "Collision Handler Input"
             })
-        }        
-        
+        }
+
+        // Try to create hash table dictionary.
         try {
             if (hashFunction === undefined || collisionHandler === undefined || dictionaryArray === undefined)
                 return
@@ -114,166 +123,146 @@ const Dictionary: NextPageWithLayout = () => {
                 hashTableSize,
                 throwInfiniteLoopError,
             })
-            console.log(hashTable.allCollisions.reduce((p,c) => p+c))
-            console.log(getStats(hashTable.allCollisions));
-            
+
             setHashTableDictionary(hashTable)
 
-            
         } catch (error: any) {
             if (error instanceof DictionaryTypeException) {
                 const message = `${error.message}\r\nPlease check seperators or the text file.`
-                pushNotification(message, { type: "error", source: "Create Hash Table", durationSeconds: 5000 })
+                pushNotification(message, { type: "error", source: "Create Hash Table", durationSeconds: 6000 })
                 return
             }
             if (error instanceof TableSizeException) {
                 const message = `${error.message}\r\nPlease give a larger table size value.`
-                pushNotification(message, { type: "error", source: "Create Hash Table", durationSeconds: 5000 })
+                pushNotification(message, { type: "error", source: "Create Hash Table", durationSeconds: 6000 })
                 return
             }
-            pushNotification(error.toString(), { type: "error", source: "Create Hash Table", durationSeconds: 5000 })
+            pushNotification(error.toString(), { type: "error", source: "Create Hash Table", durationSeconds: 6000 })
         }
     }
 
-    
+    const fetchDefaultFile = async () => {
+        try {
+            const response = await fetch("/en-tr-dictionary.txt")
+            const file = await response.text()
+            setFileContent({
+                content: file,
+                name: "en-tr-dictionary.txt",
+                lastModified: 0
+            })
+            setWordSeperator(" {2,}")
+            setPairSeperator("\\r\\n")
+        }
+        catch (error: any) {
+            let message: string
+            if (error instanceof Error)
+                message = error.toString()
+            else
+                message = "Unknown error occurred."
+            pushNotification(message, {
+                type: "error",
+                source: "Create Dictionary Array"
+            })
+        }
+    }
+    const createDictionaryArray = async () => {
+        if (!fileContent?.content) return
+        setIsCreatingDictArr(true)
+        
+        const dictArr = createDictionaryArrayFromString(
+            fileContent.content,
+            new RegExp(wordSeperator),
+            new RegExp(pairSeperator)
+        )
+        if (!zDictionaryArray.safeParse(dictArr).success)
+            pushNotification("Created array structure is not [string,string][]. Check your text file or seperators.",{
+                type: "error",
+                durationSeconds: 6000,
+                source: "Create Dictionary Array"
+            })
+        else
+            setDictionaryArray(dictArr)
+        setIsCreatingDictArr(false)
+    }
 
 
-    
+
     return (
         <>
             <Head>
                 <title>Dictionary</title>
             </Head>
 
-            <div className={styles.container}>
-                <h2 className={styles.title}>{projectsT("hashTableDictionary")}</h2>
+            <main className={styles.container}>
+                <h2 className={styles.pageTitle}>{projectsT("hashTableDictionary")}</h2>
                 <p className={styles.description}>{dictionaryT("description")}</p>
 
 
-                <button onClick={() => {pushNotification("Hello amk")}}>Add</button>
-                {/* <FramerComp/> */}
-                {/* <CodeSandbox/> */}
                 <MultistepInput
-                    onFinish={() => {}}
+                    className={styles.multiStepInputs}
+                    onFinish={() => validateInputsAndCreateHashTable()}
                 >
-                    <div>
-                        <label htmlFor={styles.name}>Name</label>
-                        <input id={styles.name} type="text" />
-                        <TextInput/>
-                    </div>
-                    <div>
-                        <label htmlFor={styles.surname}>Surname</label>
-                        <input id={styles.surname} type="text" />
-                    </div>
-                    <div>
-                        <label htmlFor={styles.age}>Age</label>
-                        <input id={styles.age} type="number" />
-                    </div>                    
-                </MultistepInput>
-                
-                <div className={styles.inputs}>
-                    <div className={styles.fileInput}>
-                        <HoverHelp message="A .txt file that has word-translation pairs with a seperator between them."/>
-                        <span className={styles.fileInputTitle}>Dictionary Array: </span>
-                        <div className={styles.inputField}>
-                            <FileChooser
-                                label="Choose a Text File"
-                                onChange={(fileContent) => {
-                                    setFileContent(fileContent)
-                                }}
-                            />
-                            <span>{fileContent? fileContent.name:"No File Chosen"}</span>
-                            <div className={styles.regexp}>
+                    <div className={styles.inputStep}>
+                        <h3 className={styles.stepTitle}>Create Dictionary Array</h3>
+                        <div className={styles.stepContent}>
+                            <div className={styles.labeledInput}>
+                                <HoverHelp message="A .txt file that has words and their translation with seperators." />
+                                <label className={styles.label}>File: </label>
+                                <FileChooser
+                                    required
+                                    fileSelected={!!fileContent}
+                                    label='Choose a Text File'
+                                    accept='.txt'
+                                    multiple={false}
+                                    onChange={setFileContent}
+                                />
+                                <ThemedButton
+                                    label='Use Default'
+                                    onClick={fetchDefaultFile}
+                                />
+                            </div>
+                            {fileContent?.name}
+                            <div className={styles.labeledInput}>
+                                <HoverHelp message='Regexp for seperating each word-translation pairs.' />
+                                <label className={styles.label}>Word Seperator: </label>
                                 <TextInput
+                                    required
                                     placeholder='Word Seperator'
                                     value={wordSeperator}
                                     onChange={setWordSeperator}
                                 />
-                                <HoverHelp message='Regexp for seperating word from its translation. Default: / {2,}/'/>
                             </div>
-                            <div className={styles.regexp}>
+                            <div className={styles.labeledInput}>
+                                <HoverHelp message='Regexp for seperating word from its translation.' />
+                                <label className={styles.label}>Pair Seperator: </label>
                                 <TextInput
+                                    required
                                     placeholder='Pair Seperator'
                                     value={pairSeperator}
                                     onChange={setPairSeperator}
                                 />
-                                <HoverHelp message='Regexp for seperating each word-translation pairs. Default: /\r\n/'/>
                             </div>
                             <ThemedButton
-                                label='Create Array'
-                                disabled={!pairSeperator || !wordSeperator || !fileContent}
-                                onClick={() => {
-                                    if (!fileContent) return
-                                    const dictArray = createDictionaryArrayFromString(
-                                        fileContent?.content,
-                                        new RegExp(wordSeperator),
-                                        new RegExp(pairSeperator),
-                                    )
-                                    setDictionaryArray(dictArray)
-                                }}
+                                className={styles.createArrayButton}
+                                label='Create'
+                                onClick={createDictionaryArray}
+                                loading={isCreatingDictArr}
                             />
+                            {!!dictionaryArray && !isCreatingDictArr && (
+                            <div className={styles.createdArray}>
+                                <p className={styles.infoText}>Dictionary Created</p>
+                                <p>{dictionaryArray.length} words found</p>
+                            </div>
+                            )}
                         </div>
-                        <ThemedButton
-                            label='Use Default'
-                            onClick={async () => {
-                                try {
-                                    const response = await fetch("/en-tr-dictionary.txt")
-                                    const file = await response.text()
-                                    setFileContent({
-                                        content: file,
-                                        name: "en-tr-dictionary.txt",
-                                        lastModified:0
-                                    })
-                                    setWordSeperator(" {2,}")
-                                    setPairSeperator("\\r\\n")
-                                }
-                                catch (error: any) {
-                                    let message: string
-                                    if (error instanceof Error)
-                                        message = error.toString()
-                                    else
-                                        message = "Unknown error occurred."
-                                    pushNotification(message, {
-                                        type: "error",
-                                        source: "Create Dictionary Array"
-                                    })
-                                }
-                            }}
-                        />
-                    </div>
 
-                    <div className={styles.tableSizeInput}>
-                        <HoverHelp message='Recommended size is a prime number bigger than four times the number of words.'/>
-                        <NumberInput
-                            title="Hash Table Size:"
-                            value={hashTableSize}
-                            onChange={setHashTableSize}
-                        />
-                        <ThemedButton 
-                            label='Use Default'
-                            disabled={!dictionaryArray}
-                            onClick={() => {
-                                if (!dictionaryArray) return
-                                const recommendedSize = findAPrimeBiggerThan(dictionaryArray.length*4)
-                                setHashTableSize(recommendedSize)
-                            }}
-                        />
                     </div>
-                    <div className={styles.throwErrorInput}>
-                        <HoverHelp message="Set this option if you don't use iteration parameter in collision handler function."/>
-                        <label className={styles.throwErrorTitle} htmlFor={styles.throwLoopError}>Throw Infinite Collision Loop Error:</label>
-                        <input
-                            id={styles.throwLoopError}
-                            type="checkbox"
-                            checked={throwInfiniteLoopError}
-                            onChange={(e) => setThrowInfiniteLoopError(e.target.checked)}
-                        />
-                    </div>
-                    <div className={styles.codeInputs}>
+                    <div className={styles.inputStep}>
+                        <h3 className={styles.stepTitle}>Hash Function</h3>
                         <CodeInput
+                            required
                             className={styles.codeInput}
                             editorClassName={styles.editor}
-                            title="Hash Function"
                             boilerplateTop={hashFunctionBoilerplate}
                             boilerplateBottom="}"
                             value={hashFunctionString}
@@ -286,15 +275,17 @@ const Dictionary: NextPageWithLayout = () => {
                                 />
                             }
                         />
+                    </div>
+                    <div className={styles.inputStep}>
+                        <h3 className={styles.stepTitle}>Collision Handler</h3>
                         <CodeInput
+                            required
                             className={styles.codeInput}
-                            editorClassName={styles.editor}
-                            title="Collision Handler"
                             boilerplateTop={collisionHandlerBoilerplate}
                             boilerplateBottom="}"
                             value={collisionHandlerString}
                             onChange={setCollisionHandlerString}
-                            rows={6}
+                            rows={2}
                             topBarButtonLeft={
                                 <ThemedButton
                                     label='Use Default'
@@ -303,19 +294,42 @@ const Dictionary: NextPageWithLayout = () => {
                             }
                             topBarButtonRight={<HoverHelp message="When hash indexes collide this function is called to get the next index." />}
                         />
+                        <div className={styles.labeledInput}>
+                            <HoverHelp message="Set this option if you don't use iteration parameter in collision handler function." />
+                            <label className={styles.label} htmlFor={styles.throwLoopError}>Throw Infinite Collision Loop Error:</label>
+                            <input
+                                id={styles.throwLoopError}
+                                type="checkbox"
+                                checked={throwInfiniteLoopError}
+                                onChange={(e) => setThrowInfiniteLoopError(e.target.checked)}
+                            />
+                        </div>
                     </div>
-                </div>
-                <ThemedButton disabled={!isReady} onClick={validateInputsAndCreateHashTable}>Create Hash Table</ThemedButton>
-                
+                    <div className={styles.inputStep}>
+                        <h3 className={styles.stepTitle}>Hash Table Size</h3>
+                        <NumberInput
+                            required
+                            value={hashTableSize}
+                            onChange={setHashTableSize}
+                        />
+                        <ThemedButton label='Use Default' onClick={() => {
+                            if (dictionaryArray)
+                                setHashTableSize(findAPrimeBiggerThan(dictionaryArray?.length*4))
+                        }}/>
+                    </div>
+                </MultistepInput>
                 {hashTableDictionary &&
-                <div className={styles.createdTable}>
-                    <div className={styles.successfullTitle}>Table Created</div>
-                    <div ref={toScrollElement} className={styles.tableContent}>
-
-                    </div>
+                <div ref={toScrollElement} className={styles.hashTableContainer}>
+                    <p className={styles.createdHashTableInfo}>Hash Table Created</p>
+                    <p>Search in dictionary</p>
+                    <TextInput/>
+                    <p>Search in hash table dictionary</p>
+                    <TextInput/>
                 </div>
+                
                 }
-            </div>            
+
+            </main>
         </>
     )
 }
@@ -325,7 +339,7 @@ const Dictionary: NextPageWithLayout = () => {
 
 
 Dictionary.getLayout = (page: ReactElement) => {
-    return(
+    return (
         <BasicLayout>
             {page}
         </BasicLayout>
@@ -336,7 +350,7 @@ Dictionary.getLayout = (page: ReactElement) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
     return {
         props: {
-        ...(await serverSideTranslations(locale as string, ["common", "projects", "dictionary", "header", "notifications", "contact-button"])),
+            ...(await serverSideTranslations(locale as string, ["common", "header", "projects", "dictionary"])),
         }
     }
 }

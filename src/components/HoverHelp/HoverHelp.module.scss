@@ -1,5 +1,4 @@
 .container {
-    color: var(--color-txt);
     .icon {
         font-size: 25px;
     }
@@ -8,8 +7,8 @@
         padding: 0px 5px;
         border-radius: 3px;
         opacity: 0;
-        background-color: var(--color-txt);
-        color: var(--color-bg);
+        background-color: var(--color-info);
+        color: var(--color-txt-notif);
         transition: opacity .3s;
         pointer-events: none;
     }

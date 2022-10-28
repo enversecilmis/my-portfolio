@@ -1,16 +1,30 @@
 .container {
-    width: auto;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
     border: 1px solid var(--color-txt-lct);
     border-radius: 7px;
+    
+    width: 500px;
+    height: fit-content;
+    min-width: fit-content;
+    min-height: 300px;
 
     color: var(--color-txt);
-    background-color: var(--color-bg-lc);
+    background-color: var(--color-bg);
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.103);
+    overflow: hidden;
+
 
     .stepTag {
         display: flex;
         justify-content: flex-end;
         color: var(--color-txt);
+    }
+    .stepContainer {
+        position: relative;
+        flex-grow: 1;
     }
     .buttons {
         display: flex;

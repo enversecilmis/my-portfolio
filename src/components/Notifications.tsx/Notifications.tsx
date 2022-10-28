@@ -4,6 +4,8 @@ import { useNotification } from '../../contexts/NotificationContext'
 import { BiError, BiErrorCircle } from 'react-icons/bi'
 import { BsInfoCircle } from 'react-icons/bs'
 import { IoClose } from 'react-icons/io5'
+import { useTranslation } from 'next-i18next'
+import { forwardRef, Ref } from 'react'
 
 // ***  TODO ***
 //
@@ -12,17 +14,18 @@ import { IoClose } from 'react-icons/io5'
 // *************
 
 
-
+const TypeIcons = {
+    error: BiError,
+    warning: BiErrorCircle,
+    info: BsInfoCircle
+}
 
 const Notifications: React.FC<{  }> = ({  }) => {
-    const { notifications, deleteNotification, pushNotification } = useNotification()
+    const { notifications, deleteNotification } = useNotification()
     const reversed = [...notifications].reverse()
+    const { t } = useTranslation("common")
 
-    const TypeIcons = {
-        error: BiError,
-        warning: BiErrorCircle,
-        info: BsInfoCircle
-    }
+    
 
     return (
         <ul className={styles.container}>
@@ -40,7 +43,7 @@ const Notifications: React.FC<{  }> = ({  }) => {
                                 <span className={styles.source}>{notif.source}</span>
                                 <button
                                     className={styles.closeButton}
-                                    title="Delete Notification"
+                                    title={t("deleteNotification")}
                                     onClick={() => deleteNotification(notif.key)}
                                 >
                                     <IoClose/>
@@ -62,14 +65,19 @@ const Notifications: React.FC<{  }> = ({  }) => {
 
 
 
+forwardRef(() => {
+    return <></>
+})
 
-const ListItem: React.FC<HTMLMotionProps<"li">> = ({
+
+const ListItem: React.FC<HTMLMotionProps<"li">> = forwardRef(({
     children,
     ...props
-}) => {
+},ref:Ref<HTMLLIElement> | undefined) => {
     const [isPresent, safeToRemove] = usePresence()
     return (
         <motion.li
+            ref={ref}
             style={{ position: isPresent? "relative":"absolute" }}
             layout={true}
             initial="out"
@@ -86,7 +94,7 @@ const ListItem: React.FC<HTMLMotionProps<"li">> = ({
             {children}
         </motion.li>
     )
-}
+})
 
 
 export default Notifications

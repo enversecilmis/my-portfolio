@@ -29,9 +29,8 @@
         padding: 5px;
         border-radius: 7px;
 
-        color: white;
-        background: #272727;
         pointer-events: all;
+        filter: contrast(1.2);
 
         .top {
             color: var(--color-txt-notif);
@@ -55,7 +54,7 @@
         }
         .bottom {
             font-size: 20px;
-            padding: 5px 0px;
+            padding: 10px;
             color: var(--color-txt-notif);
         }
 

@@ -28,7 +28,7 @@ import I18nIcon from "../components/I18nIcon";
 
 const Home: NextPageWithLayout = (props) => {
   const { t } = useTranslation('home')
-  const notificationT = useTranslation("notifications")
+  const { t: commonT } = useTranslation("common")
   const { pushNotification } = useNotification()
   
   
@@ -36,7 +36,7 @@ const Home: NextPageWithLayout = (props) => {
     const showed = window.sessionStorage.getItem("notificationShowed")
     
     if(!showed){
-      pushNotification(notificationT.t('inConstruction'), { type: "info" })
+      pushNotification(commonT('inConstruction'), { type: "info" })
       window.sessionStorage.setItem("notificationShowed", "true")
     }
   }, [])
@@ -179,7 +179,7 @@ Home.getLayout = (page: ReactElement) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ["common", "home", "header", "notifications", "contact-button"])),
+      ...(await serverSideTranslations(locale as string, ["common", "header", "home"])),
     }
   }
 }

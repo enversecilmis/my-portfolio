@@ -15,6 +15,7 @@ type Props = {
     boilerplateBottom?: string
     topBarButtonLeft?: ReactNode
     topBarButtonRight?: ReactNode
+    required?: boolean
 }
 
 const CodeInput: React.FC<Props> = ({
@@ -28,7 +29,8 @@ const CodeInput: React.FC<Props> = ({
     boilerplateBottom,
     boilerplateTop,
     topBarButtonLeft,
-    topBarButtonRight
+    topBarButtonRight,
+    required
 }) => {
     const editor = useRef<HTMLTextAreaElement>(null)
 
@@ -45,6 +47,7 @@ const CodeInput: React.FC<Props> = ({
             <code className={styles.codeContainer}>
                 <pre className={styles.boilerplate}>{boilerplateTop}</pre>
                 <textarea
+                    required={required}
                     ref={editor}
                     className={`${styles.input} ${editorClassName}`}
                     value={value}

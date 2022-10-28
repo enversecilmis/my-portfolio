@@ -26,7 +26,7 @@ const NumberInput: React.FC<Props> = ({ onChange, title, ...rest }) => {
                     value = e.target.valueAsNumber
                     
                     
-                    if(isNaN(value) || value < 0)
+                    if(isNaN(value))
                         onChange(0)
                     else
                         onChange(value)

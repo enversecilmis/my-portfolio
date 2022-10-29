@@ -19,13 +19,13 @@ const ProjectsLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
             <nav className={styles.nav}>
                 <h1 className={styles.title}>{t("title")}</h1>
                 <Link href={"/projects/dijkstra"}>
-                    <a>Dijkstra</a>
+                    Dijkstra
                 </Link>
                 <Link href={"/projects/dictionary"}>
-                    <a>{t("hashTableDictionary")}</a>
+                    {t("hashTableDictionary")}
                 </Link>
                 <Link href={"/projects/primenumbers"}>
-                    <a>{t("primesOnParallel")}</a>
+                    {t("primesOnParallel")}
                 </Link>
             </nav>
 
@@ -33,7 +33,7 @@ const ProjectsLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
                 {children}
             </main>
         </div>
-    )
+    );
 }
 
 

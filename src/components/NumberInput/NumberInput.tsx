@@ -34,7 +34,7 @@ const NumberInput: React.FC<Props> = ({ onChange, title, ...rest }) => {
                 type="number"
             />
         </div>
-    )
+    );
 }
 
 

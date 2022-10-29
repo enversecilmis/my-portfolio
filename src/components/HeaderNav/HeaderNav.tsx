@@ -21,11 +21,11 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                 <ShrinkingName />
 
                 <nav className={styles.largeScreenNav}>
-                    <Link href="/">
-                        <a className={styles.link}>{t('home')}</a>
+                    <Link href="/" className={styles.link}>
+                        {t('home')}
                     </Link>
-                    <Link href="/projects" >
-                        <a className={styles.link}>{t('projects')}</a>
+                    <Link href="/projects" className={styles.link}>
+                        {t('projects')}
                     </Link>
                     <a
                         className={styles.link}
@@ -51,11 +51,11 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                     closeTimeoutMS={300}
                 >
                     <nav className={`${styles.mobileNav} ${isMobileNavOpen? styles.fadeIn:styles.fadeOut}`}>
-                        <Link href="/">
-                            <a onClick={() => setIsMobileNavOpen(false)}>{t('home')}</a>
+                        <Link href="/" onClick={() => setIsMobileNavOpen(false)}>
+                            {t('home')}
                         </Link>
-                        <Link href="/projects" >
-                            <a onClick={() => setIsMobileNavOpen(false)}>{t('projects')}</a>
+                        <Link href="/projects" onClick={() => setIsMobileNavOpen(false)}>
+                            {t('projects')}
                         </Link>
                         <a rel="noopener noreferrer" onClick={() => setIsMobileNavOpen(false)} target={"_blank"} href="https://github.com/enversecilmis">
                             GitHub
@@ -69,7 +69,7 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
             </div>
 
         </header>
-    )
+    );
 }
 
 

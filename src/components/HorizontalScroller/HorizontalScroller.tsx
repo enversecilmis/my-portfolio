@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './HorizontalScroller.module.scss'
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import ResponsiveLayoutAnimation from '../ResponsiveLayoutAnimation/ResponsiveLayoutAnimation';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 
 

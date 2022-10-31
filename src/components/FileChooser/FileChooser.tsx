@@ -53,7 +53,7 @@ const FileChooser: React.FC<Props> = ({
         multiple?
             onChange(filesContent):
             onChange(filesContent[0])
-    }, [filesContent])
+    }, [filesContent, multiple, onChange])
     
 
     const req = !fileSelected && (required && filesContent.length === 0)

@@ -20,7 +20,7 @@ const TypeIcons = {
     info: BsInfoCircle
 }
 
-const Notifications: React.FC<{  }> = ({  }) => {
+const Notifications: React.FC = () => {
     const { notifications, deleteNotification } = useNotification()
     const reversed = [...notifications].reverse()
     const { t } = useTranslation("common")
@@ -92,6 +92,6 @@ const ListItem: React.FC<HTMLMotionProps<"li">> = forwardRef(({
         </motion.li>
     )
 })
-
+ListItem.displayName = "ListItem"
 
 export default Notifications

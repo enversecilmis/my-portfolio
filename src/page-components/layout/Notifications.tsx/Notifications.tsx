@@ -1,6 +1,6 @@
 import styles from './Notifications.module.scss'
 import { AnimatePresence, motion, usePresence, HTMLMotionProps } from "framer-motion"
-import { useNotification } from '../../contexts/NotificationContext'
+import { useNotification } from '../../../contexts/NotificationContext'
 import { BiError, BiErrorCircle } from 'react-icons/bi'
 import { BsInfoCircle } from 'react-icons/bs'
 import { IoClose } from 'react-icons/io5'
@@ -65,9 +65,6 @@ const Notifications: React.FC<{  }> = ({  }) => {
 
 
 
-forwardRef(() => {
-    return <></>
-})
 
 
 const ListItem: React.FC<HTMLMotionProps<"li">> = forwardRef(({

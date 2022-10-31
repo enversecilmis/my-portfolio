@@ -2,11 +2,11 @@ import Link from "next/link"
 import styles from './HeaderNav.module.scss'
 import { useState } from "react";
 import Modal from "react-modal";
-import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
-import ShrinkingName from "../ShrinkingName/ShrinkingName";
-import BurgerButton from "../BurgerButton/BurgerButton";
-import LanguageButton from "../LanguageButton/LanguageButton";
+import ThemeToggleButton from "../../../components/ThemeToggleButton/ThemeToggleButton";
+import ShrinkingName from "../../home/ShrinkingName/ShrinkingName";
+import BurgerButton from "../../../components/BurgerButton/BurgerButton";
 import { useTranslation } from "next-i18next";
+import LanguagePicker from "../../../components/LanguagePicker/LanguagePicker";
 
 
 
@@ -35,7 +35,7 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                     >
                         GitHub
                     </a>
-                    <LanguageButton/>
+                    <LanguagePicker/>
                     <ThemeToggleButton/>
                 </nav>
 
@@ -61,7 +61,7 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                             GitHub
                         </a>
                         <div className={styles.configs}>
-                            <LanguageButton/>
+                            <LanguagePicker/>
                             <ThemeToggleButton className={styles.themeButton}/>
                         </div>
                     </nav>

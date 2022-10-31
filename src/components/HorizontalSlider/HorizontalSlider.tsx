@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react'
+import React, { ReactNode, useMemo, useState } from 'react'
 import styles from './HorizontalSlider.module.scss'
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
@@ -16,11 +16,7 @@ type SliderProps = {
 	previousButtonChild?: ReactNode
 	nextButtonChild?: ReactNode
 }
-type SliderItemProps = {
-	children?: ReactNode | ReactNode[]
-	className?: string
-	sliderTitle?: string
-}
+
 
 
 
@@ -41,7 +37,10 @@ const HorizontalSlider: React.FC<SliderProps> = ({
 }) => {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const childCount = React.Children.count(children)
-	const titles: string[] = React.Children.map(children, child => child.props.sliderTitle || '')
+	const titles: string[] = useMemo(() =>
+		React.Children.map(children, child => child.props.sliderTitle || ''),
+		[children]
+	)
 	
 
 	const previous = () => {
@@ -96,7 +95,11 @@ HorizontalSlider.defaultProps = {
 
 
 
-
+type SliderItemProps = {
+	children?: ReactNode | ReactNode[]
+	className?: string
+	sliderTitle?: string
+}
 const SliderItem: React.FC<SliderItemProps> = ({ children, className }) => (
 	<div className={className}>{children}</div>
 )

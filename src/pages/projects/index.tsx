@@ -4,27 +4,39 @@ import { GetStaticProps, NextPage } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextPageWithLayout } from "../_app";
 import { ReactElement, useEffect } from "react";
-import BasicLayout from "../../layouts/BasicLayout";
-import ProjectsLayout from "../../layouts/ProjectsLayout";
-import { useNotification } from "../../contexts/NotificationContext";
+import BasicLayout from "../../layouts/RootLayout";
+import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 
 
 
-
+const clipText = (text: string, maxCharacters: number) => {
+  return `${text.slice(0,maxCharacters)}...`
+}
 
 const Projects: NextPageWithLayout = () => {
+  const { t } = useTranslation("projects")
+  const { t: dictionaryT } = useTranslation("dictionary")
 
 
   return (
       <>
         <Head>
-          <title>Projects</title>
+          <title>{t("title")}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <main className={styles.container}>
-          <p>Here you can find my algorithm visualization projects.</p>
+          <p className={styles.pageDescription}>Here you can find my algorithm visualization projects.</p>
+
+          <Link className={styles.projectLinkCard} href={"/projects/dictionary"}>
+            <h4 className={styles.cardTitle}>{t("hashTableDictionary")}</h4>
+            <div className={styles.cardContent}>
+              {dictionaryT("description")}
+            </div>
+          </Link>
+
         </main>
       </>
   )
@@ -33,9 +45,7 @@ const Projects: NextPageWithLayout = () => {
 Projects.getLayout = (page: ReactElement) => {
   return (
     <BasicLayout>
-      <ProjectsLayout>
-        {page}
-      </ProjectsLayout>
+      {page}
     </BasicLayout>
   )
 }
@@ -45,7 +55,7 @@ Projects.getLayout = (page: ReactElement) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ["common", "projects", "header", "notifications", "contact-button"])),
+      ...(await serverSideTranslations(locale as string, ["common", "header", "projects", "dictionary"])),
     }
   }
 }

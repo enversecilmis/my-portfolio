@@ -2,7 +2,7 @@ import Image from "next/legacy/image";
 import Head from "next/head";
 import { GetStaticProps } from "next";
 
-import Goal from "../components/Goal/Goal";
+import Goal from "../page-components/home/Goal/Goal";
 import TitledSection from "../components/TitledSection/TitledSection";
 import { FaUniversity } from "react-icons/fa";
 import { GiStairsGoal } from "react-icons/gi";
@@ -13,7 +13,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import HorizontalSlider, { SliderItem } from "../components/HorizontalSlider/HorizontalSlider";
 
-import ResponsiveLayoutAnimation from "../components/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
+import ResponsiveLayoutAnimation from "../page-components/home/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
 import csrImage from '../../public/csr.png';
 import ssrImage from '../../public/ssr.png';
 import ssgImage from '../../public/ssg.png';
@@ -21,7 +21,7 @@ import isrImage from '../../public/isr.png';
 import { ReactElement, useEffect } from "react";
 import { useNotification } from "../contexts/NotificationContext";
 import { NextPageWithLayout } from "./_app";
-import BasicLayout from "../layouts/BasicLayout";
+import BasicLayout from "../layouts/RootLayout";
 import I18nIcon from "../components/I18nIcon";
 
 

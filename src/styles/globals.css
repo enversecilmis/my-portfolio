@@ -12,14 +12,21 @@ body {
     --color-1-t: #e6ebed77;
     --color-1-lc: #bdc2c4;
     --color-1-lct: #bdc2c477;
+    
+    
 
     --color-2: #293a43;
     --color-2-t: #293a4377;
     --color-2-lc: #4d6370;
     --color-2-lct: #43586477;
-
     --color-3: #1e9adf;
     --color-3-t: #1e9adf77;
+
+    --color-1-lc: #a7a093;
+    --color-1: #eae0cc;
+    --color-2: #1e1e1e;
+    --color-2: #233639;
+    --color-2: #142325;
     
     --color-4: #636466;
     --color-4-t: #63646677;

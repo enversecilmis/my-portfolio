@@ -17,9 +17,11 @@
     overflow: hidden;
 
 
+    
     .stepTag {
-        display: flex;
-        justify-content: flex-end;
+        position: absolute;
+        right: 15px;
+        top: 10px;
         color: var(--color-txt);
     }
     .stepContainer {

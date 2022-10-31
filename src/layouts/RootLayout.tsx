@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import ContactButton from "../components/ContactButton/ContactButton"
-import HeaderNav from "../components/HeaderNav/HeaderNav"
-import Notifications from "../components/Notifications.tsx/Notifications"
+import HeaderNav from "../page-components/layout/HeaderNav/HeaderNav"
+import Notifications from "../page-components/layout/Notifications.tsx/Notifications"
 
 
 

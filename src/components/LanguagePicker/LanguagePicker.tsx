@@ -1,4 +1,4 @@
-import styles from './LanguageButton.module.scss'
+import styles from './LanguagePicker.module.scss'
 import { IoLanguage, IoChevronDown } from "react-icons/io5";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,7 +18,7 @@ const setCookie = (locale: string) => {
 }
 
 
-const LanguageButton: React.FC<{ className?: string }> = ({ className }) => {
+const LanguagePicker: React.FC<{ className?: string }> = ({ className }) => {
 	const { asPath, locale } = useRouter()
 	const { t } = useTranslation('header')
 	const [isOpen, setIsOpen] = useState(false)
@@ -82,4 +82,4 @@ const LanguageButton: React.FC<{ className?: string }> = ({ className }) => {
 
 
 
-export default LanguageButton
+export default LanguagePicker

@@ -1,0 +1,1 @@
+Page components are non-reusable components that are used only once in a page for readibility sake.

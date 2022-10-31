@@ -1,0 +1,45 @@
+.inputStep {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+
+    .stepTitle {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 500;
+        color: var(--color-txt-blue);
+        border-bottom: 1px solid var(--color-txt-lct);
+        padding-bottom: 5px;
+    }
+    .stepContent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-self: center;
+
+        .createArrayButton {
+            font-size: 20px;
+        }
+        .createdArray {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .infoText {
+                font-weight: 500;
+                color: green;
+            }
+        }
+    }
+    .labeledInput {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        .label {
+            font-weight: 500;
+            font-size: 20px;
+            color: var(--color-txt);
+        }
+    }
+}

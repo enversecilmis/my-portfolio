@@ -131,31 +131,7 @@ const createHashTableFromDictionary = (
 
 
 
-
-const hashFunctionBoilerplate = `const hashFunction = (input: string): number => {`
-const collisionHandlerBoilerplate = `const collisionHandler = (
-    currentHashValue: number,
-    input: string,
-    iteration: number
-): number => {`
-const defaultHashFunctionString = `const g = 17
-let hash = 0
-
-for(let i=0; i<input.length; i++)
-    hash += input.charCodeAt(i) * g**i
-
-return hash`
-const defaultCollisionHandlerString = `return currentHashValue*input.length + iteration ** 2`
-
-
-
-
-
 export {
     createDictionaryArrayFromString,
     createHashTableFromDictionary,
-    hashFunctionBoilerplate,
-    collisionHandlerBoilerplate,
-    defaultHashFunctionString,
-    defaultCollisionHandlerString,
 }

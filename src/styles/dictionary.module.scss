@@ -7,8 +7,6 @@
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 20px;
-
-    
     .pageTitle {
         color: var(--color-txt-blue);
         align-self: center;
@@ -20,65 +18,27 @@
         text-indent: 30px;
     }
 
-    .multiStepInputs {
+    .multiStepForm {
         position: relative;
         width: 600px;
         max-width: 100%;
         align-self: center;
         height: 500px;
-        padding: 10px;
-
-        .inputStep {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            height: 100%;
-
-            .stepTitle {
-                font-size: 25px;
-                text-align: center;
-                margin-bottom: 20px;
-                font-weight: 500;
-                color: var(--color-txt-blue);
-            }
-            .stepContent {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                align-self: center;
-
-                .createArrayButton {
-                    font-size: 20px;
-                }
-                .createdArray {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    .infoText {
-                        color: green;
-                    }
-                }
-            }
-            .labeledInput {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                .label {
-                    font-weight: 500;
-                    font-size: 20px;
-                    color: var(--color-txt);
-                }
-            }
-            .codeInput {
-                width: 100%;
-            }
-        }
-    }
+        padding: 10px 20px;
+        border-radius: 25px;
+}
 
     .hashTableContainer {
         align-self: center;
-
+        width: 50%;
+        height: 100px;
+        
         .createdHashTableInfo {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 30px;
             background-color: green;
             animation: greenFade 3s forwards;
         }

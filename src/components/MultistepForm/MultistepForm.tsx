@@ -1,12 +1,22 @@
-import { Children, FormEventHandler, ReactNode, useRef, useState } from 'react'
+import React, { Children, FormEventHandler, ReactElement, ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import ThemedButton from '../ThemedButton/ThemedButton'
-import styles from './MultistepInput.module.scss'
+import styles from './MultistepForm.module.scss'
 import { AnimatePresence, motion } from "framer-motion"
 
 
 
+
+
+type Props = {
+    className?: string
+    onFinish?: () => void
+    children: ReactNode | ReactNode[]
+}
+
+
+
 const variants = {
-    center: {
+    stand: {
         x: 0,
         opacity: 1
     },
@@ -21,17 +31,12 @@ const variants = {
     })
 }
 
-
-type Props = {
-    className?: string
-    onFinish?: () => void
-    children?: ReactNode | ReactNode[]
-}
 /**
  * Every react children becomes a step.
- * And every child needs a key.
+ * You can disable `next` button on each step
+ * by wraping your component with `MultiStepInput.StepItem` component.
  */
-const MultistepInput: React.FC<Props> = ({
+const MultistepForm: React.FC<Props> = ({
     onFinish = () => {},
     children,
     className
@@ -39,7 +44,7 @@ const MultistepInput: React.FC<Props> = ({
     const [stepIndex, setStepIndex] = useState(0)
     const [direction, setDirection] = useState(0)
 
-    const childrenArray = Children.toArray(children)
+    const childrenArray = React.Children.toArray(children)
     const lastIndex = childrenArray.length - 1
 
 
@@ -47,10 +52,9 @@ const MultistepInput: React.FC<Props> = ({
     const nextOrFinish: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault()
         stepIndex === lastIndex ?
-            onFinish() :
+            onFinish():
             next()
     }
-
     const next = () => {
         setStepIndex(p => p >= lastIndex ? lastIndex : p + 1)
         setDirection(1)
@@ -78,7 +82,7 @@ const MultistepInput: React.FC<Props> = ({
                         x: { type: "keyframes", ease: "easeOut", duration: .3 }
                     }}
                     initial="enter"
-                    animate="center"
+                    animate="stand"
                     exit="exit"
                 >
                     {childrenArray[stepIndex]}
@@ -107,4 +111,4 @@ const MultistepInput: React.FC<Props> = ({
 
 
 
-export default MultistepInput
+export default MultistepForm

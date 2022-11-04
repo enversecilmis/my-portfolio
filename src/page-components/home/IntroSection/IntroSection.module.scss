@@ -1,0 +1,75 @@
+@import "../../../styles/mixins.scss";
+
+.container {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    
+    padding-bottom: 20px;
+    border-radius: 20px;
+    max-width: 1024px;
+    width: 100%;
+    height: auto;
+
+    background-color: var(--color-bg-2);
+
+    .ppContainer {
+        position: relative;
+        top: -100px;
+        left: 5%;
+
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        transform: rotate(-5deg);
+        filter: saturate(.7);
+        
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+
+    .introText {
+        position: relative;
+        margin-left: calc(5% + 5px);
+        margin-right: 5%;
+
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        
+        .title {
+            text-align: center;
+            align-self: center;
+            font-size: 50px;
+            color: var(--color-txt-blue-2);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        .text {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--color-txt);
+            text-align: justify;
+        }
+    }
+}
+
+@include device(tablet) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+
+        .ppContainer {
+            left: 0;
+        }
+        .introText {
+            top: -80px;
+            .title {
+                align-self: initial;
+                font-size: 40px;
+            }
+            .text {
+                font-size: 20px;
+            }
+        }
+    }
+}

@@ -35,8 +35,8 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                     >
                         GitHub
                     </a>
-                    <LanguagePicker/>
-                    <ThemeToggleButton/>
+                    <LanguagePicker className={styles.link}/>
+                    <ThemeToggleButton className={styles.link}/>
                 </nav>
 
 
@@ -51,18 +51,18 @@ const HeaderNav: React.FC<{  }> = ({ }) => {
                     closeTimeoutMS={300}
                 >
                     <nav className={`${styles.mobileNav} ${isMobileNavOpen? styles.fadeIn:styles.fadeOut}`}>
-                        <Link href="/" onClick={() => setIsMobileNavOpen(false)}>
+                        <Link className={styles.link} href="/" onClick={() => setIsMobileNavOpen(false)}>
                             {t('home')}
                         </Link>
-                        <Link href="/projects" onClick={() => setIsMobileNavOpen(false)}>
+                        <Link className={styles.link} href="/projects" onClick={() => setIsMobileNavOpen(false)}>
                             {t('projects')}
                         </Link>
-                        <a rel="noopener noreferrer" onClick={() => setIsMobileNavOpen(false)} target={"_blank"} href="https://github.com/enversecilmis">
+                        <a className={styles.link} rel="noopener noreferrer" onClick={() => setIsMobileNavOpen(false)} target={"_blank"} href="https://github.com/enversecilmis">
                             GitHub
                         </a>
                         <div className={styles.configs}>
-                            <LanguagePicker/>
-                            <ThemeToggleButton className={styles.themeButton}/>
+                            <LanguagePicker className={styles.link}/>
+                            <ThemeToggleButton className={styles.link}/>
                         </div>
                     </nav>
                 </Modal>

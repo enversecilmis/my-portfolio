@@ -1,0 +1,19 @@
+.inputStep {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+
+    .stepTitle {
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: 500;
+        color: var(--color-txt-blue);
+        border-bottom: 1px solid var(--color-overlay-2);
+        padding-bottom: 5px;
+    }
+    .codeInput {
+        width: 100%;
+    }
+}

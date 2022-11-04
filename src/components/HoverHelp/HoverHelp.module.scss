@@ -1,14 +1,15 @@
 .container {
     .icon {
         font-size: 25px;
+        color: var(--color-txt-4);
     }
     .message {
         z-index: 10;
-        padding: 0px 5px;
+        padding: 5px 5px;
         border-radius: 3px;
         opacity: 0;
         background-color: var(--color-info);
-        color: var(--color-txt-notif);
+        color: var(--color-dark);
         transition: opacity .3s;
         pointer-events: none;
     }

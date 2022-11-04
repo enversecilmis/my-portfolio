@@ -1,41 +1,41 @@
 import Head from "next/head";
 import styles from "../../styles/projects.module.scss";
-import { GetStaticProps, NextPage } from "next";
+import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextPageWithLayout } from "../_app";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import BasicLayout from "../../layouts/RootLayout";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import ProjectCardLink from "../../page-components/projects/ProjectCardLink/ProjectCardLink";
 
 
 
 
-const clipText = (text: string, maxCharacters: number) => {
-  return `${text.slice(0,maxCharacters)}...`
-}
+
 
 const Projects: NextPageWithLayout = () => {
-  const { t } = useTranslation("projects")
+  const { t: projectsT } = useTranslation("projects")
   const { t: dictionaryT } = useTranslation("dictionary")
 
 
   return (
       <>
         <Head>
-          <title>{t("title")}</title>
+          <title>{projectsT("title")}</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
         <main className={styles.container}>
-          <p className={styles.pageDescription}>Here you can find my algorithm visualization projects.</p>
+          <p className={styles.pageDescription}>Here you can find some of my projects</p>
 
-          <Link className={styles.projectLinkCard} href={"/projects/dictionary"}>
-            <h4 className={styles.cardTitle}>{t("hashTableDictionary")}</h4>
-            <div className={styles.cardContent}>
-              {dictionaryT("description")}
-            </div>
-          </Link>
+          <div className={styles.projects}>
+            <ProjectCardLink
+              href="/projets/dictionary"
+              tFunction={dictionaryT}
+            />
+          </div>
+
 
         </main>
       </>

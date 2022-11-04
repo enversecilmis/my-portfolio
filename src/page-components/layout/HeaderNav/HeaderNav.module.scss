@@ -7,12 +7,12 @@
     top: 0;
     height: var(--header-height);
     
-    background-color: rgba(31, 37, 40, 0.8);
+    background-color: var(--color-bg-header);
     backdrop-filter: blur(15px);
-    box-shadow: 0 5px 20px 0 #00000044;
+    box-shadow: 0 5px 10px 0 #00000044;
     
     z-index: 999;
-
+    
     .innerContainer {
         position: relative;
         display: flex;
@@ -44,10 +44,10 @@
             }
             
             .link {
-                color: #bbb;
-                transition: color .3s;
+                color: var(--color-light-2);
+                transition: filter .3s ease-out;
                 &:hover{
-                    color: #eee;
+                    filter: brightness(1.25);
                 }
             }
         }
@@ -71,12 +71,18 @@
     width: 100%;
     height: 100%;
 
-    background-color: rgba(20, 20, 20, 0.688);
+    background-color: var(--color-bg-header);
     backdrop-filter: blur(20px);
     
     a {
         font-size: 30px;
-        color: #bbb;
+    }
+    .link {
+        color: var(--color-light-2);
+        transition: filter .3s ease-out;
+        &:hover{
+            filter: brightness(1.25);
+        }
     }
     .configs {
         position: absolute;

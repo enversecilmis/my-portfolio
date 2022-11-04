@@ -1,0 +1,31 @@
+.projectLinkCard {
+    display: flex;
+    flex-direction: column;
+
+    width: clamp(100px, 100%, 500px);
+    padding: 0 10px 10px 10px;
+
+    background-color: var(--color-overlay);
+    border: 1px solid var(--color-overlay-2);
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+    transition: background-color .3s ease, box-shadow .2s ease-out;
+    
+    &:hover {
+        background-color: var(--color-bg);
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .cardTitle {
+        padding: 5px 0px;
+        color: var(--color-txt-blue);
+        font-size: 25px;
+        text-align: center;
+        border-bottom: 1px solid var(--color-overlay-2);
+    }
+    .cardContent {
+        padding: 5px 0px;
+        font-size: 20px;
+        color: var(--color-txt-2);
+    }
+}

@@ -2,10 +2,6 @@
     position: relative;
     overflow: hidden;
     
-    width: 100%;
-    height: fit-content;
-    
-
     .sliderTitle {
         text-align: center;
         font-size: 30px;
@@ -22,26 +18,33 @@
         .itemContainer {
             width: 100%;
             flex-shrink: 0;
+            padding: 0px 50px;
         }
     }
 
-    .previousButton {
+    .navButtons {
         position: absolute;
-        left: 0;
         top: 50%;
         transform: translateY(-50%);
-        
-        font-size: 40px;
+
+        font-size: 50px;
+        border-radius: 50%;
+        color: var(--color-txt-blue);
         z-index: 1;
+        transition: background-color .2s;
+
+        &:hover {
+            background-color: var(--color-overlay);
+        }
+        &:active {
+            background-color: var(--color-overlay-2);
+        }
+    }
+    .previousButton {
+        left: 0;
     }
     .nextButton {
-        position: absolute;
         right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        
-        font-size: 40px;
-        z-index: 1;
     }
 }
 

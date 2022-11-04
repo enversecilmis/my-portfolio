@@ -33,8 +33,6 @@ const variants = {
 
 /**
  * Every react children becomes a step.
- * You can disable `next` button on each step
- * by wraping your component with `MultiStepInput.StepItem` component.
  */
 const MultistepForm: React.FC<Props> = ({
     onFinish = () => {},

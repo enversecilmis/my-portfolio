@@ -1,4 +1,4 @@
 {
     "description": "Bu projede kelime-çeviri şeklinde olan sözlük dizisi hash tablosuna çevriliyor. Böylece arama zaman karmaşıklığı O(n)'den O(1)'e düşürülmüş oluyor.",
-    "asd": ""
+    "title": "Sözlük Hash Tablosu"
 }

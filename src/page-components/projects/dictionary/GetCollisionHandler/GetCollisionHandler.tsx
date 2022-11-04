@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react'
-import CodeInput from '../../../components/CodeInput/CodeInput'
-import HoverHelp from '../../../components/HoverHelp/HoverHelp'
-import ThemedButton from '../../../components/ThemedButton/ThemedButton'
+import CodeInput from '../../../../components/CodeInput/CodeInput'
+import HoverHelp from '../../../../components/HoverHelp/HoverHelp'
+import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
 import styles from './GetCollisionHandler.module.scss'
 
 

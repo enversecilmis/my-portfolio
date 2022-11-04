@@ -8,21 +8,20 @@ import { useTranslation } from "next-i18next";
 
 
 
-const buttonIcons = [
-    <BsCircleHalf key="systempreficon"  />,
-    <BsBrightnessHighFill key="lightpreficon"  />,
-    <BsMoonFill key="darkpreficon"  />,
-]
-const prefs = [
-    'system',
-    'light',
-    'dark'
-]
+const buttonIcons = {
+    system: <BsCircleHalf key="systempreficon"  />,
+    light: <BsBrightnessHighFill key="lightpreficon"  />,
+    dark: <BsMoonFill key="darkpreficon"  />,
+}
 
 
+type Props = {
+    className?: string
+}
 
-
-const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
+const ThemeToggleButton: React.FC<Props> = ({
+    className
+}) => {
     const [themePref, setThemePref, nextThemePref] = useThemePref()
     const { t } = useTranslation('header')
     
@@ -31,9 +30,7 @@ const ThemeToggleButton: React.FC<{ className?: string }> = ({ className }) => {
         return <FiLoader key="prefloadericon"  className="animate-spin" />
 
 
-    const idx = prefs.indexOf(themePref)
-    const ButtonIcon = buttonIcons[idx]
-
+    const ButtonIcon = buttonIcons[themePref]
     return (
         <button
             aria-label={`${t('changeTheme')} ${t(nextThemePref)}`}

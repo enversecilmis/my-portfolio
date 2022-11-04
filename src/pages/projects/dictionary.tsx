@@ -19,10 +19,10 @@ import { DictionaryTypeException, TableSizeException } from '../../projects-src/
 
 import { createHashTableFromDictionary } from "../../projects-src/hashtabledict/hashtabledict";
 import MultistepForm from '../../components/MultistepForm/MultistepForm';
-import CreateDictionaryArray from '../../page-components/dictionary/CreateDictionaryArray/CreateDictionaryArray';
-import GetHashFunction from '../../page-components/dictionary/GetHashFunction/GetHashFunction';
-import GetCollisionHandler from '../../page-components/dictionary/GetCollisionHandler/GetCollisionHandler';
-import GetTableSize from '../../page-components/dictionary/GetTableSize/GetTableSize';
+import CreateDictionaryArray from '../../page-components/projects/dictionary/CreateDictionaryArray/CreateDictionaryArray';
+import GetHashFunction from '../../page-components/projects/dictionary/GetHashFunction/GetHashFunction';
+import GetCollisionHandler from '../../page-components/projects/dictionary/GetCollisionHandler/GetCollisionHandler';
+import GetTableSize from '../../page-components/projects/dictionary/GetTableSize/GetTableSize';
 
 
 
@@ -136,7 +136,7 @@ const Dictionary: NextPageWithLayout = () => {
             </Head>
 
             <main className={styles.container}>
-                <h1 className={styles.pageTitle}>{projectsT("hashTableDictionary")}</h1>
+                <h1 className={styles.pageTitle}>{dictionaryT("title")}</h1>
                 <p className={styles.description}>{dictionaryT("description")}</p>
 
                 <MultistepForm

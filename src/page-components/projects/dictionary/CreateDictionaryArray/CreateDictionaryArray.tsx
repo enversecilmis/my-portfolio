@@ -1,13 +1,13 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { FileContent } from 'use-file-picker'
-import FileChooser from '../../../components/FileChooser/FileChooser'
-import HoverHelp from '../../../components/HoverHelp/HoverHelp'
-import TextInput from '../../../components/TextInput/TextInput'
-import ThemedButton from '../../../components/ThemedButton/ThemedButton'
-import { useNotification } from '../../../contexts/NotificationContext'
-import { createDictionaryArrayFromString } from '../../../projects-src/hashtabledict/hashtabledict'
-import { Dictionary } from '../../../projects-src/hashtabledict/types'
-import { zDictionaryArray } from '../../../projects-src/hashtabledict/utils'
+import FileChooser from '../../../../components/FileChooser/FileChooser'
+import HoverHelp from '../../../../components/HoverHelp/HoverHelp'
+import TextInput from '../../../../components/TextInput/TextInput'
+import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
+import { useNotification } from '../../../../contexts/NotificationContext'
+import { createDictionaryArrayFromString } from '../../../../projects-src/hashtabledict/hashtabledict'
+import { Dictionary } from '../../../../projects-src/hashtabledict/types'
+import { zDictionaryArray } from '../../../../projects-src/hashtabledict/utils'
 import styles from './CreateDictionaryArray.module.scss'
 
 
@@ -58,12 +58,14 @@ const CreateDictionaryArray: React.FC<Props> = ({
             new RegExp(wordSeperator),
             new RegExp(pairSeperator)
         )
-        if (!zDictionaryArray.safeParse(dictArr).success)
+        if (!zDictionaryArray.safeParse(dictArr).success){
             pushNotification("Created array structure is not [string,string][]. Check your text file or seperators.",{
-                type: "error",
-                durationSeconds: 6000,
-                source: "Create Dictionary Array"
+            type: "error",
+            durationSeconds: 6000,
+            source: "Create Dictionary Array"
             })
+            setDictionary(undefined)
+        }
         else
             setDictionary(dictArr)
     }
@@ -72,6 +74,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
         <div className={styles.inputStep}>
             <h3 className={styles.stepTitle}>Create Dictionary Array</h3>
             <div className={styles.stepContent}>
+                
                 <div className={styles.labeledInput}>
                     <HoverHelp message="A .txt file that has words and their translation with seperators." />
                     <label className={styles.label}>File: </label>
@@ -83,14 +86,10 @@ const CreateDictionaryArray: React.FC<Props> = ({
                         multiple={false}
                         onChange={setFileContent}
                     />
-                    <ThemedButton
-                        label='Use Default'
-                        onClick={setDefaultDictInputs}
-                    />
                     {fileContent?.name}
                 </div>
                 <div className={styles.labeledInput}>
-                    <HoverHelp message='Regexp for seperating each word-translation pairs.' />
+                    <HoverHelp message='Regexp for seperating word from its translation.' />
                     <label className={styles.label}>Word Seperator: </label>
                     <TextInput
                         required
@@ -100,7 +99,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
                     />
                 </div>
                 <div className={styles.labeledInput}>
-                    <HoverHelp message='Regexp for seperating word from its translation.' />
+                    <HoverHelp message='Regexp for seperating each word-translation pairs.' />
                     <label className={styles.label}>Pair Seperator: </label>
                     <TextInput
                         required
@@ -110,14 +109,20 @@ const CreateDictionaryArray: React.FC<Props> = ({
                     />
                 </div>
                 <ThemedButton
+                    label='Use Default'
+                    className={styles.useDefaultButton}
+                    onClick={setDefaultDictInputs}
+                />
+                <ThemedButton
                     className={styles.createArrayButton}
                     label='Create'
+                    disabled={!fileContent || !wordSeperator || !pairSeperator}
                     onClick={createDictionaryArray}
                 />
-                {!!dictionary && (
+                {dictionary && (
                     <div className={styles.createdArray}>
-                        <p className={styles.infoText}>Dictionary Created</p>
-                        <p>{dictionary.length} words found</p>
+                        <p className={styles.createdText}>Dictionary Created</p>
+                        <p className={styles.infoText}>{dictionary.length} words found</p>
                     </div>
                 )}
             </div>

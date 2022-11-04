@@ -11,7 +11,7 @@ import RoutineIcon from "../components/RoutineIcon";
 import styles from "../styles/home.module.scss"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
-import HorizontalSlider, { SliderItem } from "../components/HorizontalSlider/HorizontalSlider";
+import Carousel from "../components/Carousel/Carousel";
 
 import ResponsiveLayoutAnimation from "../page-components/home/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation";
 import csrImage from '../../public/csr.png';
@@ -23,6 +23,7 @@ import { useNotification } from "../contexts/NotificationContext";
 import { NextPageWithLayout } from "./_app";
 import BasicLayout from "../layouts/RootLayout";
 import I18nIcon from "../components/I18nIcon";
+import IntroSection from "../page-components/home/IntroSection/IntroSection";
 
 
 
@@ -51,18 +52,7 @@ const Home: NextPageWithLayout = (props) => {
 
       <main className={styles.container}>
         <Goal />
-
-        <section  className={styles.introSection}>
-            <div className={styles.ppContainer}>
-                <Image src="/pp.jpg" alt='profile picture' layout={"fill"} objectFit={"contain"} className={styles.pp} />
-            </div>
-            <div className={styles.introText}>
-                <p className={styles.title}>Hello World!</p>
-                <p className={styles.text}>
-                  {t('intro')}
-                </p>
-            </div>
-        </section>
+        <IntroSection/>
 
 
         <TitledSection className={styles.whoAmISection} title={t('whoAmI')}>
@@ -102,50 +92,50 @@ const Home: NextPageWithLayout = (props) => {
             <p className={styles.text}>- {t('whatICanDoNext')}</p>
             <p className={styles.text}>- {t('whatICanDoRN')}</p>
           </div>
-          <HorizontalSlider
+          <Carousel
             className={styles.sliderContainer}
             sliderClassName={styles.slider}
             titleClassName={styles.sliderTitle}
           >
-            <SliderItem sliderTitle={t('responsiveDesign')} className={styles.responsiveSlide}>
+            <Carousel.Item sliderTitle={t('responsiveDesign')} className={styles.responsiveSlide}>
               <p className={styles.description}>{t('responsiveExplain')}</p>
               <ResponsiveLayoutAnimation className={styles.resLaySvg}/>
-            </SliderItem>
+            </Carousel.Item>
 
-            <SliderItem sliderTitle={t('multilanguageSupport')} className={styles.i18nSlide}>
+            <Carousel.Item sliderTitle={t('multilanguageSupport')} className={styles.i18nSlide}>
               <p className={styles.description}>{t('multilanguageExplain')}</p>
               <I18nIcon className={styles.image} size={400}/>
-            </SliderItem>
+            </Carousel.Item>
 
-            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+            <Carousel.Item className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
               <div className={styles.description}>
                 <h5 className={styles.subTitle}>CSR</h5>
                 <span className={styles.descText}>{t('csr')}</span>
               </div>
               <Image placeholder='blur' alt='client side rendering' src={csrImage}/>
-            </SliderItem>
-            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+            </Carousel.Item>
+            <Carousel.Item className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
               <div className={styles.description}>
                 <h5 className={styles.subTitle}>SSR</h5>
                 <span className={styles.descText}>{t('ssr')}</span>
               </div>
               <Image placeholder='blur' alt='client side rendering' src={ssrImage}/>
-            </SliderItem>
-            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+            </Carousel.Item>
+            <Carousel.Item className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
               <div className={styles.description}>
                 <h5 className={styles.subTitle}>SSG</h5>
                 <span className={styles.descText}>{t('ssg')}</span>
               </div>
               <Image placeholder='blur' alt='client side rendering' src={ssgImage}/>
-            </SliderItem>
-            <SliderItem className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
+            </Carousel.Item>
+            <Carousel.Item className={styles.csrSlide} sliderTitle={t('renderingStrategies')}>
               <div className={styles.description}>
                 <h5 className={styles.subTitle}>ISR</h5>
                 <span className={styles.descText}>{t('isr')}</span>
               </div>
               <Image placeholder='blur' alt='client side rendering' src={isrImage}/>
-            </SliderItem>
-          </HorizontalSlider>
+            </Carousel.Item>
+          </Carousel>
         </TitledSection>
 
 

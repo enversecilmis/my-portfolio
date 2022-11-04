@@ -2,105 +2,44 @@
 
 
 .container {
-    background-color: var(--color-bg);
-    color: var(--color-txt);
-
     display: flex;
     flex-direction: column;
     gap: 200px;
     
-
-    .introSection {
-        display: flex;
-        margin-left: auto;
-        margin-right: auto;
-        
-        padding-bottom: 20px;
-        border-radius: 20px;
-        max-width: 1024px;
-        width: 100%;
-        height: auto;
-    
-        background-color: var(--color-trans);
-    
-        .ppContainer {
-            position: relative;
-            top: -100px;
-            left: 5%;
-    
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            transform: rotate(-5deg);
-            filter: saturate(.7);
-            
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-    
-        .introText {
-            position: relative;
-            margin-left: calc(5% + 5px);
-            margin-right: 5%;
-    
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            
-            .title {
-                text-align: center;
-                align-self: center;
-                font-size: 50px;
-                color: var(--color-txt-lct);
-                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            }
-            .text {
-                font-size: 24px;
-                font-weight: 400;
-                color: var(--color-txt);
-                text-align: justify;
-            }
-        }
-    }
-    
+    background-color: var(--color-bg);
+    color: var(--color-txt);
 
     .whoAmISection {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        margin-top: 20px;
+        
         .iconTextContainer {
-            margin-top: 50px;
             display: flex;
             align-items: center;
-
-            stroke: var(--color-txt);
-            fill: var(--color-txt);
+            gap: 20px;
 
             .icon {
+                fill: var(--color-txt-3);
                 width: 2em;
                 height: 2em;
                 flex-shrink: 0;
             }
-            .text {
-                margin-left: 25px;
-            }
         }
     }
 
-    .knowledgeSection {
-        .knowledgeContent {
-            margin-top: 50px;
-            height: 400px;
-            width: 100%;
-        }
-    }
+    
     .whatICanDoSection {
         display: flex;
         flex-direction: column;
-        gap: 70px;
-        padding-top: 50px;
+        gap: 50px;
+        margin-top: 20px;
 
         .sliderContainer {
             .sliderTitle {
                 line-height: 40px;
-                color: var(--color-txt-blue);
+                color: var(--color-txt-blue-2);
                 font-size: 40px;
                 font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
             }
@@ -108,13 +47,11 @@
                 align-items: center;
                 
                 .responsiveSlide {
-                    padding: 0px 40px 0px 40px;
                     display: flex;
                     align-items: center;
                     gap: 30px;
                 }
                 .i18nSlide {
-                    padding: 40px 40px 0px 40px;
                     display: flex;
                     align-items: center;
                     align-items: center;
@@ -125,7 +62,6 @@
                     }
                 }
                 .csrSlide {
-                    padding: 0px 40px 0px 40px;
 
                     .description {
                         margin-bottom: 50px;
@@ -146,13 +82,13 @@
 
 
 .parentheses {
-    color: var(--color-txt-lc);
+    color: var(--color-txt-2);
     
     .link {
         font-size: .9em;
         color: var(--color-txt-blue);
         &:hover {
-            color: var(--color-txt-lc);
+            color: var(--color-txt-2);
         }
     }
 }

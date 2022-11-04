@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import CodeInput from '../../../components/CodeInput/CodeInput'
-import ThemedButton from '../../../components/ThemedButton/ThemedButton'
+import CodeInput from '../../../../components/CodeInput/CodeInput'
+import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
 import styles from './GetHashFunction.module.scss'
 
 

@@ -10,35 +10,21 @@
         margin-bottom: 20px;
         font-weight: 500;
         color: var(--color-txt-blue);
-        border-bottom: 1px solid var(--color-txt-lct);
+        border-bottom: 1px solid var(--color-overlay-2);
         padding-bottom: 5px;
-    }
-    .stepContent {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        align-self: center;
-
-        .createArrayButton {
-            font-size: 20px;
-        }
-        .createdArray {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            .infoText {
-                color: green;
-            }
-        }
     }
     .labeledInput {
         display: flex;
         align-items: center;
         gap: 5px;
         .label {
+            color: var(--color-txt-2);
             font-weight: 500;
             font-size: 20px;
-            color: var(--color-txt);
+        }
+        #throwLoopError {
+            height: 20px;
+            width: 20px;
         }
     }
     .codeInput {

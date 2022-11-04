@@ -1,25 +1,26 @@
+@import "../../../styles/mixins.scss";
+
 .fullname {
-    --shrinking-name-opacity: 1;
-    --shrinking-name-fontsize: 30px;
+    --scrollY: 0;
+    --scroll-amount: max(calc(1 - (var(--scrollY) / 450)), 0);
     font-size: 40px;
     font-weight: 100;
     white-space: nowrap;
-    color: #9c9c9c;
+    color: var(--color-light-3);
     
-    .shrink {
-        opacity: var(--shrinking-name-opacity);
-        font-size: var(--shrinking-name-fontsize);
+    @include device(tablet) {
+        font-size: 35px;
     }
-
-    #lastname {
-        // color: #667fb5;
-        color: var(--color-txt-blue);
-    }
-}
-
-
-@media screen and (max-width: 400px) {
-    .fullname {
+    @include device(mobile) {
         font-size: 30px;
     }
+
+    .shrink {
+        opacity: var(--scroll-amount);
+        font-size: calc(80%*var(--scroll-amount));
+    }
+    #lastname {
+        color: var(--color-blue-3);
+    }
 }
+

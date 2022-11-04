@@ -12,13 +12,18 @@ import Image from "next/legacy/image";
 
 
 
-// TODO: cookie for language prefference
+// TODO: Cookie for language prefference
+// TODO: Change language without refreshing and adding to history
 const setCookie = (locale: string) => {
     document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
 }
 
-
-const LanguagePicker: React.FC<{ className?: string }> = ({ className }) => {
+type Props = {
+	className?: string
+}
+const LanguagePicker: React.FC<Props> = ({
+	className
+}) => {
 	const { asPath, locale } = useRouter()
 	const { t } = useTranslation('header')
 	const [isOpen, setIsOpen] = useState(false)
@@ -33,7 +38,7 @@ const LanguagePicker: React.FC<{ className?: string }> = ({ className }) => {
 		>
 			<button
 				onClick={() => setIsOpen(p => !p)}
-				className={styles.button}
+				className={`${styles.button} ${className}`}
 				title={t('selectLanguage')}
 			>
 				<IoLanguage size={20} />

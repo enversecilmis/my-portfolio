@@ -28,7 +28,7 @@ const GetTableSize: React.FC<Props> = ({
                     value={hashTableSize}
                     onChange={setHashTableSize}
                 />
-                <ThemedButton label='Use Default' onClick={() => {
+                <ThemedButton label='Use Recommended' onClick={() => {
                     if (dictionaryArray)
                         setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
                 }} />

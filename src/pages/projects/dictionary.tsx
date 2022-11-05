@@ -23,7 +23,8 @@ import CreateDictionaryArray from '../../page-components/projects/dictionary/Cre
 import GetHashFunction from '../../page-components/projects/dictionary/GetHashFunction/GetHashFunction';
 import GetCollisionHandler from '../../page-components/projects/dictionary/GetCollisionHandler/GetCollisionHandler';
 import GetTableSize from '../../page-components/projects/dictionary/GetTableSize/GetTableSize';
-
+import { getStats } from "../../utils/get-stats"
+import StatDisplay from '../../components/StatDisplay/StatDisplay';
 
 
 
@@ -166,6 +167,7 @@ const Dictionary: NextPageWithLayout = () => {
                 {hashTableDictionary &&
                 <div ref={toScrollElement} className={styles.hashTableContainer}>
                     <p className={styles.createdHashTableInfo}>Hash Table Created</p>
+                    <StatDisplay array={hashTableDictionary.allCollisions}/>
                 </div>
                 }
             </main>

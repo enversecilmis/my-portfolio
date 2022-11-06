@@ -13,6 +13,7 @@
     "@floating-ui/react-dom": "^1.0.0",
     "@next/bundle-analyzer": "^12.2.5",
     "@react-spring/web": "^9.5.2",
+    "@tanstack/react-table": "^8.5.22",
     "@types/react-modal": "^3.13.1",
     "@use-gesture/react": "^10.2.18",
     "framer-motion": "^7.6.1",
@@ -22,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-modal": "^3.15.1",
+    "recharts": "^2.1.16",
     "use-file-picker": "^1.5.1",
     "zod": "^3.17.3"
   },

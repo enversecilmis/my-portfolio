@@ -167,7 +167,10 @@ const Dictionary: NextPageWithLayout = () => {
                 {hashTableDictionary &&
                 <div ref={toScrollElement} className={styles.hashTableContainer}>
                     <p className={styles.createdHashTableInfo}>Hash Table Created</p>
-                    <StatDisplay array={hashTableDictionary.allCollisions}/>
+                    <StatDisplay
+                        array={hashTableDictionary.allCollisions}
+                        fractionDigits={3}
+                    />
                 </div>
                 }
             </main>

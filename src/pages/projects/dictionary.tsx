@@ -1,6 +1,6 @@
 import styles from '../../styles/dictionary.module.scss'
 import Head from "next/head";
-import BasicLayout from "../../layouts/RootLayout";
+import RootLayout from "../../layouts/RootLayout";
 import { ReactElement, useEffect, useRef, useState } from "react";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -25,6 +25,8 @@ import GetCollisionHandler from '../../page-components/projects/dictionary/GetCo
 import GetTableSize from '../../page-components/projects/dictionary/GetTableSize/GetTableSize';
 import { getStats } from "../../utils/get-stats"
 import StatDisplay from '../../components/StatDisplay/StatDisplay';
+import TextInput from '../../components/TextInput/TextInput';
+import TableInteractions from '../../page-components/projects/dictionary/TableInteractions/TableInteractions';
 
 
 
@@ -162,15 +164,19 @@ const Dictionary: NextPageWithLayout = () => {
                         dictionaryArray={dictionary}
                     />
                 </MultistepForm>
-
+                
                 
                 {hashTableDictionary &&
                 <div ref={toScrollElement} className={styles.hashTableContainer}>
-                    <p className={styles.createdHashTableInfo}>Hash Table Created</p>
+                    <p className={styles.tableCreatedTitle}>Hash Table Created</p>
                     <StatDisplay
                         array={hashTableDictionary.allCollisions}
                         fractionDigits={3}
                     />
+                    <TableInteractions
+                        hashDictionary={hashTableDictionary}
+                    />
+                    
                 </div>
                 }
             </main>
@@ -184,9 +190,9 @@ const Dictionary: NextPageWithLayout = () => {
 
 Dictionary.getLayout = (page: ReactElement) => {
     return (
-        <BasicLayout>
+        <RootLayout>
             {page}
-        </BasicLayout>
+        </RootLayout>
     )
 }
 export const getStaticProps: GetStaticProps = async ({ locale }) => {

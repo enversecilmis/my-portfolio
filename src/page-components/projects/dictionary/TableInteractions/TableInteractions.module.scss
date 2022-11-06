@@ -1,0 +1,17 @@
+.container {
+    align-self: center;
+    .searchInputs {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        border: 1px solid var(--color-txt-4);
+        padding: 10px;
+        border-radius: 10px;
+        color: var(--color-txt-2);
+
+        .arrow {
+            font-size: 30px;
+            color: var(--color-txt-blue);
+        }
+    }
+}

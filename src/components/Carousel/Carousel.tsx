@@ -78,6 +78,7 @@ const Carousel: CarouselComponent = ({
 Carousel.Item = ({ children, className }) => (
 	<div className={className}>{children}</div>
 )
+Carousel.displayName = "Carousel"
 
 
 

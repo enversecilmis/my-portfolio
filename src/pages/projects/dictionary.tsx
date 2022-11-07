@@ -146,12 +146,14 @@ const Dictionary: NextPageWithLayout = () => {
                     className={styles.multiStepForm}
                     onFinish={validateInputsAndCreateHashTable}
                 >
-                    <CreateDictionaryArray
-                        fileContentState={[fileContent, setFileContent]}
-                        wordSeperatorState={[wordSeperator, setWordSeperator]}
-                        pairSeperatorState={[pairSeperator, setPairSeperator]}
-                        dictionaryState={[dictionary, setDictionary]}
-                    />
+                    <MultistepForm.Item disableNext={!dictionary}>
+                        <CreateDictionaryArray
+                            fileContentState={[fileContent, setFileContent]}
+                            wordSeperatorState={[wordSeperator, setWordSeperator]}
+                            pairSeperatorState={[pairSeperator, setPairSeperator]}
+                            dictionaryState={[dictionary, setDictionary]}
+                        />
+                    </MultistepForm.Item>
                     <GetHashFunction
                         hashFunctionStringState={[hashFunctionString, setHashFunctionString]}
                     />

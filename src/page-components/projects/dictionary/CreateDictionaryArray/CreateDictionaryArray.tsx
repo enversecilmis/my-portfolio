@@ -37,9 +37,12 @@ const CreateDictionaryArray: React.FC<Props> = ({
     const [wordSeperator, setWordSeperator] = wordSeperatorState
     const [pairSeperator, setPairSeperator] = pairSeperatorState
     const [dictionary, setDictionary] = dictionaryState
+    const [settingDefaults, setSettingDefaults] = useState(false)
+
 
 
     const setDefaultDictInputs = async () => {
+        setSettingDefaults(true)
         const response = await fetch("/en-tr-dictionary.txt")
         const file = await response.text()
         setFileContent({
@@ -49,14 +52,35 @@ const CreateDictionaryArray: React.FC<Props> = ({
         })
         setWordSeperator(DEFAULT_WORD_SEPERATOR)
         setPairSeperator(DEFAULT_PAIR_SEPERATOR)
+        setSettingDefaults(false)
     }
     const createDictionaryArray = async () => {
         if (!fileContent?.content) return
+        let wordRegex: RegExp
+        let pairRegex: RegExp
         
+        try {
+            wordRegex = new RegExp(wordSeperator)
+        } catch (error) {
+            let msg = "Error occured when trying to evaluate regular expression."
+            if (error instanceof Error)
+                msg = error.toString()
+            pushNotification(msg, { type: "error", source: "Word Seperator Input"})
+            return
+        }
+        try {
+            pairRegex = new RegExp(pairSeperator)
+        } catch (error) {
+            let msg = "Error occured when trying to evaluate regular expression."
+            if (error instanceof Error)
+                msg = error.toString()
+            pushNotification(msg, { type: "error", source: "Pair Seperator Input"})
+            return
+        }
         const dictArr = createDictionaryArrayFromString(
             fileContent.content,
-            new RegExp(wordSeperator),
-            new RegExp(pairSeperator)
+            wordRegex,
+            pairRegex
         )
         if (!zDictionaryArray.safeParse(dictArr).success){
             pushNotification("Created array structure is not [string,string][]. Check your text file or seperators.",{
@@ -112,6 +136,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
                     label='Use Default'
                     className={styles.useDefaultButton}
                     onClick={setDefaultDictInputs}
+                    loading={settingDefaults}
                 />
                 <ThemedButton
                     className={styles.createArrayButton}

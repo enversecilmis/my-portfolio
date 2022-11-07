@@ -10,9 +10,15 @@ import { AnimatePresence, motion } from "framer-motion"
 type Props = {
     className?: string
     onFinish?: () => void
-    children: ReactNode | ReactNode[]
+    children: JSX.Element | JSX.Element[]
+    disabledNext?: boolean
 }
-
+type ItemProps = {
+    disableNext?: boolean
+    children?: ReactNode
+}
+type ItemType = React.FC<ItemProps>
+type MultiStepForm = React.FC<Props> & { Item: ItemType }
 
 
 const variants = {
@@ -31,18 +37,21 @@ const variants = {
     })
 }
 
+
 /**
  * Every react children becomes a step.
  */
-const MultistepForm: React.FC<Props> = ({
+const MultistepForm: MultiStepForm = ({
     onFinish = () => {},
     children,
+    disabledNext,
     className
 }) => {
     const [stepIndex, setStepIndex] = useState(0)
     const [direction, setDirection] = useState(0)
 
-    const childrenArray = React.Children.toArray(children)
+    const childrenArray = React.Children.toArray(children) as JSX.Element[]
+    const renderedChild = childrenArray[stepIndex]
     const lastIndex = childrenArray.length - 1
 
 
@@ -83,7 +92,7 @@ const MultistepForm: React.FC<Props> = ({
                     animate="stand"
                     exit="exit"
                 >
-                    {childrenArray[stepIndex]}
+                    {renderedChild}
                 </motion.div>
             </AnimatePresence>
             <div className={styles.buttons}>
@@ -98,13 +107,15 @@ const MultistepForm: React.FC<Props> = ({
                     type='submit'
                     label={stepIndex === lastIndex ? "Finish" : "Next"}
                     className={styles.button}
+                    disabled={renderedChild.props.disableNext}
                 />
             </div>
         </form>
     )
 }
 
-
+const Item: ItemType = ({children, disableNext}) => <>{children}</>
+MultistepForm.Item = Item
 
 
 

@@ -7,6 +7,7 @@ import styles from './TextInput.module.scss'
 type MyProps = {
     value?: string
     onChange?: (text: string) => void
+    suggestions?: string[] | number[]
 }
 type InputElementProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type">
 type Props = MyProps & InputElementProps

@@ -55,7 +55,7 @@ const Home: NextPageWithLayout = (props) => {
         <IntroSection/>
 
 
-        <TitledSection className={styles.whoAmISection} title={t('whoAmI')}>
+        <TitledSection contentClassName={styles.whoAmISection} title={t('whoAmI')}>
           <div className={styles.iconTextContainer}>
               <FaUniversity className={styles.icon}/>
               <span className={styles.text}>
@@ -87,7 +87,7 @@ const Home: NextPageWithLayout = (props) => {
         </TitledSection>
         
 
-        <TitledSection className={styles.whatICanDoSection} title={t('whatICanDo')}>
+        <TitledSection contentClassName={styles.whatICanDoSection} title={t('whatICanDo')}>
           <div>
             <p className={styles.text}>- {t('whatICanDoNext')}</p>
             <p className={styles.text}>- {t('whatICanDoRN')}</p>
@@ -139,7 +139,7 @@ const Home: NextPageWithLayout = (props) => {
         </TitledSection>
 
 
-        <TitledSection className={styles.siteInfoSection} title={t('usedTech')}>
+        <TitledSection contentClassName={styles.siteInfoSection} title={t('usedTech')}>
           <ul className="mt-10">
             <li>- Next.js</li>
             <li>- Tailwind</li>

@@ -34,15 +34,19 @@ const GetCollisionHandler: React.FC<Props> = ({
             <CodeInput
                 required
                 className={styles.codeInput}
+                editorClassName={styles.codeTextArea}
                 boilerplateTop={collisionHandlerBoilerplate}
                 boilerplateBottom="}"
                 value={collisionHandlerString}
                 onChange={setCollisionHandlerString}
-                rows={2}
+                rows={4}
                 topBarButtonLeft={
                     <ThemedButton
                         label='Use Default'
-                        onClick={() => setCollisionHandlerString(defaultCollisionHandlerString)}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            setCollisionHandlerString(defaultCollisionHandlerString)
+                        }}
                     />
                 }
                 topBarButtonRight={<HoverHelp message="When hash indexes collide this function is called to get the next index." />}

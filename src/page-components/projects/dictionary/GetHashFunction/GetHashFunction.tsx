@@ -32,16 +32,19 @@ const GetHashFunction: React.FC<Props> = ({
             <CodeInput
                 required
                 className={styles.codeInput}
-                editorClassName={styles.editor}
+                editorClassName={styles.codeTextArea}
                 boilerplateTop={hashFunctionBoilerplate}
                 boilerplateBottom="}"
                 value={hashFunctionString}
                 onChange={setHashFunctionString}
-                rows={6}
+                rows={8}
                 topBarButtonLeft={
                     <ThemedButton
                         label='Use Default'
-                        onClick={() => setHashFunctionString(defaultHashFunctionString)}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            setHashFunctionString(defaultHashFunctionString)
+                        }}
                     />
                 }
             />

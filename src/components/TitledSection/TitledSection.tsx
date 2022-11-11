@@ -6,17 +6,17 @@ import styles from './TitledSection.module.scss'
 
 
 const TitledSection: React.FC<{
-    className?: string,
+    contentClassName?: string,
     containerClassName?: string,
     title?: string,
     children?: ReactNode
-}> = ({ className, title="", children }) => {
+}> = ({ contentClassName, title="", children, containerClassName }) => {
 
 
     return (
-        <section  className={`${styles.container}`}>
+        <section  className={`${styles.container} ${containerClassName}`}>
             <h2 className={styles.title}>{title}</h2>
-            <div className={`${styles.content} ${className}`}>
+            <div className={`${styles.content} ${contentClassName}`}>
                 {children}
             </div>
         </section>

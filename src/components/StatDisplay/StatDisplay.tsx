@@ -63,19 +63,20 @@ const StatDisplay: React.FC<Props> = ({
                 <div className={styles.chartTitle}>
                     Collisions Histogram
                 </div>
-                <BarChart
-                    width={900}
-                    height={400}
-                    data={histData}
-                    margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                >
-                    <XAxis dataKey="collisions" />
-                    <YAxis dataKey="occurence"/>
-                    <Legend/>
-                    <Tooltip cursor={{fill: "var(--color-overlay-2)"}}/>
-                    <Bar dataKey="occurence" fill="#8884d8" background={{fill: "var(--color-overlay)"}}/>
-                    <CartesianGrid strokeDasharray="3 3" />
-                </BarChart>
+                <div className={styles.barChart}>
+                    <BarChart
+                        width={120*histData.length}
+                        height={300}
+                        data={histData}
+                        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                    >
+                        <XAxis dataKey="collisions" />
+                        <YAxis dataKey="occurence"/>
+                        <Legend/>
+                        <Tooltip cursor={{fill: "var(--color-overlay-2)"}}/>
+                        <Bar dataKey="occurence" fill="#8884d8" background={{fill: "var(--color-overlay)"}}/>
+                    </BarChart>
+                </div>
             </div>
 
         </div>

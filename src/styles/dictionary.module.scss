@@ -1,19 +1,17 @@
 @import "../styles/mixins.scss";
 
+.outerContainer {
+    margin-top: 60px;
+}
 .container {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding-top: 30px;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 20px;
     margin-bottom: 300px;
 
-    .pageTitle {
-        color: var(--color-txt-blue);
-        align-self: center;
-        font-size: 30px;
-    }
     .description {
         color: var(--color-txt);
         font-size: 20px;
@@ -35,19 +33,28 @@
         flex-direction: column;
         gap: 50px;
         color: var(--color-txt-blue); 
-        margin-top: 50px; 
+        margin-top: 50px;
+        animation: greenFade 1s forwards;
         .tableCreatedTitle {
             width: 100%;
             height: 100%;
             text-align: center;
-            border-radius: 10px;
             font-size: 30px;
-            background-color: green;
-            animation: greenFade 3s forwards;
+            color: var(--color-txt);
         }
-
-        .tableInteractions {
-            background-color: var(--color-bg-2);
+        .section {
+            background-color: var(--color-overlay);
+            border-radius: 30px;
+            border: 1px solid var(--color-bg-4);
+            padding: 5px;
+            .title {
+                text-align: center;
+                font-size: 30px;
+                color: var(--color-txt-blue);
+                margin-bottom: 40px;
+                border-bottom: 1px solid var(--color-bg-4);
+                padding: 10px;
+            }
         }
     }
 
@@ -56,7 +63,7 @@
 
 @keyframes greenFade {
     from {
-        background-color: green;
+        background-color: rgba(3, 127, 3, 0.299);
     }
     to {
         background-color: var(--color-bg);

@@ -18,6 +18,9 @@ const GetTableSize: React.FC<Props> = ({
     dictionaryArray
 }) => {
     const [hashTableSize, setHashTableSize] = hashTableSizeState
+    const loadFactor = dictionaryArray ?
+                        (dictionaryArray.length / hashTableSize).toFixed(3):
+                        0
 
     return (
         <div className={styles.inputStep}>
@@ -32,6 +35,13 @@ const GetTableSize: React.FC<Props> = ({
                     if (dictionaryArray)
                         setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
                 }} />
+            </div>
+            <div
+                className={styles.content}
+                style={loadFactor >= 1 ? {color: "red"}: {}}
+            >
+                <span>Load Factor:</span>
+                <span>{loadFactor}</span>
             </div>
         </div>
     )

@@ -27,6 +27,8 @@ import { getStats } from "../../utils/get-stats"
 import StatDisplay from '../../components/StatDisplay/StatDisplay';
 import TextInput from '../../components/TextInput/TextInput';
 import TableInteractions from '../../page-components/projects/dictionary/TableInteractions/TableInteractions';
+import CompareDictionaries from '../../page-components/projects/dictionary/CompareDictionaries/CompareDictionaries';
+import TitledSection from '../../components/TitledSection/TitledSection';
 
 
 
@@ -112,7 +114,6 @@ const Dictionary: NextPageWithLayout = () => {
                 hashTableSize,
                 throwInfiniteLoopError,
             })
-
             setHashTableDictionary(hashTable)
 
         } catch (error: any) {
@@ -138,8 +139,12 @@ const Dictionary: NextPageWithLayout = () => {
                 <title>Dictionary</title>
             </Head>
 
-            <main className={styles.container}>
-                <h1 className={styles.pageTitle}>{dictionaryT("title")}</h1>
+            <TitledSection
+                title={dictionaryT("title")}
+                containerClassName={styles.outerContainer}    
+                contentClassName={styles.container}
+            >
+                {/* <h1 className={styles.pageTitle}>{dictionaryT("title")}</h1> */}
                 <p className={styles.description}>{dictionaryT("description")}</p>
 
                 <MultistepForm
@@ -168,20 +173,31 @@ const Dictionary: NextPageWithLayout = () => {
                 </MultistepForm>
                 
                 
-                {hashTableDictionary &&
-                <div ref={toScrollElement} className={styles.hashTableContainer}>
-                    <p className={styles.tableCreatedTitle}>Hash Table Created</p>
-                    <StatDisplay
-                        array={hashTableDictionary.allCollisions}
-                        fractionDigits={3}
-                    />
-                    <TableInteractions
+                {hashTableDictionary && dictionary &&
+                <div className={styles.hashTableContainer}>
+                    <div ref={toScrollElement}></div>
+                    <div className={styles.section}>
+                        <h5 className={styles.title}>Collision Stats</h5>
+                        <StatDisplay
+                            array={hashTableDictionary.allCollisions}
+                            fractionDigits={3}
+                        />
+                    </div>
+                    <div className={styles.section}>
+                        <h5 className={styles.title}>Search In Dictionaries</h5>
+                        <TableInteractions
+                            hashDictionary={hashTableDictionary}
+                            dictionary={dictionary}
+                        />
+                    </div>
+                    <CompareDictionaries
+                        dictionary={dictionary}
                         hashDictionary={hashTableDictionary}
                     />
                     
                 </div>
                 }
-            </main>
+            </TitledSection>
         </>
     )
 }

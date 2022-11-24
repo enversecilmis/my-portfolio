@@ -28,7 +28,7 @@ const Projects: NextPageWithLayout = () => {
 			</Head>
 
 			<main className={styles.container}>
-				<p className={styles.pageDescription}>Here you can find some of my projects</p>
+				<p className={styles.pageDescription}>{projectsT("intro")}</p>
 
 				<div className={styles.projects}>
 					<ProjectCardLink

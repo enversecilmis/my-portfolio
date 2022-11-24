@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+import { useTranslation } from "next-i18next"
 
 import NumberInput from "../../../../components/NumberInput/NumberInput"
 import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
@@ -17,23 +18,24 @@ type Props = {
 
 const GetTableSize: React.FC<Props> = ({
 	hashTableSizeState,
-	dictionaryArray
+	dictionaryArray,
 }) => {
 	const [hashTableSize, setHashTableSize] = hashTableSizeState
+	const { t: dictionaryT } = useTranslation("dictionary")
 	const loadFactor = dictionaryArray ?
 		(dictionaryArray.length / hashTableSize).toFixed(3):
 		0
 
 	return (
 		<div className={styles.inputStep}>
-			<h3 className={styles.stepTitle}>Hash Table Size</h3>
+			<h3 className={styles.stepTitle}>{dictionaryT("hashTableSize")}</h3>
 			<div className={styles.content}>
 				<NumberInput
 					required
 					value={hashTableSize}
 					onChange={setHashTableSize}
 				/>
-				<ThemedButton label="Use Recommended" onClick={() => {
+				<ThemedButton label={dictionaryT("useRecommended")} onClick={() => {
 					if (dictionaryArray)
 						setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
 				}} />
@@ -42,7 +44,7 @@ const GetTableSize: React.FC<Props> = ({
 				className={styles.content}
 				style={loadFactor >= 1 ? { color: "red" }: {}}
 			>
-				<span>Load Factor:</span>
+				<span>{dictionaryT("loadFactor")}:</span>
 				<span>{loadFactor}</span>
 			</div>
 		</div>

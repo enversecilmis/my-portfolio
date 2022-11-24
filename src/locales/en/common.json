@@ -1,5 +1,8 @@
 {
     "greeting": "Hello World",
     "inConstruction": "This site is still in development",
-    "deleteNotification": "Delete notification"
+    "deleteNotification": "Delete notification",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish"
 }

@@ -5,28 +5,35 @@
     align-items: center;
     gap: 5px;
     width: fit-content;
+    color: var(--color-txt-3);
+    background-color: var(--color-bg-2);
 
     .textInput {
         width: 100%;
+        border-radius: 0px;
     }
-    
+
     .suggestions {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        color: var(--color-txt-3);
         display: flex;
         flex-direction: column;
-        background-color: var(--color-bg-3);
         z-index: 5;
+        color: inherit;
+        background-color: inherit;
+        border: inherit;
+        border-top: none;
+
         .suggestionButton {
             text-align: start;
             padding: 5px;
         }
+
         .focused {
-            outline: 1px solid var(--color-txt-blue);
-            background-color: var(--color-bg-4);
+            // outline: 1px solid var(--color-txt-blue);
+            background-color: var(--color-overlay-2);
         }
     }
 }

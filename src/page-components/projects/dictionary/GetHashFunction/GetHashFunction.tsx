@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+import { useTranslation } from "next-i18next"
 
 import CodeInput from "../../../../components/CodeInput/CodeInput"
 import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
@@ -22,13 +23,14 @@ type Props = {
     hashFunctionStringState: State<string>
 }
 
-const GetHashFunction: React.FC<Props> = ({ hashFunctionStringState, }) => {
+const GetHashFunction: React.FC<Props> = ({ hashFunctionStringState }) => {
 	const [hashFunctionString, setHashFunctionString] = hashFunctionStringState
+	const { t: dictionaryT } = useTranslation("dictionary")
 
 
 	return (
 		<div className={styles.inputStep}>
-			<h3 className={styles.stepTitle}>Hash Function</h3>
+			<h3 className={styles.stepTitle}>{dictionaryT("hashFunc")}</h3>
 			<CodeInput
 				required
 				className={styles.codeInput}
@@ -40,7 +42,7 @@ const GetHashFunction: React.FC<Props> = ({ hashFunctionStringState, }) => {
 				rows={8}
 				topBarButtonLeft={
 					<ThemedButton
-						label="Use Default"
+						label={dictionaryT("useDefault")}
 						onClick={(e) => {
 							e.stopPropagation()
 							setHashFunctionString(defaultHashFunctionString)

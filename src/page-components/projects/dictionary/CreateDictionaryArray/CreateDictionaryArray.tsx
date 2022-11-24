@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react"
+import { useTranslation } from "next-i18next"
 import { FileContent } from "use-file-picker"
 
 import FileChooser from "../../../../components/FileChooser/FileChooser"
@@ -32,7 +33,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	fileContentState,
 	wordSeperatorState,
 	pairSeperatorState,
-	dictionaryState
+	dictionaryState,
 }) => {
 	const { pushNotification } = useNotification()
 	const [fileContent, setFileContent] = fileContentState
@@ -40,6 +41,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	const [pairSeperator, setPairSeperator] = pairSeperatorState
 	const [dictionary, setDictionary] = dictionaryState
 	const [settingDefaults, setSettingDefaults] = useState(false)
+	const { t: dictionaryT } = useTranslation("dictionary")
 
 
 
@@ -51,7 +53,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		setFileContent({
 			content: file,
 			name: "en-tr-dictionary.txt",
-			lastModified: 0
+			lastModified: 0,
 		})
 		setWordSeperator(DEFAULT_WORD_SEPERATOR)
 		setPairSeperator(DEFAULT_PAIR_SEPERATOR)
@@ -86,14 +88,14 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		const dictArr = createDictionaryArrayFromString(
 			fileContent.content,
 			wordRegex,
-			pairRegex
+			pairRegex,
 		)
 
 		if (!zDictionaryArray.safeParse(dictArr).success){
 			pushNotification("Created array structure is not [string,string][]. Check your text file or seperators.", {
 				type: "error",
 				durationSeconds: 6000,
-				source: "Create Dictionary Array"
+				source: "Create Dictionary Array",
 			})
 			setDictionary(undefined)
 		}
@@ -103,16 +105,16 @@ const CreateDictionaryArray: React.FC<Props> = ({
 
 	return (
 		<div className={styles.inputStep}>
-			<h3 className={styles.stepTitle}>Create Dictionary Array</h3>
+			<h3 className={styles.stepTitle}>{dictionaryT("createDictArr")}</h3>
 			<div className={styles.stepContent}>
 
 				<div className={styles.labeledInput}>
-					<HoverHelp message="A .txt file that has words and their translation with seperators." />
-					<label className={styles.label}>File: </label>
+					<HoverHelp message={dictionaryT("fileHelp")} />
+					<label className={styles.label}>{dictionaryT("file")}: </label>
 					<FileChooser
 						required
 						fileSelected={!!fileContent}
-						label="Choose a Text File"
+						label={dictionaryT("chooseFile")}
 						accept=".txt"
 						multiple={false}
 						onChange={setFileContent}
@@ -120,41 +122,39 @@ const CreateDictionaryArray: React.FC<Props> = ({
 					{fileContent?.name}
 				</div>
 				<div className={styles.labeledInput}>
-					<HoverHelp message="Regexp for seperating word from its translation." />
-					<label className={styles.label}>Word Seperator: </label>
+					<HoverHelp message={dictionaryT("wordSeperatorHelp")} />
+					<label className={styles.label}>{dictionaryT("wordSeperator")}: </label>
 					<TextInput
 						required
-						placeholder="Word Seperator"
 						value={wordSeperator}
 						onChange={setWordSeperator}
 					/>
 				</div>
 				<div className={styles.labeledInput}>
-					<HoverHelp message="Regexp for seperating each word-translation pairs." />
-					<label className={styles.label}>Pair Seperator: </label>
+					<HoverHelp message={dictionaryT("pairSeperatorHelp")} />
+					<label className={styles.label}>{dictionaryT("pairSeperator")}: </label>
 					<TextInput
 						required
-						placeholder="Pair Seperator"
 						value={pairSeperator}
 						onChange={setPairSeperator}
 					/>
 				</div>
 				<ThemedButton
-					label="Use Default"
+					label={dictionaryT("useDefault")}
 					className={styles.useDefaultButton}
 					onClick={setDefaultDictInputs}
 					loading={settingDefaults}
 				/>
 				<ThemedButton
 					className={styles.createArrayButton}
-					label="Create"
+					label={dictionaryT("create")}
 					disabled={!fileContent || !wordSeperator || !pairSeperator}
 					onClick={createDictionaryArray}
 				/>
 				{dictionary && (
 					<div className={styles.createdArray}>
-						<p className={styles.createdText}>Dictionary Created</p>
-						<p className={styles.infoText}>{dictionary.length} words found</p>
+						<p className={styles.createdText}>{dictionaryT("dictionaryCreated")}</p>
+						<p className={styles.infoText}>{dictionary.length} {dictionaryT("wordsFound")}</p>
 					</div>
 				)}
 			</div>

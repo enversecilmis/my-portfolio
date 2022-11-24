@@ -1,5 +1,6 @@
 import React, { Children, FormEventHandler, ReactElement, ReactNode, useEffect, useMemo, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import { useTranslation } from "next-i18next"
 
 import ThemedButton from "../ThemedButton/ThemedButton"
 
@@ -25,17 +26,17 @@ type MultiStepForm = React.FC<Props> & { Item: ItemType }
 const variants = {
 	stand: {
 		x: 0,
-		opacity: 1
+		opacity: 1,
 	},
 	enter: (direction: number) => ({
 		x: direction*100,
-		opacity: 0.5
+		opacity: 0.5,
 	}),
 	exit: (direction: number) => ({
 		x: direction*-100,
 		opacity: 0,
-		zIndex: 0
-	})
+		zIndex: 0,
+	}),
 }
 
 
@@ -46,10 +47,11 @@ const MultistepForm: MultiStepForm = ({
 	// eslint-disable-next-line @typescript-eslint/no-empty-function
 	onFinish = () => {},
 	children,
-	className
+	className,
 }) => {
 	const [stepIndex, setStepIndex] = useState(0)
 	const [direction, setDirection] = useState(0)
+	const { t: commonT } = useTranslation("common")
 
 	const childrenArray = React.Children.toArray(children) as JSX.Element[]
 	const renderedChild = childrenArray[stepIndex]
@@ -87,7 +89,7 @@ const MultistepForm: MultiStepForm = ({
 					variants={variants}
 					transition={{
 						opacity: { type: "keyframes", duration: .3 },
-						x: { type: "keyframes", ease: "easeOut", duration: .3 }
+						x: { type: "keyframes", ease: "easeOut", duration: .3 },
 					}}
 					initial="enter"
 					animate="stand"
@@ -100,13 +102,13 @@ const MultistepForm: MultiStepForm = ({
 				<ThemedButton
 					type="button"
 					onClick={previous}
-					label="Previous"
+					label={commonT("previous")}
 					className={styles.button}
 					disabled={stepIndex===0}
 				/>
 				<ThemedButton
 					type="submit"
-					label={stepIndex === lastIndex ? "Finish" : "Next"}
+					label={stepIndex === lastIndex ? commonT("finish") : commonT("next")}
 					className={styles.button}
 					disabled={renderedChild.props.disableNext}
 				/>

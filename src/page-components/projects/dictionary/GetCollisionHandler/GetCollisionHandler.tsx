@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
+import { useTranslation } from "next-i18next"
 
 import CodeInput from "../../../../components/CodeInput/CodeInput"
 import HoverHelp from "../../../../components/HoverHelp/HoverHelp"
@@ -28,11 +29,12 @@ const GetCollisionHandler: React.FC<Props> = ({
 }) => {
 	const [collisionHandlerString, setCollisionHandlerString] = collisionHandlerStringState
 	const [throwInfiniteLoopError, setThrowInfiniteLoopError] = throwInfiniteLoopErrorState
+	const { t: dictionaryT } = useTranslation("dictionary")
 
 
 	return (
 		<div className={styles.inputStep}>
-			<h3 className={styles.stepTitle}>Collision Handler</h3>
+			<h3 className={styles.stepTitle}>{dictionaryT("collisionHandler")}</h3>
 			<CodeInput
 				required
 				className={styles.codeInput}
@@ -44,18 +46,18 @@ const GetCollisionHandler: React.FC<Props> = ({
 				rows={4}
 				topBarButtonLeft={
 					<ThemedButton
-						label="Use Default"
+						label={dictionaryT("useDefault")}
 						onClick={(e) => {
 							e.stopPropagation()
 							setCollisionHandlerString(defaultCollisionHandlerString)
 						}}
 					/>
 				}
-				topBarButtonRight={<HoverHelp message="When hash indexes collide this function is called to get the next index." />}
+				topBarButtonRight={<HoverHelp message={dictionaryT("collisionHandlerHelp")} />}
 			/>
 			<div className={styles.labeledInput}>
-				<HoverHelp message="Set this option if you don't use iteration parameter in collision handler function." />
-				<label className={styles.label} htmlFor={styles.throwLoopError}>Throw Infinite Collision Loop Error:</label>
+				<HoverHelp message={dictionaryT("throwInfiniteLoopErrorHelp")} />
+				<label className={styles.label} htmlFor={styles.throwLoopError}>{dictionaryT("throwInfiniteLoopError")}:</label>
 				<input
 					id={styles.throwLoopError}
 					type="checkbox"

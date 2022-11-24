@@ -195,14 +195,14 @@ const Dictionary: NextPageWithLayout = () => {
 					<div className={styles.hashTableContainer}>
 						<div ref={toScrollElement}></div>
 						<div className={styles.section}>
-							<h5 className={styles.title}>Collision Stats</h5>
+							<h5 className={styles.title}>{dictionaryT("collisionStats")}</h5>
 							<StatDisplay
 								array={hashTableDictionary.allCollisions}
 								fractionDigits={3}
 							/>
 						</div>
 						<div className={styles.section}>
-							<h5 className={styles.title}>Search In Dictionaries</h5>
+							<h5 className={styles.title}>{dictionaryT("searchInDictionaries")}</h5>
 							<TableInteractions
 								hashDictionary={hashTableDictionary}
 								dictionary={dictionary}

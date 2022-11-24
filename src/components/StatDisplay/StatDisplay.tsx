@@ -1,11 +1,6 @@
 import { useMemo } from "react"
-import {
-	createColumnHelper,
-	flexRender,
-	getCoreRowModel,
-	useReactTable,
-} from "@tanstack/react-table"
-import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis } from "recharts"
+import { useTranslation } from "next-i18next"
+import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from "recharts"
 
 import { getStats } from "../../utils/get-stats"
 
@@ -19,38 +14,28 @@ type Props = {
 
 const StatDisplay: React.FC<Props> = ({
 	array,
-	fractionDigits
+	fractionDigits,
 }) => {
+	const { t: dictionaryT } = useTranslation("dictionary")
 	const stats = useMemo(() => getStats(array, fractionDigits), [array, fractionDigits])
 	const histData = stats.histogram.map((val, idx) => ({
-		collisions: idx,
-		occurence: val
+		[dictionaryT("collisionsTag")]: idx,
+		[dictionaryT("occurenceTag")]: val,
 	}))
-	const tableData = [
-		{
-			Max: stats.max,
-			min: stats.min,
-			average: stats.average,
-			total: stats.total,
-			standardDeviation: stats.standardDeviation,
-
-		}
-	]
-	const columnHelper = createColumnHelper()
 
 	return (
 		<div className={styles.container}>
 			<div className={styles.basicStatistics}>
 				<div className={styles.tableTitle}>
-                    Basic Statistics
+					{dictionaryT("basicStatistics")}
 				</div>
 				<div className={styles.statTable}>
 					<div className={styles.labelColumn}>
-						<span className={styles.statLabel}>Average Collision</span>
-						<span className={styles.statLabel}>Maximum Collisions</span>
-						<span className={styles.statLabel}>Minimum Collisions</span>
-						<span className={styles.statLabel}>Standard Deviation</span>
-						<span className={styles.statLabel}>Total Collision Count</span>
+						<span className={styles.statLabel}>{dictionaryT("averageCollision")}</span>
+						<span className={styles.statLabel}>{dictionaryT("maxCollisions")}</span>
+						<span className={styles.statLabel}>{dictionaryT("minCollisions")}</span>
+						<span className={styles.statLabel}>{dictionaryT("standardDeviation")}</span>
+						<span className={styles.statLabel}>{dictionaryT("totalCollisions")}</span>
 					</div>
 					<div className={styles.valueColumn}>
 						<span className={styles.statValue}>{stats.average}</span>
@@ -64,7 +49,7 @@ const StatDisplay: React.FC<Props> = ({
 			</div>
 			<div className={styles.histogram}>
 				<div className={styles.chartTitle}>
-                    Collisions Histogram
+					{dictionaryT("collisionsHistogram")}
 				</div>
 				<div className={styles.barChart}>
 					<BarChart
@@ -73,11 +58,11 @@ const StatDisplay: React.FC<Props> = ({
 						data={histData}
 						margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
 					>
-						<XAxis dataKey="collisions" />
-						<YAxis dataKey="occurence"/>
+						<XAxis dataKey={dictionaryT("collisionsTag")} />
+						<YAxis dataKey={dictionaryT("occurenceTag")}/>
 						<Legend/>
 						<Tooltip cursor={{ fill: "var(--color-overlay-2)" }}/>
-						<Bar dataKey="occurence" fill="#8884d8" background={{ fill: "var(--color-overlay)" }}/>
+						<Bar dataKey={dictionaryT("occurenceTag")} fill="#8884d8" background={{ fill: "var(--color-overlay)" }}/>
 					</BarChart>
 				</div>
 			</div>

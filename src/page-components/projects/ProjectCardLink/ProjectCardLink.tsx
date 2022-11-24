@@ -12,7 +12,7 @@ type Props = {
 
 const ProjectCardLink: React.FC<Props> = ({
 	href,
-	tFunction
+	tFunction,
 }) => {
 	tFunction
 

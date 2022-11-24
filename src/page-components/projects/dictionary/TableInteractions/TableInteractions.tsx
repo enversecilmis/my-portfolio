@@ -1,9 +1,7 @@
-import { KeyboardEventHandler, useState } from "react"
-import { BiTransferAlt } from "react-icons/bi"
+import { useState } from "react"
+import { useTranslation } from "next-i18next"
 
-import TextInput from "../../../../components/TextInput/TextInput"
 import TextInputWithSuggestions from "../../../../components/TextInputWithSuggestions/TextInputWithSuggestions"
-import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
 import { Dictionary, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
 
 import styles from "./TableInteractions.module.scss"
@@ -16,13 +14,14 @@ type Props = {
 
 const TableInteractions: React.FC<Props> = ({
 	hashDictionary,
-	dictionary
+	dictionary,
 }) => {
 	const [searchWord, setSearchWord] = useState("")
 	const [hashDictionaryTranslation, setHashDictionaryTranslation] = useState("")
 	const [dictionaryTranslation, setdictionaryTranslation] = useState("")
 	const [dictTime, setDictTime] = useState(0)
 	const [hashTime, setHashTime] = useState(0)
+	const { t: dictionaryT } = useTranslation("dictionary")
 
 	const searchableWords = dictionary.map(pair => pair[0])
 
@@ -53,15 +52,17 @@ const TableInteractions: React.FC<Props> = ({
 				options={searchableWords}
 				numberOfSuggestions={5}
 				onEnter={searchInDictionaries}
+				className={styles.searchInput}
+				InputClassName={styles.inputField}
 			/>
 
 			<div>
-				<p>dict translation</p>
+				<p>{dictionaryT("arraySearch")}</p>
 				{dictionaryTranslation &&
                 `${dictionaryTranslation} ${dictTime}ms`}
 			</div>
 			<div>
-				<p>hahs translation</p>
+				<p>{dictionaryT("hashTableSearch")}</p>
 				{hashDictionaryTranslation &&
                 `${hashDictionaryTranslation} ${hashTime}ms`}
 			</div>

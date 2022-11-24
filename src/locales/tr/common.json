@@ -1,5 +1,8 @@
 {
     "greeting": "Merhaba Dünya",
     "inConstruction": "Bu site hala geliştirme aşamasında",
-    "deleteNotification": "Bildirimi sil"
+    "deleteNotification": "Bildirimi sil",
+    "next": "Sonraki",
+    "previous": "Önceki",
+    "finish": "Bitir"
 }

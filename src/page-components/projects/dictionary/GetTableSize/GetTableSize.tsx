@@ -1,9 +1,11 @@
-import { Dispatch, SetStateAction } from 'react'
-import NumberInput from '../../../../components/NumberInput/NumberInput'
-import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
-import { Dictionary } from '../../../../projects-src/hashtabledict/types'
-import { findAPrimeBiggerThan } from '../../../../projects-src/hashtabledict/utils'
-import styles from './GetTableSize.module.scss'
+import { Dispatch, SetStateAction } from "react"
+
+import NumberInput from "../../../../components/NumberInput/NumberInput"
+import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
+import { Dictionary } from "../../../../projects-src/hashtabledict/types"
+import { findAPrimeBiggerThan } from "../../../../projects-src/hashtabledict/utils"
+
+import styles from "./GetTableSize.module.scss"
 
 
 
@@ -14,37 +16,37 @@ type Props = {
 }
 
 const GetTableSize: React.FC<Props> = ({
-    hashTableSizeState,
-    dictionaryArray
+	hashTableSizeState,
+	dictionaryArray
 }) => {
-    const [hashTableSize, setHashTableSize] = hashTableSizeState
-    const loadFactor = dictionaryArray ?
-                        (dictionaryArray.length / hashTableSize).toFixed(3):
-                        0
+	const [hashTableSize, setHashTableSize] = hashTableSizeState
+	const loadFactor = dictionaryArray ?
+		(dictionaryArray.length / hashTableSize).toFixed(3):
+		0
 
-    return (
-        <div className={styles.inputStep}>
-            <h3 className={styles.stepTitle}>Hash Table Size</h3>
-            <div className={styles.content}>
-                <NumberInput
-                    required
-                    value={hashTableSize}
-                    onChange={setHashTableSize}
-                />
-                <ThemedButton label='Use Recommended' onClick={() => {
-                    if (dictionaryArray)
-                        setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
-                }} />
-            </div>
-            <div
-                className={styles.content}
-                style={loadFactor >= 1 ? {color: "red"}: {}}
-            >
-                <span>Load Factor:</span>
-                <span>{loadFactor}</span>
-            </div>
-        </div>
-    )
+	return (
+		<div className={styles.inputStep}>
+			<h3 className={styles.stepTitle}>Hash Table Size</h3>
+			<div className={styles.content}>
+				<NumberInput
+					required
+					value={hashTableSize}
+					onChange={setHashTableSize}
+				/>
+				<ThemedButton label="Use Recommended" onClick={() => {
+					if (dictionaryArray)
+						setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
+				}} />
+			</div>
+			<div
+				className={styles.content}
+				style={loadFactor >= 1 ? { color: "red" }: {}}
+			>
+				<span>Load Factor:</span>
+				<span>{loadFactor}</span>
+			</div>
+		</div>
+	)
 }
 
 

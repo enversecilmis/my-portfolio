@@ -3,17 +3,16 @@ import { Head, Html, Main, NextScript } from "next/document"
 
 
 const Document = () => {
+	return (
+		<Html>
+			<Head>
 
-    return (
-        <Html>
-            <Head>
-                
-            </Head>
+			</Head>
 
-            <body>
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: `
+			<body>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
                         const getPref = () => {
                             const storedPref = window.localStorage.getItem('theme-preference')
                             if(storedPref){
@@ -37,12 +36,12 @@ const Document = () => {
                         
                         document.body.dataset.theme = getTheme( getPref() )
                         `
-                    }}></script>
-                <Main />
-                <NextScript />
-            </body>
-        </Html>
-    )
+					}}></script>
+				<Main />
+				<NextScript />
+			</body>
+		</Html>
+	)
 }
 
 

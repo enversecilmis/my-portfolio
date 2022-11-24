@@ -15,6 +15,10 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": false,
+    "paths": {
+      "baseUrl": ["src"],
+      "@components/*": ["src/components/*"]
+    }
   },
   "include": [
     "next-env.d.ts",

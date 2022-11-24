@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
-import styles from './TitledSection.module.scss'
+import { ReactNode } from "react"
+
+import styles from "./TitledSection.module.scss"
 
 
 
@@ -11,16 +12,14 @@ const TitledSection: React.FC<{
     title?: string,
     children?: ReactNode
 }> = ({ contentClassName, title="", children, containerClassName }) => {
-
-
-    return (
-        <section  className={`${styles.container} ${containerClassName}`}>
-            <h2 className={styles.title}>{title}</h2>
-            <div className={`${styles.content} ${contentClassName}`}>
-                {children}
-            </div>
-        </section>
-    )
+	return (
+		<section className={`${styles.container} ${containerClassName}`}>
+			<h2 className={styles.title}>{title}</h2>
+			<div className={`${styles.content} ${contentClassName}`}>
+				{children}
+			</div>
+		</section>
+	)
 }
 
 

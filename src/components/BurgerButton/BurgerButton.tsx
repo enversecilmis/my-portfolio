@@ -1,4 +1,4 @@
-import styles from './BurgerButton.module.scss'
+import styles from "./BurgerButton.module.scss"
 
 
 type SetStateAction<S> = S | ((prevState: S) => S)
@@ -11,13 +11,11 @@ const BurgerButton: React.FC<{
     setIsOpen: setStateFunc,
     className?: string | undefined
 }> = ({ isOpen, setIsOpen, className }) => {
-
-
-    return (
-        <button className={`${className}`} name="open navigation menu" onClick={(e) => setIsOpen(p => !p)}>
-            <div className={`${styles.mobileMenuButton} ${isOpen && styles.open}`}></div>
-        </button>
-    )
+	return (
+		<button className={`${className}`} name="open navigation menu" onClick={(e) => setIsOpen(p => !p)}>
+			<div className={`${styles.mobileMenuButton} ${isOpen && styles.open}`}></div>
+		</button>
+	)
 }
 
 

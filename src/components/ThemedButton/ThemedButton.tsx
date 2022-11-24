@@ -1,6 +1,7 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
-import styles from './ThemedButton.module.scss'
+import { ButtonHTMLAttributes, ReactNode } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
+
+import styles from "./ThemedButton.module.scss"
 
 type MyProps = {
     children?: ReactNode
@@ -10,27 +11,25 @@ type MyProps = {
 }
 type Props = MyProps & ButtonHTMLAttributes<HTMLButtonElement>
 
-const ThemedButton: React.FC<Props> = ({ 
-    children,
-    label,
-    className,
-    loading,
-    type="button",
-    ...props
- }) => {
+const ThemedButton: React.FC<Props> = ({
+	children,
+	label,
+	className,
+	loading,
+	type="button",
+	...props
+}) => {
+	return (
+		<button
+			className={`${styles.button} ${className}`}
+			type={type}
+			{...props}
+		>
+			<span className={loading? styles.hideLabel:""}>{label || children}</span>
+			{loading && <AiOutlineLoading3Quarters className={styles.spinner}/>}
 
-
-    return (
-        <button
-            className={`${styles.button} ${className}`}
-            type={type}
-            {...props}
-        >
-            <span className={loading? styles.hideLabel:""}>{label || children}</span>
-            {loading && <AiOutlineLoading3Quarters className={styles.spinner}/>}
-
-        </button>
-    )
+		</button>
+	)
 }
 
 

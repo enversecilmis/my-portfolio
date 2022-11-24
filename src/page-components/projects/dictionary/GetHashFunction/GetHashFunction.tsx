@@ -1,10 +1,12 @@
-import { Dispatch, SetStateAction } from 'react'
-import CodeInput from '../../../../components/CodeInput/CodeInput'
-import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
-import styles from './GetHashFunction.module.scss'
+import { Dispatch, SetStateAction } from "react"
+
+import CodeInput from "../../../../components/CodeInput/CodeInput"
+import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
+
+import styles from "./GetHashFunction.module.scss"
 
 
-const hashFunctionBoilerplate = `const hashFunction = (input: string): number => {`
+const hashFunctionBoilerplate = "const hashFunction = (input: string): number => {"
 const defaultHashFunctionString = `const g = 17
 let hash = 0
 
@@ -20,36 +22,34 @@ type Props = {
     hashFunctionStringState: State<string>
 }
 
-const GetHashFunction: React.FC<Props> = ({
-    hashFunctionStringState,
-}) => {
-    const [hashFunctionString, setHashFunctionString] = hashFunctionStringState
+const GetHashFunction: React.FC<Props> = ({ hashFunctionStringState, }) => {
+	const [hashFunctionString, setHashFunctionString] = hashFunctionStringState
 
 
-    return (
-        <div className={styles.inputStep}>
-            <h3 className={styles.stepTitle}>Hash Function</h3>
-            <CodeInput
-                required
-                className={styles.codeInput}
-                editorClassName={styles.codeTextArea}
-                boilerplateTop={hashFunctionBoilerplate}
-                boilerplateBottom="}"
-                value={hashFunctionString}
-                onChange={setHashFunctionString}
-                rows={8}
-                topBarButtonLeft={
-                    <ThemedButton
-                        label='Use Default'
-                        onClick={(e) => {
-                            e.stopPropagation()
-                            setHashFunctionString(defaultHashFunctionString)
-                        }}
-                    />
-                }
-            />
-        </div>
-    )
+	return (
+		<div className={styles.inputStep}>
+			<h3 className={styles.stepTitle}>Hash Function</h3>
+			<CodeInput
+				required
+				className={styles.codeInput}
+				editorClassName={styles.codeTextArea}
+				boilerplateTop={hashFunctionBoilerplate}
+				boilerplateBottom="}"
+				value={hashFunctionString}
+				onChange={setHashFunctionString}
+				rows={8}
+				topBarButtonLeft={
+					<ThemedButton
+						label="Use Default"
+						onClick={(e) => {
+							e.stopPropagation()
+							setHashFunctionString(defaultHashFunctionString)
+						}}
+					/>
+				}
+			/>
+		</div>
+	)
 }
 
 

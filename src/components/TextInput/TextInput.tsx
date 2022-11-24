@@ -1,5 +1,6 @@
-import React, { InputHTMLAttributes } from 'react'
-import styles from './TextInput.module.scss'
+import React, { InputHTMLAttributes } from "react"
+
+import styles from "./TextInput.module.scss"
 
 
 
@@ -14,18 +15,19 @@ type Props = MyProps & InputElementProps
 
 
 const TextInput: React.FC<Props> = ({
-    onChange = () => {},
-    className,
-    ...props
+	// eslint-disable-next-line @typescript-eslint/no-empty-function
+	onChange = () => {},
+	className,
+	...props
 }) => {
-    return (
-        <input
-            className={`${styles.input} ${className}`}
-            type="text"
-            onChange={e => onChange(e.target.value)}
-            {...props}
-        />
-    )
+	return (
+		<input
+			className={`${styles.input} ${className}`}
+			type="text"
+			onChange={e => onChange(e.target.value)}
+			{...props}
+		/>
+	)
 }
 
 

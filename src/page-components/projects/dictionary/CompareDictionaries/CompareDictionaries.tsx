@@ -1,34 +1,38 @@
-import ThemedButton from '../../../../components/ThemedButton/ThemedButton'
-import { Dictionary, DictionaryHashTable } from '../../../../projects-src/hashtabledict/types'
-import styles from './CompareDictionaries.module.scss'
 import { useId, useState } from "react"
-import { rndNum } from '../../../../utils/random-number'
+
+import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
+import { Dictionary, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
+import { rndNum } from "../../../../utils/random-number"
+
+import styles from "./CompareDictionaries.module.scss"
 
 
 const runTimeComparison = (
-    func1: (index: number) => void,
-    func2: (index: number) => void,
-    iterations: number = 100
+	func1: (index: number) => void,
+	func2: (index: number) => void,
+	iterations = 100
 ) => {
-    let dateBefore = Date.now()
-    for (let i = 0; i < iterations; i++)
-        func1(i)
-    let runTime1 = Date.now() - dateBefore
+	let dateBefore = Date.now()
 
-    dateBefore = Date.now()
-    for (let i = 0; i < iterations; i++)
-        func2(i)
-    let runtime2 = Date.now() - dateBefore
+	for (let i = 0; i < iterations; i++)
+		func1(i)
+	const runTime1 = Date.now() - dateBefore
 
-    return { runTime1, runtime2 }
+	dateBefore = Date.now()
+	for (let i = 0; i < iterations; i++)
+		func2(i)
+	const runtime2 = Date.now() - dateBefore
+
+	return { runTime1, runtime2 }
 }
 const calculateRunTime = (func: (iteration: number) => void, iterations = 1) => {
-    let dateBefore = Date.now()
-    for (let i = 0; i < iterations; i++)
-        func(i)
-    let runTime = Date.now() - dateBefore
+	const dateBefore = Date.now()
 
-    return runTime
+	for (let i = 0; i < iterations; i++)
+		func(i)
+	const runTime = Date.now() - dateBefore
+
+	return runTime
 }
 
 
@@ -46,55 +50,55 @@ type RunTimes = {
 }
 
 const CompareDictionaries: React.FC<Props> = ({
-    dictionary,
-    hashDictionary
+	dictionary,
+	hashDictionary
 }) => {
-    const [runTimes, setRunTimes] = useState<RunTimes>()
+	const [runTimes, setRunTimes] = useState<RunTimes>()
 
 
-    const runTest = async () => {
-        const searchInDictionary = (word: string) => {
-            return dictionary.filter(pair => pair[0] === word)[0][1] || ""
-        }
+	const runTest = async () => {
+		const searchInDictionary = (word: string) => {
+			return dictionary.filter(pair => pair[0] === word)[0][1] || ""
+		}
 
-        const searchableWords = dictionary.map((pair) => pair[0])
-        const wordCount = searchableWords.length
+		const searchableWords = dictionary.map((pair) => pair[0])
+		const wordCount = searchableWords.length
 
-        // Sequential search run times (from start to finish).
-        const dictSeqTime = calculateRunTime(
-            (i) => searchInDictionary(searchableWords[i]),
-            wordCount
-        )
-        // Random search run times.
-        const dictRandTime = calculateRunTime(
-            (i) => searchInDictionary(searchableWords[rndNum(0, wordCount)]),
-            wordCount
-        )
-        const hashSeqTime = calculateRunTime(
-            (i) => hashDictionary.search(searchableWords[i]),
-            wordCount
-        )
-        const hashRandTime = calculateRunTime(
-            (i) => hashDictionary.search(searchableWords[rndNum(0, wordCount)])
-        )
+		// Sequential search run times (from start to finish).
+		const dictSeqTime = calculateRunTime(
+			(i) => searchInDictionary(searchableWords[i]),
+			wordCount
+		)
+		// Random search run times.
+		const dictRandTime = calculateRunTime(
+			(i) => searchInDictionary(searchableWords[rndNum(0, wordCount)]),
+			wordCount
+		)
+		const hashSeqTime = calculateRunTime(
+			(i) => hashDictionary.search(searchableWords[i]),
+			wordCount
+		)
+		const hashRandTime = calculateRunTime(
+			(i) => hashDictionary.search(searchableWords[rndNum(0, wordCount)])
+		)
 
-        setRunTimes({
-            dictRandTime,
-            dictSeqTime,
-            hashRandTime,
-            hashSeqTime
-        })
-    }
+		setRunTimes({
+			dictRandTime,
+			dictSeqTime,
+			hashRandTime,
+			hashSeqTime
+		})
+	}
 
-    return (
-        <div className={styles.container}>
-            <ThemedButton
-                label='Run Test'
-                onClick={runTest}
-            />
+	return (
+		<div className={styles.container}>
+			<ThemedButton
+				label="Run Test"
+				onClick={runTest}
+			/>
 
-        </div>
-    )
+		</div>
+	)
 }
 
 

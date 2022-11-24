@@ -1,4 +1,5 @@
 import { ReactNode } from "react"
+
 import HeaderNav from "../page-components/layout/HeaderNav/HeaderNav"
 import Notifications from "../page-components/layout/Notifications.tsx/Notifications"
 
@@ -8,16 +9,14 @@ import Notifications from "../page-components/layout/Notifications.tsx/Notificat
 
 
 const BasicLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
-
-
-    return (
-        <>
-            <HeaderNav />
-            {/* <ContactButton /> */}
-            <Notifications />
-            {children}
-        </>
-    )
+	return (
+		<>
+			<HeaderNav />
+			{/* <ContactButton /> */}
+			<Notifications />
+			{children}
+		</>
+	)
 }
 
 

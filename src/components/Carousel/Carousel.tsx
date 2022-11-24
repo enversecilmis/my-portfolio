@@ -1,6 +1,7 @@
-import React, { ReactNode, useMemo, useState } from 'react'
-import styles from './Carousel.module.scss'
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import React, { ReactNode, useMemo, useState } from "react"
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs"
+
+import styles from "./Carousel.module.scss"
 
 
 
@@ -29,16 +30,16 @@ const Carousel: CarouselComponent = ({
 }) => {
 	const [activeIndex, setActiveIndex] = useState(0)
 	const childCount = React.Children.count(children)
-	const titles: string[] = useMemo(() =>
-		React.Children.map(children, child => child.props.sliderTitle || ''),
+	const titles: string[] = useMemo(
+		() => React.Children.map(children, child => child.props.sliderTitle || ""),
 		[children]
 	)
 
 	const previous = () => setActiveIndex(p => p-1 < 0 ? childCount-1 : p-1)
 	const next = () => setActiveIndex(p => p+1 > childCount-1 ? 0 : p+1)
 
-	
-	
+
+
 	return (
 		<div className={`${styles.container} ${className}`}>
 			<h4
@@ -65,8 +66,7 @@ const Carousel: CarouselComponent = ({
 			>
 				<BsChevronCompactLeft/>
 			</button>
-			<button
-				className={`${styles.navButtons} ${styles.nextButton}`}
+			<button className={`${styles.navButtons} ${styles.nextButton}`}
 				onClick={next}
 			>
 				<BsChevronCompactRight/>

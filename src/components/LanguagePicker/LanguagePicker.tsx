@@ -1,13 +1,14 @@
-import styles from './LanguagePicker.module.scss'
-import { IoLanguage, IoChevronDown } from "react-icons/io5";
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useTranslation } from 'next-i18next';
+import { useState } from "react"
+import { IoChevronDown, IoLanguage } from "react-icons/io5"
+import Image from "next/legacy/image"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useTranslation } from "next-i18next"
 
-import Tr from '../../../public/tr.svg';
-import Us from '../../../public/us.svg';
-import Image from "next/legacy/image";
+import Tr from "../../../public/tr.svg"
+import Us from "../../../public/us.svg"
+
+import styles from "./LanguagePicker.module.scss"
 
 
 
@@ -15,31 +16,30 @@ import Image from "next/legacy/image";
 // TODO: Cookie for language prefference
 // TODO: Change language without refreshing and adding to history
 const setCookie = (locale: string) => {
-    document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
+	document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
 }
 
 type Props = {
 	className?: string
 }
-const LanguagePicker: React.FC<Props> = ({
-	className
-}) => {
+const LanguagePicker: React.FC<Props> = ({ className }) => {
 	const { asPath, locale } = useRouter()
-	const { t } = useTranslation('header')
+	const { t } = useTranslation("header")
 	const [isOpen, setIsOpen] = useState(false)
-	
+
 
 	return (
-        <div
+		<div
 			className={styles.container}
 			onFocus={() => console.log("cont focus")}
 			onBlur={() => setIsOpen(false)}
-			onKeyDown={(e) => {if(e.key === "Escape") setIsOpen(false)}}
+			onKeyDown={(e) => { if (e.key === "Escape")
+				setIsOpen(false) }}
 		>
 			<button
 				onClick={() => setIsOpen(p => !p)}
 				className={`${styles.button} ${className}`}
-				title={t('selectLanguage')}
+				title={t("selectLanguage")}
 			>
 				<IoLanguage size={20} />
 				<IoChevronDown size={20}/>
@@ -52,34 +52,34 @@ const LanguagePicker: React.FC<Props> = ({
 			>
 				<div className={styles.arrowBox}></div>
 				<Link
-                    key={'tr'}
-                    href={asPath}
-                    locale={'tr'}
-                    scroll={false}
-                    className={`${styles.link} ${locale === 'tr'? styles.currentLocale:""}`}
-                    lang='tr'
-                    hrefLang='tr'>
+					key={"tr"}
+					href={asPath}
+					locale={"tr"}
+					scroll={false}
+					className={`${styles.link} ${locale === "tr"? styles.currentLocale:""}`}
+					lang="tr"
+					hrefLang="tr">
 
-                    <Image alt='flag' height={20} width={27} objectFit='contain' src={Tr.src} />
-                    <span>Türkçe</span>
+					<Image alt="flag" height={20} width={27} objectFit="contain" src={Tr.src} />
+					<span>Türkçe</span>
 
-                </Link>
+				</Link>
 				<Link
-                    key={'en'}
-                    href={asPath}
-                    locale={'en'}
-                    scroll={false}
-                    className={`${styles.link} ${locale === 'en'? styles.currentLocale:""}`}
-                    lang='en'
-                    hrefLang='en'>
+					key={"en"}
+					href={asPath}
+					locale={"en"}
+					scroll={false}
+					className={`${styles.link} ${locale === "en"? styles.currentLocale:""}`}
+					lang="en"
+					hrefLang="en">
 
-                    <Image alt='flag' height={20} width={27} src={Us.src} />
-                    <span>English</span>
+					<Image alt="flag" height={20} width={27} src={Us.src} />
+					<span>English</span>
 
-                </Link>
+				</Link>
 			</div>
 		</div>
-    );
+	)
 }
 
 

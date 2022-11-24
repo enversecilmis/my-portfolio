@@ -1,6 +1,7 @@
-import { TFunction } from 'next-i18next'
-import Link from 'next/link'
-import styles from './ProjectCardLink.module.scss'
+import Link from "next/link"
+import { TFunction } from "next-i18next"
+
+import styles from "./ProjectCardLink.module.scss"
 
 
 
@@ -10,20 +11,19 @@ type Props = {
 }
 
 const ProjectCardLink: React.FC<Props> = ({
-    href,
-    tFunction
+	href,
+	tFunction
 }) => {
+	tFunction
 
-    tFunction
-
-    return (
-        <Link className={styles.projectLinkCard} href={"/projects/dictionary"}>
-            <h4 className={styles.cardTitle}>{tFunction<string>("title")}</h4>
-            <div className={styles.cardContent}>
-                {tFunction<string>("description")}
-            </div>
-        </Link>
-    )
+	return (
+		<Link className={styles.projectLinkCard} href={"/projects/dictionary"}>
+			<h4 className={styles.cardTitle}>{tFunction<string>("title")}</h4>
+			<div className={styles.cardContent}>
+				{tFunction<string>("description")}
+			</div>
+		</Link>
+	)
 }
 
 

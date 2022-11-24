@@ -1,5 +1,6 @@
-import { DetailedHTMLProps, InputHTMLAttributes, useRef } from 'react'
-import styles from './NumberInput.module.scss'
+import { DetailedHTMLProps, InputHTMLAttributes, useRef } from "react"
+
+import styles from "./NumberInput.module.scss"
 
 
 
@@ -10,31 +11,31 @@ type Props = Omit<InputProps, "onChange"> & {
 }
 
 const NumberInput: React.FC<Props> = ({ onChange, title, ...rest }) => {
+	const input = useRef<HTMLInputElement>(null)
 
-    const input = useRef<HTMLInputElement>(null)
+	return (
+		<div className={styles.container}>
+			{title && <span className={styles.title}>{title} </span>}
+			<input
+				ref={input}
+				className={styles.input}
+				{...rest}
+				onChange={e => {
+					const numText = e.target.value.replace(/^0+/, "")
+					let value = parseInt(numText)*2/2
 
-    return (
-        <div className={styles.container}>
-            {title && <span className={styles.title}>{title} </span>}
-            <input
-                ref={input}
-                className={styles.input}
-                {...rest}
-                onChange={e => {
-                    const numText = e.target.value.replace(/^0+/,'')
-                    let value = parseInt(numText)*2/2
-                    value = e.target.valueAsNumber
-                    
-                    
-                    if(isNaN(value))
-                        onChange(0)
-                    else
-                        onChange(value)
-                }}
-                type="number"
-            />
-        </div>
-    );
+					value = e.target.valueAsNumber
+
+
+					if (isNaN(value))
+						onChange(0)
+					else
+						onChange(value)
+				}}
+				type="number"
+			/>
+		</div>
+	)
 }
 
 

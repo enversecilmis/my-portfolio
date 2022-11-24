@@ -15,9 +15,9 @@ import styles from "./LanguagePicker.module.scss"
 
 // TODO: Cookie for language prefference
 // TODO: Change language without refreshing and adding to history
-const setCookie = (locale: string) => {
-	document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
-}
+// const setCookie = (locale: string) => {
+// 	document.cookie = `NEXT_LOCALE=${locale}; max-age=31536000; path=/`
+// }
 
 type Props = {
 	className?: string

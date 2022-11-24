@@ -1,4 +1,3 @@
-import { useRef } from "react"
 import { BiHelpCircle } from "react-icons/bi"
 import { autoPlacement, useFloating } from "@floating-ui/react-dom"
 
@@ -13,7 +12,7 @@ type Props = {
 
 const HoverHelp: React.FC<Props> = ({
 	message,
-	calssName
+	calssName,
 }) => {
 	const { x, y, reference, floating, strategy } = useFloating({ middleware: [autoPlacement()]})
 
@@ -32,7 +31,7 @@ const HoverHelp: React.FC<Props> = ({
 				style={{
 					position: strategy,
 					top: y ?? 0,
-					left: x ?? 0
+					left: x ?? 0,
 				}}
 			>
 				{message}

@@ -21,9 +21,9 @@ export type DictionaryHashTable = {
     hashTableArray: HashTableArray
     loadFactor: number
     allCollisions: number[]
-    
+
     hashFunction: HashStringFunction
     collisionHandler: OnCollisionNextIndexHandler
     search: (searchWord: Word) => { translation: Translation | undefined, collisionCount: number }
-    add: (wordTranslationPair: [Word,Translation], throwInfiniteLoopError?: boolean) => void
+    add: (wordTranslationPair: [Word, Translation], throwInfiniteLoopError?: boolean) => void
 }

@@ -32,7 +32,7 @@ const Carousel: CarouselComponent = ({
 	const childCount = React.Children.count(children)
 	const titles: string[] = useMemo(
 		() => React.Children.map(children, child => child.props.sliderTitle || ""),
-		[children]
+		[children],
 	)
 
 	const previous = () => setActiveIndex(p => p-1 < 0 ? childCount-1 : p-1)

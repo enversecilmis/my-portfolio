@@ -12,7 +12,7 @@ const BurgerButton: React.FC<{
     className?: string | undefined
 }> = ({ isOpen, setIsOpen, className }) => {
 	return (
-		<button className={`${className}`} name="open navigation menu" onClick={(e) => setIsOpen(p => !p)}>
+		<button className={`${className}`} name="open navigation menu" onClick={() => setIsOpen(p => !p)}>
 			<div className={`${styles.mobileMenuButton} ${isOpen && styles.open}`}></div>
 		</button>
 	)

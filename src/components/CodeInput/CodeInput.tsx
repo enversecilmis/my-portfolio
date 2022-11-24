@@ -31,7 +31,7 @@ const CodeInput: React.FC<Props> = ({
 	boilerplateTop,
 	topBarButtonLeft,
 	topBarButtonRight,
-	required
+	required,
 }) => {
 	const editor = useRef<HTMLTextAreaElement>(null)
 

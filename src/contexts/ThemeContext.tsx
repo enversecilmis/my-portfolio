@@ -16,7 +16,7 @@ type ContextType = [
 const prefs: ThemePref[] = [
 	"system",
 	"light",
-	"dark"
+	"dark",
 ]
 
 const ThemePrefContext = createContext<ContextType | undefined>(undefined)
@@ -68,7 +68,7 @@ const ThemePrefProvider: React.FC<{ children?: ReactNode }> = ({ children }) => 
 			value={[
 				themePref,
 				setThemePref,
-				nextPref
+				nextPref,
 			]}>
 			{children}
 		</ThemePrefContext.Provider>
@@ -91,6 +91,6 @@ const useThemePref = () => {
 
 
 
-export { useThemePref, }
+export { useThemePref }
 
 export default ThemePrefProvider

@@ -66,5 +66,5 @@ const useNotification = () => {
 
 export {
 	NotificationProvider,
-	useNotification
+	useNotification,
 }

@@ -10,7 +10,7 @@ import styles from "./CompareDictionaries.module.scss"
 const runTimeComparison = (
 	func1: (index: number) => void,
 	func2: (index: number) => void,
-	iterations = 100
+	iterations = 100,
 ) => {
 	let dateBefore = Date.now()
 
@@ -51,7 +51,7 @@ type RunTimes = {
 
 const CompareDictionaries: React.FC<Props> = ({
 	dictionary,
-	hashDictionary
+	hashDictionary,
 }) => {
 	const [runTimes, setRunTimes] = useState<RunTimes>()
 
@@ -67,26 +67,26 @@ const CompareDictionaries: React.FC<Props> = ({
 		// Sequential search run times (from start to finish).
 		const dictSeqTime = calculateRunTime(
 			(i) => searchInDictionary(searchableWords[i]),
-			wordCount
+			wordCount,
 		)
 		// Random search run times.
 		const dictRandTime = calculateRunTime(
 			(i) => searchInDictionary(searchableWords[rndNum(0, wordCount)]),
-			wordCount
+			wordCount,
 		)
 		const hashSeqTime = calculateRunTime(
 			(i) => hashDictionary.search(searchableWords[i]),
-			wordCount
+			wordCount,
 		)
 		const hashRandTime = calculateRunTime(
-			(i) => hashDictionary.search(searchableWords[rndNum(0, wordCount)])
+			(i) => hashDictionary.search(searchableWords[rndNum(0, wordCount)]),
 		)
 
 		setRunTimes({
 			dictRandTime,
 			dictSeqTime,
 			hashRandTime,
-			hashSeqTime
+			hashSeqTime,
 		})
 	}
 

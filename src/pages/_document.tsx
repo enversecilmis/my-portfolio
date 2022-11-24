@@ -35,7 +35,7 @@ const Document = () => {
                         }
                         
                         document.body.dataset.theme = getTheme( getPref() )
-                        `
+                        `,
 					}}></script>
 				<Main />
 				<NextScript />

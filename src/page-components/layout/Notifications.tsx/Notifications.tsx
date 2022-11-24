@@ -19,7 +19,7 @@ import styles from "./Notifications.module.scss"
 const TypeIcons = {
 	error: BiError,
 	warning: BiErrorCircle,
-	info: BsInfoCircle
+	info: BsInfoCircle,
 }
 
 const Notifications: React.FC = () => {
@@ -86,7 +86,7 @@ const ListItem: React.FC<HTMLMotionProps<"li">> = forwardRef(({
 			variants={{
 				in: { opacity: 1, left: 0, translateY: 0 },
 				out: { opacity: 0, left: -100, translateY: 0 },
-				deleted: { opacity: 0, left: 0, translateY: 0, zIndex: -1 }
+				deleted: { opacity: 0, left: 0, translateY: 0, zIndex: -1 },
 			}}
 			onAnimationComplete={() => { !isPresent && safeToRemove() }}
 			{...props}

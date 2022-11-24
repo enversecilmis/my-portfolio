@@ -20,7 +20,7 @@ const Goal: React.FC = () => {
 
 
 	useGesture({
-		onMove: ({ xy: [px, py], }) => {
+		onMove: ({ xy: [px, py] }) => {
 			const { left, width, height, top } = hoverContainer.current?.getBoundingClientRect() as DOMRect
 			const centerX = left + width/2
 			const centerY = top + height/2
@@ -32,8 +32,8 @@ const Goal: React.FC = () => {
 		},
 		onHover: ({ hovering }) => {
 			!hovering &&
-            api({ rotateX: 0, rotateY: 0, })
-		}
+            api({ rotateX: 0, rotateY: 0 })
+		},
 	}, { target: hoverContainer })
 
 

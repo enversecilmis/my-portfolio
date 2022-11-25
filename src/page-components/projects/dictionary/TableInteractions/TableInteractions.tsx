@@ -2,14 +2,14 @@ import { useState } from "react"
 import { useTranslation } from "next-i18next"
 
 import TextInputWithSuggestions from "../../../../components/TextInputWithSuggestions/TextInputWithSuggestions"
-import { Dictionary, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
+import { DictionaryArray, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
 
 import styles from "./TableInteractions.module.scss"
 
 
 type Props = {
     hashDictionary: DictionaryHashTable
-    dictionary: Dictionary
+    dictionary: DictionaryArray
 }
 
 const TableInteractions: React.FC<Props> = ({

@@ -174,7 +174,15 @@ Home.getLayout = (page: ReactElement) => {
 
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-	return { props: { ...(await serverSideTranslations(locale as string, ["common", "header", "home"])) }}
+	return {
+		props: {
+			...(await serverSideTranslations(locale as string, [
+				"common",
+				"header",
+				"home",
+			])),
+		},
+	}
 }
 
 export default Home

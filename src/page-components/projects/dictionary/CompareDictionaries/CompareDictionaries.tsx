@@ -1,7 +1,7 @@
 import { useId, useState } from "react"
 
 import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
-import { Dictionary, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
+import { DictionaryArray, DictionaryHashTable } from "../../../../projects-src/hashtabledict/types"
 import { rndNum } from "../../../../utils/random-number"
 
 import styles from "./CompareDictionaries.module.scss"
@@ -39,7 +39,7 @@ const calculateRunTime = (func: (iteration: number) => void, iterations = 1) => 
 
 
 type Props = {
-    dictionary: Dictionary
+    dictionary: DictionaryArray
     hashDictionary: DictionaryHashTable
 }
 type RunTimes = {

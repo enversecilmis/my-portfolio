@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next"
 
 import NumberInput from "../../../../components/NumberInput/NumberInput"
 import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
-import { Dictionary } from "../../../../projects-src/hashtabledict/types"
+import { DictionaryArray } from "../../../../projects-src/hashtabledict/types"
 import { findAPrimeBiggerThan } from "../../../../projects-src/hashtabledict/utils"
 
 import styles from "./GetTableSize.module.scss"
@@ -13,7 +13,7 @@ import styles from "./GetTableSize.module.scss"
 type State<T> = [T, Dispatch<SetStateAction<T>>]
 type Props = {
     hashTableSizeState: State<number>
-    dictionaryArray: Dictionary | undefined
+    dictionaryArray: DictionaryArray | undefined
 }
 
 const GetTableSize: React.FC<Props> = ({

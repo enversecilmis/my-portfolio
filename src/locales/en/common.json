@@ -5,5 +5,13 @@
 	"next": "Next",
 	"previous": "Previous",
 	"finish": "Finish",
-	"regexEvalError": "Error occured when trying to evaluate regular expression."
+	"regexEvalError": "Error occured when trying to evaluate regular expression.",
+	"home": "Home",
+	"projects": "Projects",
+	"contentLabel": "Navigation Menu",
+	"changeTheme": "Change theme prefference to",
+	"dark": "dark",
+	"light": "light",
+	"system": "system",
+	"selectLanguage": "Select Language"
 }

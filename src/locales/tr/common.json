@@ -5,5 +5,13 @@
 	"next": "Sonraki",
 	"previous": "Önceki",
 	"finish": "Bitir",
-	"regexEvalError": "Regular Expression değerlendirirken hata."
+	"regexEvalError": "Regular Expression değerlendirirken hata.",
+	"home": "Ana Sayfa",
+	"projects": "Projeler",
+	"contentLabel": "Navigasyon Menüsü",
+	"changeTheme": "Tema tercihini değiştir:",
+	"dark": "koyu",
+	"light": "açık",
+	"system": "sistem",
+	"selectLanguage": "Dil Seç"
 }

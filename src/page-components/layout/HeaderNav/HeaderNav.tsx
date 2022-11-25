@@ -14,7 +14,7 @@ import styles from "./HeaderNav.module.scss"
 
 const HeaderNav: React.FC = () => {
 	const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
-	const { t } = useTranslation("header")
+	const { t } = useTranslation("common")
 
 
 	return (

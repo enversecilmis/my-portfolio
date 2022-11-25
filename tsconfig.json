@@ -16,8 +16,8 @@
     "incremental": true,
     "noUncheckedIndexedAccess": false,
     "paths": {
-      "baseUrl": ["src"],
-      "@components/*": ["src/components/*"]
+      "baseUrl": ["./src"],
+      "@components/*": ["./src/components/*"]
     }
   },
   "include": [

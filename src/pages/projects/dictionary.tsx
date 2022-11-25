@@ -22,7 +22,7 @@ import {
 } from "../../projects-src/hashtabledict/exceptions"
 import { createHashTableFromDictionary } from "../../projects-src/hashtabledict/hashtabledict"
 import {
-	Dictionary,
+	DictionaryArray,
 	DictionaryHashTable,
 	HashStringFunction,
 	OnCollisionNextIndexHandler,
@@ -31,6 +31,9 @@ import { NextPageWithLayout } from "../_app"
 
 import styles from "../../styles/dictionary.module.scss"
 
+
+
+
 const Dictionary: NextPageWithLayout = () => {
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const { t: projectsT } = useTranslation("projects")
@@ -38,9 +41,8 @@ const Dictionary: NextPageWithLayout = () => {
 	const toScrollElement = useRef<HTMLDivElement>(null)
 
 	// Dictionaries
-	const [dictionary, setDictionary] = useState<Dictionary>()
-	const [hashTableDictionary, setHashTableDictionary] =
-    useState<DictionaryHashTable>()
+	const [dictionary, setDictionary] = useState<DictionaryArray>()
+	const [hashTableDictionary, setHashTableDictionary] = useState<DictionaryHashTable>()
 
 	// Input states
 	const [fileContent, setFileContent] = useState<FileContent>()
@@ -57,6 +59,8 @@ const Dictionary: NextPageWithLayout = () => {
 		toScrollElement.current.scrollIntoView({ behavior: "smooth" })
 	}, [hashTableDictionary])
 
+
+
 	const validateInputsAndCreateHashTable = () => {
 		let hashFunction: HashStringFunction | undefined
 		let collisionHandler: OnCollisionNextIndexHandler | undefined
@@ -67,14 +71,15 @@ const Dictionary: NextPageWithLayout = () => {
 			const hashFuncOutput = hashFunctionEval("helo")
 
 			if (typeof hashFuncOutput !== "number")
-				throw new Error("Return type is not a number.")
+				throw new Error(dictionaryT("returnTypeNumberError"))
 
 			hashFunction = hashFunctionEval
 		} catch (error: any) {
 			hashFunction = undefined
-			pushNotification(error.toString() as string, {
+
+			pushNotification(error.toString(), {
 				type: "error",
-				source: "Hash Function Input",
+				source: dictionaryT("hashFuncInput"),
 			})
 		}
 
@@ -86,24 +91,21 @@ const Dictionary: NextPageWithLayout = () => {
 			const collisionFuncOutput = collisionHandlerEval(19, "helo", 1)
 
 			if (typeof collisionFuncOutput !== "number")
-				throw new Error("Return type is not a number.")
+				throw new Error(dictionaryT("returnTypeNumberError"))
 
 			collisionHandler = collisionHandlerEval
 		} catch (error: any) {
 			collisionHandler = undefined
+
 			pushNotification(error.toString(), {
 				type: "error",
-				source: "Collision Handler Input",
+				source: dictionaryT("collisionHandlerInput"),
 			})
 		}
 
 		// Try to create hash table dictionary.
 		try {
-			if (
-				hashFunction === undefined ||
-        collisionHandler === undefined ||
-        dictionary === undefined
-			)
+			if (hashFunction === undefined || collisionHandler === undefined || dictionary === undefined)
 				return
 
 			const hashTable = createHashTableFromDictionary(dictionary, {
@@ -116,28 +118,28 @@ const Dictionary: NextPageWithLayout = () => {
 			setHashTableDictionary(hashTable)
 		} catch (error: any) {
 			if (error instanceof DictionaryTypeException) {
-				const message = `${error.message}\r\nPlease check seperators or the text file.`
+				const message = dictionaryT("createDictArrError")
 
 				pushNotification(message, {
 					type: "error",
-					source: "Create Hash Table",
+					source: dictionaryT("createDictArr"),
 					durationSeconds: 6000,
 				})
 				return
 			}
 			if (error instanceof TableSizeException) {
-				const message = `${error.message}\r\nPlease give a larger table size value.`
+				const message = `${error.message}\r\n${dictionaryT("hashTableSizeError")}`
 
 				pushNotification(message, {
 					type: "error",
-					source: "Create Hash Table",
+					source: dictionaryT("createDictArr"),
 					durationSeconds: 6000,
 				})
 				return
 			}
 			pushNotification(error.toString(), {
 				type: "error",
-				source: "Create Hash Table",
+				source: dictionaryT("createDictArr"),
 				durationSeconds: 6000,
 			})
 		}
@@ -154,7 +156,6 @@ const Dictionary: NextPageWithLayout = () => {
 				containerClassName={styles.outerContainer}
 				contentClassName={styles.container}
 			>
-				{/* <h1 className={styles.pageTitle}>{dictionaryT("title")}</h1> */}
 				<p className={styles.description}>{dictionaryT("description")}</p>
 
 				<MultistepForm

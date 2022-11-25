@@ -1,10 +1,6 @@
 import { DictionaryTypeException, TableSizeException } from "./exceptions"
-import { CreateHashTableOptions, Dictionary, DictionaryHashTable } from "./types"
+import { CreateHashTableOptions, DictionaryArray, DictionaryHashTable } from "./types"
 import { defaultCollisionHandler, defaultHashStringFunction, findAPrimeBiggerThan, zDictionaryArray } from "./utils"
-
-
-
-
 
 
 
@@ -16,25 +12,21 @@ import { defaultCollisionHandler, defaultHashStringFunction, findAPrimeBiggerTha
  * @param wordSeperator Defaults to `/ {2,}/`
  * @param pairSeperator Defaults to `"\r\n"`
  * @return `[Word,Translation][]`
+ * @throws `DictionaryTypeException`
 */
 const createDictionaryArrayFromString = (
 	text: string,
 	wordSeperator: string | RegExp = / {2,}/,
 	pairSeperator: string | RegExp = "\r\n",
-): Dictionary => {
-	// shorthand
-	// const dictionary = text
-	//                     .split(pairSeperator)
-	//                     .map(pair => pair.split(wordSeperator) as [string,string])
-	const pairs = text.split(pairSeperator)
+): DictionaryArray => {
+	const dictionary = text
+		.split(pairSeperator)
+		.map(pair => pair.split(wordSeperator))
 
-	const dictionary = pairs.map(pair => {
-		const [word, translation] = pair.split(wordSeperator)
+	if (!zDictionaryArray.safeParse(dictionary).success)
+		throw new DictionaryTypeException("Dictionary arguement doesn't fit the type [string,string][].")
 
-		return [word, translation] as [string, string]
-	})
-
-	return dictionary
+	return dictionary as DictionaryArray
 }
 
 
@@ -46,7 +38,7 @@ const createDictionaryArrayFromString = (
  * @throws `DictionaryTypeException`
  */
 const createHashTableFromDictionary = (
-	dictionary: Dictionary,
+	dictionary: DictionaryArray,
 	hashTableOptions?: CreateHashTableOptions,
 ) => {
 	const defaults = {
@@ -62,12 +54,10 @@ const createHashTableFromDictionary = (
 		throwInfiniteLoopError,
 	} = { ...defaults, ...hashTableOptions }
 
-	// Validate size.
-	if (hashTableSize <= dictionary.length) {
-		console.log("Small dickington")
 
+	// Validate size.
+	if (hashTableSize <= dictionary.length)
 		throw new TableSizeException("Hash table size must be bigger than dictionary size.")
-	}
 
 	// Validate dictionary array.
 	if (!zDictionaryArray.safeParse(dictionary).success)
@@ -122,11 +112,9 @@ const createHashTableFromDictionary = (
 		},
 	}
 
-
 	for (const pair of dictionary) {
 		dictionaryHashTable.add(pair, throwInfiniteLoopError)
 	}
-
 
 	return dictionaryHashTable
 }

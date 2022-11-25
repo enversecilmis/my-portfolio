@@ -1,8 +1,9 @@
 {
-    "greeting": "Hello World",
-    "inConstruction": "This site is still in development",
-    "deleteNotification": "Delete notification",
-    "next": "Next",
-    "previous": "Previous",
-    "finish": "Finish"
+	"greeting": "Hello World",
+	"inConstruction": "This site is still in development",
+	"deleteNotification": "Delete notification",
+	"next": "Next",
+	"previous": "Previous",
+	"finish": "Finish",
+	"regexEvalError": "Error occured when trying to evaluate regular expression."
 }

@@ -1,6 +1,6 @@
 type Word = string
 type Translation = string
-export type Dictionary = [Word, Translation][]
+export type DictionaryArray = [Word, Translation][]
 
 export type HashTableArray = [Word, Translation][]
 

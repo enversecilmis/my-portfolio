@@ -1,8 +1,9 @@
 {
-    "greeting": "Merhaba Dünya",
-    "inConstruction": "Bu site hala geliştirme aşamasında",
-    "deleteNotification": "Bildirimi sil",
-    "next": "Sonraki",
-    "previous": "Önceki",
-    "finish": "Bitir"
+	"greeting": "Merhaba Dünya",
+	"inConstruction": "Bu site hala geliştirme aşamasında",
+	"deleteNotification": "Bildirimi sil",
+	"next": "Sonraki",
+	"previous": "Önceki",
+	"finish": "Bitir",
+	"regexEvalError": "Regular Expression değerlendirirken hata."
 }

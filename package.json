@@ -9,11 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
     "@floating-ui/react-dom": "^1.0.0",
     "@next/bundle-analyzer": "^12.2.5",
     "@react-spring/web": "^9.5.2",
-    "@tanstack/react-table": "^8.5.22",
     "@use-gesture/react": "^10.2.18",
     "framer-motion": "^7.6.1",
     "next": "^13.0.0",

@@ -8,7 +8,7 @@ import TextInput from "../../../../components/TextInput/TextInput"
 import ThemedButton from "../../../../components/ThemedButton/ThemedButton"
 import { useNotification } from "../../../../contexts/NotificationContext"
 import { createDictionaryArrayFromString } from "../../../../projects-src/hashtabledict/hashtabledict"
-import { Dictionary } from "../../../../projects-src/hashtabledict/types"
+import { DictionaryArray } from "../../../../projects-src/hashtabledict/types"
 import { zDictionaryArray } from "../../../../projects-src/hashtabledict/utils"
 
 import styles from "./CreateDictionaryArray.module.scss"
@@ -24,7 +24,7 @@ type Props = {
     fileContentState: State<FileContent | undefined>
     wordSeperatorState: State<string>
     pairSeperatorState: State<string>
-    dictionaryState: State<Dictionary | undefined>
+    dictionaryState: State<DictionaryArray | undefined>
 }
 
 
@@ -42,6 +42,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	const [dictionary, setDictionary] = dictionaryState
 	const [settingDefaults, setSettingDefaults] = useState(false)
 	const { t: dictionaryT } = useTranslation("dictionary")
+	const { t: commonT } = useTranslation("common")
 
 
 
@@ -59,49 +60,57 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		setPairSeperator(DEFAULT_PAIR_SEPERATOR)
 		setSettingDefaults(false)
 	}
+
+
 	const createDictionaryArray = async () => {
 		if (!fileContent?.content)
 			return
 		let wordRegex: RegExp
 		let pairRegex: RegExp
 
+		// Word seperator eval.
 		try {
 			wordRegex = new RegExp(wordSeperator)
 		} catch (error) {
-			let msg = "Error occured when trying to evaluate regular expression."
+			let msg = commonT("regexEvalError")
 
 			if (error instanceof Error)
-				msg = error.toString()
-			pushNotification(msg, { type: "error", source: "Word Seperator Input" })
+				msg = `${msg}\r\n${error.toString()}`
+			pushNotification(msg, { type: "error", source: dictionaryT("wordSeperatorInput") })
 			return
 		}
+		// Pair seperator eval.
 		try {
 			pairRegex = new RegExp(pairSeperator)
 		} catch (error) {
-			let msg = "Error occured when trying to evaluate regular expression."
+			let msg = commonT("regexEvalError")
 
 			if (error instanceof Error)
-				msg = error.toString()
-			pushNotification(msg, { type: "error", source: "Pair Seperator Input" })
+				msg = `${msg}\r\n${error.toString()}`
+			pushNotification(msg, { type: "error", source: dictionaryT("pairSeperatorInput") })
 			return
 		}
-		const dictArr = createDictionaryArrayFromString(
-			fileContent.content,
-			wordRegex,
-			pairRegex,
-		)
+		// Dictionary creation.
+		try {
+			const dictArr = createDictionaryArrayFromString(
+				fileContent.content,
+				wordRegex,
+				pairRegex,
+			)
 
-		if (!zDictionaryArray.safeParse(dictArr).success){
-			pushNotification("Created array structure is not [string,string][]. Check your text file or seperators.", {
+			setDictionary(dictArr)
+		} catch (error) {
+			pushNotification(dictionaryT("createDictArrError"), {
 				type: "error",
 				durationSeconds: 6000,
-				source: "Create Dictionary Array",
+				source: dictionaryT("createDictArr"),
 			})
+
 			setDictionary(undefined)
 		}
-		else
-			setDictionary(dictArr)
 	}
+
+
 
 	return (
 		<div className={styles.inputStep}>

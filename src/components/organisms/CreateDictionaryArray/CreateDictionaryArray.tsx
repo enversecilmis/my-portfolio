@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next"
 import { FileContent } from "use-file-picker"
 
 import { useNotification } from "../../../contexts/NotificationContext"
+import { DictionaryTypeException } from "../../../projects-src/hashtabledict/exceptions"
 import { createDictionaryArrayFromString } from "../../../projects-src/hashtabledict/hashtabledict"
 import { DictionaryArray } from "../../../projects-src/hashtabledict/types"
 import FileChooser from "../../atoms/FileChooser/FileChooser"
@@ -99,11 +100,20 @@ const CreateDictionaryArray: React.FC<Props> = ({
 
 			setDictionary(dictArr)
 		} catch (error) {
-			pushNotification(dictionaryT("createDictArrError"), {
-				type: "error",
-				durationSeconds: 6000,
-				source: dictionaryT("createDictArr"),
-			})
+			if (error instanceof DictionaryTypeException) {
+				pushNotification(dictionaryT("createDictArrError"), {
+					type: "error",
+					durationSeconds: 6000,
+					source: dictionaryT("createDictArr"),
+				})
+			}
+			else if (error instanceof Error) {
+				console.log(error)
+				console.log(error.toString)
+			}
+			else {
+				console.log(error)
+			}
 
 			setDictionary(undefined)
 		}

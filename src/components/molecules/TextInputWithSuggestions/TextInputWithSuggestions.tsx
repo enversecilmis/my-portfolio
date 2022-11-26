@@ -54,7 +54,6 @@ const TextInputWithSuggestions: React.FC<Props> = ({
 
 
 	const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-		console.log(e.key)
 		if (e.key === "ArrowUp"){
 			e.preventDefault()
 			setFocusedId(p => p-1 <= -1? suggestions.length-1 : p-1 )

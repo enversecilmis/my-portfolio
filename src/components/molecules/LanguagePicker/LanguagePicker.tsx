@@ -29,7 +29,6 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 	return (
 		<div
 			className={styles.container}
-			onFocus={() => console.log("cont focus")}
 			onBlur={() => setIsOpen(false)}
 			onKeyDown={(e) => { if (e.key === "Escape")
 				setIsOpen(false) }}
@@ -46,7 +45,6 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 			<div
 				className={`${styles.languageList} ${isOpen? styles.open : styles.closed}`}
 				onFocus={() => setIsOpen(true)}
-				onBlur={() => console.log("list blur")}
 			>
 				<div className={styles.arrowBox}></div>
 				<Link

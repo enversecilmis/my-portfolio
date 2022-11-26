@@ -101,6 +101,8 @@ const CreateDictionaryArray: React.FC<Props> = ({
 			setDictionary(dictArr)
 		} catch (error) {
 			if (error instanceof DictionaryTypeException) {
+				console.log("dict type error")
+
 				pushNotification(dictionaryT("createDictArrError"), {
 					type: "error",
 					durationSeconds: 6000,
@@ -108,10 +110,13 @@ const CreateDictionaryArray: React.FC<Props> = ({
 				})
 			}
 			else if (error instanceof Error) {
+				console.log("error")
 				console.log(error)
 				console.log(error.toString)
 			}
 			else {
+				console.log("whatever the fuck this is")
+
 				console.log(error)
 			}
 

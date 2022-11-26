@@ -1,14 +1,14 @@
 import { ReactElement } from "react"
+import RootLayout from "@components/layouts/RootLayout"
+import ProjectCardLink from "@components/molecules/ProjectCardLink/ProjectCardLink"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import BasicLayout from "../../layouts/RootLayout"
-import ProjectCardLink from "../../page-components/projects/ProjectCardLink/ProjectCardLink"
 import { NextPageWithLayout } from "../_app"
 
-import styles from "../../styles/projects.module.scss"
+import styles from "@styles/projects.module.scss"
 
 
 
@@ -32,8 +32,9 @@ const Projects: NextPageWithLayout = () => {
 
 				<div className={styles.projects}>
 					<ProjectCardLink
-						href="/projets/dictionary"
-						tFunction={dictionaryT}
+						href="/projects/dictionary"
+						description={dictionaryT("description")}
+						title={dictionaryT("title")}
 					/>
 				</div>
 
@@ -45,9 +46,9 @@ const Projects: NextPageWithLayout = () => {
 
 Projects.getLayout = (page: ReactElement) => {
 	return (
-		<BasicLayout>
+		<RootLayout>
 			{page}
-		</BasicLayout>
+		</RootLayout>
 	)
 }
 

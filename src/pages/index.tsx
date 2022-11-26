@@ -1,29 +1,28 @@
 import { ReactElement, useEffect } from "react"
 import { FaUniversity } from "react-icons/fa"
 import { GiStairsGoal } from "react-icons/gi"
-import Carousel from "@components/Carousel/Carousel"
+import I18nIcon from "@components/atoms/I18nIcon"
+import RoutineIcon from "@components/atoms/RoutineIcon"
+import TitledSection from "@components/atoms/TitledSection/TitledSection"
+import BasicLayout from "@components/layouts/RootLayout"
+import Carousel from "@components/molecules/Carousel/Carousel"
+import ResponsiveLayoutAnimation from "@components/molecules/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation"
+import Goal from "@components/organisms/Goal/Goal"
+import IntroSection from "@components/organisms/IntroSection/IntroSection"
+import { useNotification } from "@contexts/NotificationContext"
+import csrImage from "@public/images/csr.png"
+import isrImage from "@public/images/isr.png"
+import ssgImage from "@public/images/ssg.png"
+import ssrImage from "@public/images/ssr.png"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 import Image from "next/legacy/image"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import csrImage from "../../public/csr.png"
-import isrImage from "../../public/isr.png"
-import ssgImage from "../../public/ssg.png"
-import ssrImage from "../../public/ssr.png"
-import I18nIcon from "../components/I18nIcon"
-import RoutineIcon from "../components/RoutineIcon"
-import TitledSection from "../components/TitledSection/TitledSection"
-import { useNotification } from "../contexts/NotificationContext"
-import BasicLayout from "../layouts/RootLayout"
-import Goal from "../page-components/home/Goal/Goal"
-import IntroSection from "../page-components/home/IntroSection/IntroSection"
-import ResponsiveLayoutAnimation from "../page-components/home/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation"
-
 import { NextPageWithLayout } from "./_app"
 
-import styles from "../styles/home.module.scss"
+import styles from "@styles/home.module.scss"
 
 
 
@@ -44,7 +43,7 @@ const Home: NextPageWithLayout = () => {
 			pushNotification(commonT("inConstruction"), { type: "info" })
 			window.sessionStorage.setItem("notificationShowed", "true")
 		}
-	}, [])
+	}, [commonT, pushNotification])
 
 
 	return (
@@ -149,10 +148,10 @@ const Home: NextPageWithLayout = () => {
 				<TitledSection contentClassName={styles.siteInfoSection} title={t("usedTech")}>
 					<ul className="mt-10">
 						<li>- Next.js</li>
-						<li>- Tailwind</li>
 						<li>- Sass</li>
 						<li>- Vercel (hosting)</li>
 						<li>- Figma ({t("usedTechParenthesis")})</li>
+						<li>- Framer Motion</li>
 					</ul>
 				</TitledSection>
 			</main>

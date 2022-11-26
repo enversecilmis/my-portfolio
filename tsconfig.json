@@ -17,7 +17,11 @@
     "noUncheckedIndexedAccess": false,
     "paths": {
       "baseUrl": ["./src"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+	  "@styles/*": ["./src/styles/*"],
+	  "@contexts/*": ["./src/contexts/*"],
+	  "@utils/*": ["./src/utils/*"],
+	  "@public/*": ["./public/*"]
     }
   },
   "include": [
@@ -26,6 +30,6 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
-, "next-i18next.config.js", "next.config.mjs"  ],
+, "next-i18next.config.js", "next.config.mjs", "src/components/organisms/Notifications"  ],
   "exclude": ["node_modules"]
 }

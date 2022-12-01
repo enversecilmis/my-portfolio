@@ -6,25 +6,26 @@ import styles from "./TextInput.module.scss"
 
 
 type MyProps = {
-    value?: string
-    onChange?: (text: string) => void
-    suggestions?: string[] | number[]
+    value: string
+    onChange: (text: string) => void
 }
 type InputElementProps = Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type">
 type Props = MyProps & InputElementProps
+type TextInputComponent = React.ForwardRefRenderFunction<HTMLInputElement, Props>
 
 
-const TextInput: React.FC<Props> = ({
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	onChange = () => {},
+
+const TextInput: TextInputComponent = ({
+	onChange = () => { "" },
 	className,
 	...props
-}) => {
+}, ref) => {
 	return (
 		<input
+			ref={ref}
 			className={`${styles.input} ${className}`}
-			type="text"
 			onChange={e => onChange(e.target.value)}
+			type="text"
 			{...props}
 		/>
 	)
@@ -33,5 +34,5 @@ const TextInput: React.FC<Props> = ({
 
 
 
-
-export default TextInput
+export type TextInputProps = Props
+export default React.forwardRef(TextInput)

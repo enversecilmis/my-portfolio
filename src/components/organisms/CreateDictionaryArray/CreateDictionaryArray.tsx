@@ -61,7 +61,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	}
 
 
-	const createDictionaryArray = async () => {
+	const createDictionaryArray = () => {
 		if (!fileContent?.content)
 			return
 		let wordRegex: RegExp

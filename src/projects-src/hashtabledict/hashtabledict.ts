@@ -23,7 +23,6 @@ const createDictionaryArrayFromString = (
 		.split(pairSeperator)
 		.map(pair => pair.split(wordSeperator))
 
-	console.log(dictionary)
 
 	if (!zDictionaryArray.safeParse(dictionary).success)
 		throw new DictionaryTypeException("Dictionary arguement doesn't fit the type [string,string][].")

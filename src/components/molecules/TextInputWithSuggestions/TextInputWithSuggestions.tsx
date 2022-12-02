@@ -1,122 +1,81 @@
-import { KeyboardEventHandler, useEffect, useState } from "react"
+import { createKeyHandler } from "@utils/create-key-handler"
 
-import TextInput from "../../atoms/TextInput/TextInput"
+import useSuggestions from "../../../hooks/use-input-suggestions"
+import TextInput, { TextInputProps } from "../../atoms/TextInput/TextInput"
 
 import styles from "./TextInputWithSuggestions.module.scss"
 
 
 
 
+
 type Props = {
-    value: string
-    onChange: ((text: string) => void)
     options: string[]
-    onSelectSuggestion: (selected: string) => void
-    numberOfSuggestions?: number
-    onEnter?: () => void
+    maxSuggestions?: number
 	className?: string
 	InputClassName?: string
-}
+} & TextInputProps
 
 const TextInputWithSuggestions: React.FC<Props> = ({
 	value,
-	onChange,
 	options,
-	onSelectSuggestion,
-	numberOfSuggestions = 3,
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	onEnter = () => {},
+	maxSuggestions = 3,
 	className,
 	InputClassName,
+	onChange,
+	onKeyDown = () => { "" },
+	...props
 }) => {
-	const [focusedId, setFocusedId] = useState(-1)
-	const [isShowing, setIsShowing] = useState(false)
-	// To be showed when:
-	// On input focus
-	// When started writing
-
-	// To be hidden when:
-	// Suggestion selected
-	// Pressed ESC
-	// On input blur
+	const {
+		suggestions,
+		isVisible,
+		focusedIndex,
+		showSuggestions,
+		hideSuggestions,
+		keyHandler: suggestionKeyHandler,
+	} =useSuggestions(value, options, maxSuggestions)
 
 
-
-	useEffect(() => {
-		setFocusedId(-1)
-	}, [value])
-
-	const suggestions = value.length > 0 ?
-		options
-			.filter(word => word.startsWith(value) && word !== value)
-			.slice(0, numberOfSuggestions):
-		[]
-
-
-	const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-		if (e.key === "ArrowUp"){
-			e.preventDefault()
-			setFocusedId(p => p-1 <= -1? suggestions.length-1 : p-1 )
-		}
-		if (e.key === "ArrowDown"){
-			e.preventDefault()
-			setFocusedId(p => p+1 >= suggestions.length? 0 : p+1)
-			showSuggestions()
-		}
-		if (e.key === "Enter"){
-			e.preventDefault()
+	const keyHandler = createKeyHandler({
+		parentKeyHandler(e) {
+			suggestionKeyHandler(e)
+			onKeyDown(e)
+		},
+		Enter(_, stopParent) {
+			if (!isVisible)
+				return
+			onChange(suggestions[focusedIndex])
 			hideSuggestions()
-			focusedId === -1 ?
-				onEnter():
-				onSelectSuggestion(suggestions[focusedId])
-		}
-		if (e.key === "Escape"){
-			e.preventDefault()
-			hideSuggestions()
-		}
-	}
-
-	const handleOnChange = (text: string) => {
-		onChange(text)
-		showSuggestions()
-	}
-	const handleFocus = () => {
-		showSuggestions()
-	}
-	const handleOnBlur = () => {
-		hideSuggestions()
-	}
-	const showSuggestions = () => {
-		setIsShowing(true)
-	}
-	const hideSuggestions = () => {
-		setFocusedId(-1)
-		setIsShowing(false)
-	}
+			stopParent()
+		},
+	})
 
 	return (
 		<div className={`${styles.searchSection} ${className}`}>
 			<TextInput
 				value={value}
-				onChange={handleOnChange}
-				onKeyDown={handleKeyDown}
-				onFocus={handleFocus}
-				onBlur={handleOnBlur}
+				onChange={(text) => { onChange(text); showSuggestions() }}
+				onFocus={showSuggestions}
+				onBlur={hideSuggestions}
+				onKeyDown={keyHandler}
 				className={`${styles.textInput} ${InputClassName}`}
+				{...props}
 			/>
-			<div className={styles.suggestions}>
-				{isShowing &&
-				suggestions.map((word, idx) => (
-					<button key={idx} className={`${styles.suggestionButton} ${focusedId === idx? styles.focused:""}`} onClick={() => {
-						setFocusedId(idx)
-						onSelectSuggestion(word)
-					}}>
-						{word}
-					</button>
-				))}
-			</div>
-
-
+			{isVisible &&
+				<div className={styles.suggestions}>
+					{suggestions.map((word, idx) => (
+						<button
+							key={idx}
+							className={`${styles.suggestion} ${focusedIndex === idx? styles.focused:""}`}
+							onMouseDown={() => {
+								onChange(suggestions[idx])
+								hideSuggestions()
+							}}>
+							{word}
+						</button>
+					))}
+				</div>
+			}
 		</div>
 	)
 }

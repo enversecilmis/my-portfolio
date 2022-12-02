@@ -31,7 +31,8 @@
                     ["^.+\\.?(css)$"]
                   ]
                 }
-              ]
+              ],
+			  "@typescript-eslint/no-empty-function": "warn"
             }
           }
     ],

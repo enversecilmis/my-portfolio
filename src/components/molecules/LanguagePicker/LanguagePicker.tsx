@@ -48,6 +48,10 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 			>
 				<div className={styles.arrowBox}></div>
 				<Link
+					onClick={() => {
+						document.cookie = "NEXT_LOCALE=tr; max-age=31536000; path=/"
+					}}
+					replace={true}
 					key={"tr"}
 					href={asPath}
 					locale={"tr"}
@@ -58,9 +62,12 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 
 					<Image alt="flag" height={20} width={27} objectFit="contain" src={Tr.src} />
 					<span>Türkçe</span>
-
 				</Link>
 				<Link
+					onClick={() => {
+						document.cookie = "NEXT_LOCALE=en; max-age=31536000; path=/"
+					}}
+					replace={true}
 					key={"en"}
 					href={asPath}
 					locale={"en"}

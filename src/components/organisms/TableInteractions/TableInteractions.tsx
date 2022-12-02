@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { createKeyHandler } from "@utils/create-key-handler"
 import { useTranslation } from "next-i18next"
 
 import { DictionaryArray, DictionaryHashTable } from "../../../projects-src/hashtabledict/types"
@@ -30,7 +31,7 @@ const TableInteractions: React.FC<Props> = ({
 	const [hashTime, setHashTime] = useState(0)
 	const { t: dictionaryT } = useTranslation("dictionary")
 
-	const searchableWords = dictionary.map(pair => pair[0])
+	const searchableWords = useMemo(() => dictionary.map(pair => pair[0]), [dictionary])
 
 
 	const searchInDictionaries = () => {
@@ -51,27 +52,31 @@ const TableInteractions: React.FC<Props> = ({
 		setHashTime(hashSearchTime)
 	}
 
+	const keyActions = createKeyHandler({
+		Enter(){
+			searchInDictionaries()
+		},
+	})
 
 	return (
 		<div className={styles.container}>
 			<TextInputWithSuggestions
 				value={searchWord}
 				onChange={setSearchWord}
-				onSelectSuggestion={setSearchWord}
 				options={searchableWords}
-				numberOfSuggestions={5}
-				onEnter={searchInDictionaries}
+				maxSuggestions={5}
+				onKeyDown={keyActions}
 				className={styles.searchInput}
 				InputClassName={styles.inputField}
 			/>
 
-			<div>
-				<p>{dictionaryT("arraySearch")}</p>
+			<div className={styles.translationBox}>
+				<p className={styles.searchTitle}>{dictionaryT("arraySearch")}</p>
 				{dictionaryTranslation &&
                 `${dictionaryTranslation} ${dictTime}ms`}
 			</div>
-			<div>
-				<p>{dictionaryT("hashTableSearch")}</p>
+			<div className={styles.translationBox}>
+				<p className={styles.searchTitle}>{dictionaryT("hashTableSearch")}</p>
 				{hashDictionaryTranslation &&
                 `${hashDictionaryTranslation} ${hashTime}ms`}
 			</div>

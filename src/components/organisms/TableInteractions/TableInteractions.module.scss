@@ -1,15 +1,14 @@
 @import "@styles/mixins.scss";
 
 .container {
-	align-self: center;
 	display: flex;
 	flex-direction: column;
-	gap: 30px;
 	align-items: center;
-
+	gap: 30px;
+	align-self: center;
+	width: 400px;
 	background-color: var(--color-bg);
 	color: var(--color-txt);
-	width: 400px;
 
 	.searchInput {
 		background-color: inherit;
@@ -20,6 +19,12 @@
 			color: var(--color-txt);
 			background-color: inherit;
 			font-size: 20px;
+		}
+	}
+
+	.translationBox {
+		.searchTitle {
+			color: var(--color-txt-blue);
 		}
 	}
 

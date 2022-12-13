@@ -40,11 +40,12 @@ const variants = {
 
 
 /**
- * Every react children becomes a step.
+ * Every react child becomes a step.
+ * It won't let you go next if there's empty required fields inside.
+ * To control `next` buttons disabled state, use `MultistepForm.Item` component.
  */
 const MultistepForm: MultiStepForm = ({
-	// eslint-disable-next-line @typescript-eslint/no-empty-function
-	onFinish = () => {},
+	onFinish = () => { "" },
 	children,
 	className,
 }) => {

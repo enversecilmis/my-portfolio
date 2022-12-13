@@ -23,7 +23,7 @@ type Props = {
 
 const ThemeToggleButton: React.FC<Props> = ({ className }) => {
 	const [themePref, setThemePref, nextThemePref] = useThemePref()
-	const { t } = useTranslation("header")
+	const { t } = useTranslation("common")
 
 
 	if (!themePref || !nextThemePref)

@@ -1,15 +1,14 @@
-import { ReactElement, useEffect } from "react"
+import { ReactElement } from "react"
 import { FaUniversity } from "react-icons/fa"
 import { GiStairsGoal } from "react-icons/gi"
+import ContentSection from "@components/atoms/ContentSection/ContentSection"
 import I18nIcon from "@components/atoms/I18nIcon"
 import RoutineIcon from "@components/atoms/RoutineIcon"
-import TitledSection from "@components/atoms/TitledSection/TitledSection"
 import BasicLayout from "@components/layouts/RootLayout"
 import Carousel from "@components/molecules/Carousel/Carousel"
 import ResponsiveLayoutAnimation from "@components/molecules/ResponsiveLayoutAnimation/ResponsiveLayoutAnimation"
 import Goal from "@components/organisms/Goal/Goal"
-import IntroSection from "@components/organisms/IntroSection/IntroSection"
-import { useNotification } from "@contexts/NotificationContext"
+import Greeting from "@components/organisms/Greeting/Greeting"
 import csrImage from "@public/images/csr.png"
 import isrImage from "@public/images/isr.png"
 import ssgImage from "@public/images/ssg.png"
@@ -27,24 +26,8 @@ import styles from "@styles/home.module.scss"
 
 
 
-
 const Home: NextPageWithLayout = () => {
 	const { t } = useTranslation("home")
-
-	const { t: commonT } = useTranslation("common")
-
-	const { pushNotification } = useNotification()
-
-
-	useEffect(() => {
-		const showed = window.sessionStorage.getItem("notificationShowed")
-
-		if (!showed){
-			pushNotification(commonT("inConstruction"), { type: "info" })
-			window.sessionStorage.setItem("notificationShowed", "true")
-		}
-	}, [commonT, pushNotification])
-
 
 	return (
 		<>
@@ -56,10 +39,9 @@ const Home: NextPageWithLayout = () => {
 
 			<main className={styles.container}>
 				<Goal />
-				<IntroSection/>
+				<Greeting/>
 
-
-				<TitledSection contentClassName={styles.whoAmISection} title={t("whoAmI")}>
+				<ContentSection className={styles.whoAmISection} heading={t("whoAmI")} hTag="h2">
 					<div className={styles.iconTextContainer}>
 						<FaUniversity className={styles.icon}/>
 						<span className={styles.text}>
@@ -90,10 +72,10 @@ const Home: NextPageWithLayout = () => {
 							</span>
 						</span>
 					</div>
-				</TitledSection>
+				</ContentSection>
 
 
-				<TitledSection contentClassName={styles.whatICanDoSection} title={t("whatICanDo")}>
+				<ContentSection className={styles.whatICanDoSection} heading={t("whatICanDo")} hTag="h2">
 					<div>
 						<p className={styles.text}>- {t("whatICanDoNext")}</p>
 						<p className={styles.text}>- {t("whatICanDoRN")}</p>
@@ -142,10 +124,10 @@ const Home: NextPageWithLayout = () => {
 							<Image placeholder="blur" alt="client side rendering" src={isrImage}/>
 						</Carousel.Item>
 					</Carousel>
-				</TitledSection>
+				</ContentSection>
 
 
-				<TitledSection contentClassName={styles.siteInfoSection} title={t("usedTech")}>
+				<ContentSection className={styles.siteInfoSection} heading={t("usedTech")} hTag="h2">
 					<ul className="mt-10">
 						<li>- Next.js</li>
 						<li>- Sass</li>
@@ -153,7 +135,7 @@ const Home: NextPageWithLayout = () => {
 						<li>- Figma ({t("usedTechParenthesis")})</li>
 						<li>- Framer Motion</li>
 					</ul>
-				</TitledSection>
+				</ContentSection>
 			</main>
 		</>
 	)

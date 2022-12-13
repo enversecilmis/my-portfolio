@@ -22,11 +22,12 @@ const useInputSuggestions = (
 	)
 
 
+	const minIndex = -1
+	const maxIndex = suggestions.length - 1
+	const indexInRange = (index: number) => inRange(index, minIndex, maxIndex)
+
 	const showSuggestions = () => {
-		if (suggestions.length > 0)
-			setIsVisible(true)
-		else
-			hideSuggestions()
+		setIsVisible(true)
 	}
 	const hideSuggestions = () => {
 		setIsVisible(false)
@@ -34,15 +35,24 @@ const useInputSuggestions = (
 	}
 
 
-	const keyHandler = createKeyHandler<HTMLInputElement>({
+	const keyHandler = createKeyHandler({
 		ArrowUp(e) {
 			e.preventDefault()
-			setFocusedIndex(inRange(focusedIndex-1, 0, suggestions.length))
+			if (!isVisible)
+				return
+			const newIndex = indexInRange(focusedIndex-1)
+
+			setFocusedIndex(newIndex)
 		},
 		ArrowDown(e) {
 			e.preventDefault()
-			setFocusedIndex(inRange(focusedIndex+1, 0, suggestions.length))
-			showSuggestions()
+			if (!isVisible)
+				showSuggestions()
+			else {
+				const newIndex = indexInRange(focusedIndex+1)
+
+				setFocusedIndex(newIndex)
+			}
 		},
 		Enter(_, stopParent) {
 			if (focusedIndex !== -1) {
@@ -61,7 +71,7 @@ const useInputSuggestions = (
 	return {
 		suggestions,
 		focusedIndex,
-		isVisible,
+		isVisible: isVisible && suggestions.length > 0,
 		showSuggestions,
 		hideSuggestions,
 		setFocusedIndex,

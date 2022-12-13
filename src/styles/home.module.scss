@@ -2,166 +2,117 @@
 
 
 .container {
-    display: flex;
-    flex-direction: column;
-    gap: 200px;
-    
-    background-color: var(--color-bg);
-    color: var(--color-txt);
+	display: flex;
+	flex-direction: column;
+	gap: 200px;
 
-    .whoAmISection {
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        margin-top: 20px;
-        font-size: 24px;
+	background-color: var(--color-bg);
+	color: var(--color-txt);
 
-        
-        .iconTextContainer {
-            display: flex;
-            align-items: center;
-            gap: 20px;
+	.whoAmISection {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		margin-top: 20px;
+		font-size: 20px;
 
-            .icon {
-                fill: var(--color-txt-3);
-                width: 2em;
-                height: 2em;
-                flex-shrink: 0;
-            }
-        }
-    }
+		.iconTextContainer {
+			display: flex;
+			align-items: center;
+			gap: 20px;
 
-    
-    .whatICanDoSection {
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        margin-top: 20px;
-        font-size: 24px;
+			@include device(tablet) {
+				flex-direction: column;
+			}
 
-        .sliderContainer {
-            .sliderTitle {
-                line-height: 40px;
-                color: var(--color-txt-blue-2);
-                font-size: 40px;
-                font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-            }
-            .slider {
-                align-items: center;
-                
-                .responsiveSlide {
-                    display: flex;
-                    align-items: center;
-                    gap: 30px;
-                }
-                .i18nSlide {
-                    display: flex;
-                    align-items: center;
-                    align-items: center;
-                    gap: 20px;
+			.icon {
+				fill: var(--color-txt-3);
+				width: 2em;
+				height: 2em;
+				flex-shrink: 0;
+			}
+		}
+	}
 
-                    .image {
-                        fill: var(--color-txt);
-                    }
-                }
-                .csrSlide {
 
-                    .description {
-                        margin-bottom: 50px;
-                        .subTitle {
-                            color: var(--color-txt-blue);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    .siteInfoSection {
-        padding-bottom: 100px;
-        font-size: 24px;
-    }
+	.whatICanDoSection {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		margin-top: 20px;
+		font-size: 20px;
 
+		.sliderContainer {
+			.sliderTitle {
+				line-height: 40px;
+				color: var(--color-txt-blue-2);
+				font-size: 40px;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			}
+
+			.slider {
+				align-items: center;
+
+				.responsiveSlide {
+					display: flex;
+					align-items: center;
+					gap: 30px;
+
+					@include device(tablet) {
+						flex-direction: column;
+					}
+				}
+
+				.i18nSlide {
+					display: flex;
+					align-items: center;
+					align-items: center;
+					gap: 20px;
+
+					@include device(tablet) {
+						flex-direction: column;
+					}
+
+					.image {
+						fill: var(--color-txt);
+
+						@include device(tablet) {
+							width: 100%;
+						}
+					}
+				}
+
+				.csrSlide {
+
+					.description {
+						margin-bottom: 50px;
+
+						.subTitle {
+							color: var(--color-txt-blue);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.siteInfoSection {
+		padding-bottom: 100px;
+		font-size: 20px;
+	}
 }
 
 
 
 .parentheses {
-    color: var(--color-txt-2);
-    
-    .link {
-        font-size: .9em;
-        color: var(--color-txt-blue);
-        &:hover {
-            color: var(--color-txt-2);
-        }
-    }
-}
+	color: var(--color-txt-2);
 
-.linkText {
-    color: var(--color-txt-blue);
-    &:hover {
-        color: var(--color-txt-lc);
-    }
-}
-.code {
-    background-color: var(--color-bg-lct);
-    border-radius: 5px;
-    padding-left: 7px;
-    padding-right: 7px;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    &:hover {
-        color: var(--color-txt-lc);
-    }
-}
+	.link {
+		font-size: .9em;
+		color: var(--color-txt-blue);
 
-
-
-
-
-
-
-
-
-
-
-
-@include device(tablet) {
-    .introSection {
-        flex-direction: column;
-        align-items: center;
-
-        .ppContainer {
-            left: 0;
-        }
-        .introText {
-            top: -80px;
-            .title {
-                align-self: initial;
-                font-size: 40px;
-            }
-            .text {
-                font-size: 20px;
-            }
-        }
-    }
-    .whatICanDoSection {
-        .sliderContainer {
-            .slider {
-                .responsiveSlide {
-                    flex-direction: column;
-                }
-                .i18nSlide {
-                    flex-direction: column;
-
-                    .image {
-                        width: 100%;
-                    }
-                }
-            }
-        }
-    }
-
-    .iconTextContainer {
-        flex-direction: column;
-    }
+		&:hover {
+			color: var(--color-txt-2);
+		}
+	}
 }

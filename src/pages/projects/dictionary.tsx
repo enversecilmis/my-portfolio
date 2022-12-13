@@ -1,20 +1,22 @@
 import { ReactElement, useEffect, useRef, useState } from "react"
+import BasicStats from "@components/atoms/BasicStats/BasicStats"
+import BoxSection from "@components/atoms/BoxSection/BoxSection"
+import ContentSection from "@components/atoms/ContentSection/ContentSection"
+import Histogram from "@components/molecules/Histogram/Histogram"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { FileContent } from "use-file-picker"
 
-import TitledSection from "../../components/atoms/TitledSection/TitledSection"
 import RootLayout from "../../components/layouts/RootLayout"
 import MultistepForm from "../../components/molecules/MultistepForm/MultistepForm"
-import StatDisplay from "../../components/molecules/StatDisplay/StatDisplay"
 import CompareDictionaries from "../../components/organisms/CompareDictionaries/CompareDictionaries"
 import CreateDictionaryArray from "../../components/organisms/CreateDictionaryArray/CreateDictionaryArray"
+import DictionarySearch from "../../components/organisms/DictionarySearch/DictionarySearch"
 import GetCollisionHandler from "../../components/organisms/GetCollisionHandler/GetCollisionHandler"
 import GetHashFunction from "../../components/organisms/GetHashFunction/GetHashFunction"
 import GetTableSize from "../../components/organisms/GetTableSize/GetTableSize"
-import TableInteractions from "../../components/organisms/TableInteractions/TableInteractions"
 import { useNotification } from "../../contexts/NotificationContext"
 import {
 	DictionaryTypeException,
@@ -22,10 +24,10 @@ import {
 } from "../../projects-src/hashtabledict/exceptions"
 import { createHashTableFromDictionary } from "../../projects-src/hashtabledict/hashtabledict"
 import {
+	CollisionHandler,
 	DictionaryArray,
 	DictionaryHashTable,
 	HashStringFunction,
-	OnCollisionNextIndexHandler,
 } from "../../projects-src/hashtabledict/types"
 import { NextPageWithLayout } from "../_app"
 
@@ -35,11 +37,6 @@ import styles from "../../styles/dictionary.module.scss"
 
 
 const Dictionary: NextPageWithLayout = () => {
-	const { t: dictionaryT } = useTranslation("dictionary")
-	const { t: projectsT } = useTranslation("projects")
-	const { pushNotification } = useNotification()
-	const toScrollElement = useRef<HTMLDivElement>(null)
-
 	// Dictionaries
 	const [dictionary, setDictionary] = useState<DictionaryArray>()
 	const [hashTableDictionary, setHashTableDictionary] = useState<DictionaryHashTable>()
@@ -53,6 +50,12 @@ const Dictionary: NextPageWithLayout = () => {
 	const [collisionHandlerString, setCollisionHandlerString] = useState("")
 	const [throwInfiniteLoopError, setThrowInfiniteLoopError] = useState(false)
 
+	const { t: dictionaryT } = useTranslation("dictionary")
+	const { t: commonT } = useTranslation("common")
+	const { pushNotification } = useNotification()
+	const toScrollElement = useRef<HTMLDivElement>(null)
+
+
 	useEffect(() => {
 		if (!toScrollElement.current)
 			return
@@ -63,7 +66,7 @@ const Dictionary: NextPageWithLayout = () => {
 
 	const validateInputsAndCreateHashTable = () => {
 		let hashFunction: HashStringFunction | undefined
-		let collisionHandler: OnCollisionNextIndexHandler | undefined
+		let collisionHandler: CollisionHandler | undefined
 
 		// Validate hash function.
 		try {
@@ -74,13 +77,14 @@ const Dictionary: NextPageWithLayout = () => {
 				throw new Error(dictionaryT("returnTypeNumberError"))
 
 			hashFunction = hashFunctionEval
-		} catch (error: any) {
+		} catch (error) {
 			hashFunction = undefined
-
-			pushNotification(error.toString(), {
-				type: "error",
-				source: dictionaryT("hashFuncInput"),
-			})
+			if (error instanceof Error) {
+				pushNotification(error.toString(), {
+					type: "error",
+					source: dictionaryT("hashFuncInput"),
+				})
+			}
 		}
 
 		// Validate collision handler.
@@ -94,13 +98,14 @@ const Dictionary: NextPageWithLayout = () => {
 				throw new Error(dictionaryT("returnTypeNumberError"))
 
 			collisionHandler = collisionHandlerEval
-		} catch (error: any) {
+		} catch (error) {
 			collisionHandler = undefined
-
-			pushNotification(error.toString(), {
-				type: "error",
-				source: dictionaryT("collisionHandlerInput"),
-			})
+			if (error instanceof Error) {
+				pushNotification(error.toString(), {
+					type: "error",
+					source: dictionaryT("collisionHandlerInput"),
+				})
+			}
 		}
 
 		// Try to create hash table dictionary.
@@ -115,8 +120,9 @@ const Dictionary: NextPageWithLayout = () => {
 				throwInfiniteLoopError,
 			})
 
+
 			setHashTableDictionary(hashTable)
-		} catch (error: any) {
+		} catch (error) {
 			if (error instanceof DictionaryTypeException) {
 				const message = dictionaryT("createDictArrError")
 
@@ -137,24 +143,29 @@ const Dictionary: NextPageWithLayout = () => {
 				})
 				return
 			}
-			pushNotification(error.toString(), {
-				type: "error",
-				source: dictionaryT("createDictArr"),
-				durationSeconds: 6000,
-			})
+			if (error instanceof Error) {
+				pushNotification(error.toString(), {
+					type: "error",
+					source: dictionaryT("createDictArr"),
+					durationSeconds: 6000,
+				})
+			}
 		}
 	}
+
+
 
 	return (
 		<>
 			<Head>
-				<title>Dictionary</title>
+				<title>{dictionaryT("title")}</title>
 			</Head>
 
-			<TitledSection
-				title={dictionaryT("title")}
+			<ContentSection
+				heading={dictionaryT("title")}
+				hTag="h1"
 				containerClassName={styles.outerContainer}
-				contentClassName={styles.container}
+				className={styles.container}
 			>
 				<p className={styles.description}>{dictionaryT("description")}</p>
 
@@ -171,20 +182,11 @@ const Dictionary: NextPageWithLayout = () => {
 						/>
 					</MultistepForm.Item>
 					<GetHashFunction
-						hashFunctionStringState={[
-							hashFunctionString,
-							setHashFunctionString,
-						]}
+						hashFunctionStringState={[hashFunctionString, setHashFunctionString]}
 					/>
 					<GetCollisionHandler
-						collisionHandlerStringState={[
-							collisionHandlerString,
-							setCollisionHandlerString,
-						]}
-						throwInfiniteLoopErrorState={[
-							throwInfiniteLoopError,
-							setThrowInfiniteLoopError,
-						]}
+						collisionHandlerStringState={[collisionHandlerString, setCollisionHandlerString]}
+						throwInfiniteLoopErrorState={[throwInfiniteLoopError, setThrowInfiniteLoopError]}
 					/>
 					<GetTableSize
 						hashTableSizeState={[hashTableSize, setHashTableSize]}
@@ -192,33 +194,47 @@ const Dictionary: NextPageWithLayout = () => {
 					/>
 				</MultistepForm>
 
-				{hashTableDictionary && dictionary && (
-					<div className={styles.hashTableContainer}>
-						<div ref={toScrollElement}></div>
-						<div className={styles.section}>
-							<h5 className={styles.title}>{dictionaryT("collisionStats")}</h5>
-							<StatDisplay
-								array={hashTableDictionary.allCollisions}
-								fractionDigits={3}
-							/>
-						</div>
-						<div className={styles.section}>
-							<h5 className={styles.title}>{dictionaryT("searchInDictionaries")}</h5>
-							<TableInteractions
-								hashDictionary={hashTableDictionary}
-								dictionary={dictionary}
-							/>
-						</div>
+
+				{hashTableDictionary && dictionary &&
+				<div ref={toScrollElement} className={styles.tableReadySection}>
+
+					<BoxSection className={styles.searchSection} heading={dictionaryT("searchInDictionaries")} hTag="h2">
+						<DictionarySearch
+							hashDictionary={hashTableDictionary}
+							dictionary={dictionary}
+						/>
+					</BoxSection>
+
+					<BoxSection className={styles.statSection} heading={dictionaryT("collisionStats")} hTag="h2">
+						<BasicStats
+							title={"Temel İstatistikler"}
+							array={hashTableDictionary.allCollisions}
+							postfix={commonT("collision")}
+							fractionDigits={3}
+						/>
+						<Histogram
+							title={dictionaryT("collisionsHistogram")}
+							array={hashTableDictionary.allCollisions}
+							tagX={dictionaryT("collisionsTag")}
+							tagY={dictionaryT("occurenceTag")}
+							fractionDigits={3}
+						/>
+					</BoxSection>
+
+					<BoxSection className={styles.searchSection} hTag="h2" heading={dictionaryT("comparison")}>
 						<CompareDictionaries
 							dictionary={dictionary}
 							hashDictionary={hashTableDictionary}
 						/>
-					</div>
-				)}
-			</TitledSection>
+					</BoxSection>
+				</div>
+				}
+			</ContentSection>
 		</>
 	)
 }
+
+
 
 Dictionary.getLayout = (page: ReactElement) => {
 	return <RootLayout>{page}</RootLayout>

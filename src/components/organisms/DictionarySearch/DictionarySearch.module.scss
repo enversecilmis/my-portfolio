@@ -1,0 +1,59 @@
+@import "@styles/mixins.scss";
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 100%;
+	width: 300px;
+	color: var(--color-txt);
+	gap: 10px;
+	padding-bottom: 100px;
+
+	.searchInputBox {
+		display: flex;
+		gap: 5px;
+		width: 100%;
+
+		@include device(mobile) {
+			flex-direction: column;
+		}
+
+		.searchInputContainer {
+			width: 100%;
+			border: 1px solid var(--color-bg-4);
+			border-radius: 5px;
+
+			.input {
+				padding-left: 10px;
+				color: var(--color-txt);
+				font-size: 18px;
+			}
+		}
+
+		.searchButton {
+			min-width: 60px;
+			text-transform: capitalize;
+		}
+	}
+
+
+	.translationBox {
+		width: 100%;
+		padding: 10px;
+		border-radius: 5px;
+		background-color: var(--color-bg-2);
+	}
+
+	.performanceDisplay {
+		width: 100%;
+		color: var(--color-txt-blue);
+
+		span {
+			color: var(--color-txt);
+		}
+	}
+
+
+
+}

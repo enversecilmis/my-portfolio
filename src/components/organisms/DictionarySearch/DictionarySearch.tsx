@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react"
+import ThemedButton from "@components/atoms/ThemedButton/ThemedButton"
 import { createKeyHandler } from "@utils/create-key-handler"
 import { useTranslation } from "next-i18next"
 
 import { DictionaryArray, DictionaryHashTable } from "../../../projects-src/hashtabledict/types"
 import TextInputWithSuggestions from "../../molecules/TextInputWithSuggestions/TextInputWithSuggestions"
 
-import styles from "./TableInteractions.module.scss"
+import styles from "./DictionarySearch.module.scss"
+
+
 
 const searchInDictionaryArray = (text: string, dictionary: DictionaryArray) => {
 	for (let i=0; i<dictionary.length; i++) {
@@ -20,7 +23,7 @@ type Props = {
     dictionary: DictionaryArray
 }
 
-const TableInteractions: React.FC<Props> = ({
+const DictionarySearch: React.FC<Props> = ({
 	hashDictionary,
 	dictionary,
 }) => {
@@ -30,6 +33,7 @@ const TableInteractions: React.FC<Props> = ({
 	const [dictTime, setDictTime] = useState(0)
 	const [hashTime, setHashTime] = useState(0)
 	const { t: dictionaryT } = useTranslation("dictionary")
+	const { t: commonT } = useTranslation("common")
 
 	const searchableWords = useMemo(() => dictionary.map(pair => pair[0]), [dictionary])
 
@@ -60,30 +64,32 @@ const TableInteractions: React.FC<Props> = ({
 
 	return (
 		<div className={styles.container}>
-			<TextInputWithSuggestions
-				value={searchWord}
-				onChange={setSearchWord}
-				options={searchableWords}
-				maxSuggestions={5}
-				onKeyDown={keyActions}
-				className={styles.searchInput}
-				InputClassName={styles.inputField}
-			/>
-
-			<div className={styles.translationBox}>
-				<p className={styles.searchTitle}>{dictionaryT("arraySearch")}</p>
-				{dictionaryTranslation &&
-                `${dictionaryTranslation} ${dictTime}ms`}
-			</div>
-			<div className={styles.translationBox}>
-				<p className={styles.searchTitle}>{dictionaryT("hashTableSearch")}</p>
-				{hashDictionaryTranslation &&
-                `${hashDictionaryTranslation} ${hashTime}ms`}
+			<div className={styles.searchInputBox}>
+				<TextInputWithSuggestions
+					containerClassName={styles.searchInputContainer}
+					className={styles.input}
+					value={searchWord}
+					onChange={setSearchWord}
+					options={searchableWords}
+					maxSuggestions={5}
+					onKeyDown={keyActions}
+					placeholder={commonT("search")}
+				/>
+				<ThemedButton
+					label={commonT("search")}
+					onClick={searchInDictionaries}
+					className={styles.searchButton}
+				/>
 			</div>
 
+			<p className={styles.translationBox}>
+				{dictionaryTranslation}
+			</p>
 
-
-
+			<div className={styles.performanceDisplay}>
+				<p>{dictionaryT("arraySearch")}: <span>{dictTime} ms</span></p>
+				<p>{dictionaryT("hashTableSearch")}: <span>{hashTime} ms</span></p>
+			</div>
 		</div>
 	)
 }
@@ -93,4 +99,4 @@ const TableInteractions: React.FC<Props> = ({
 
 
 
-export default TableInteractions
+export default DictionarySearch

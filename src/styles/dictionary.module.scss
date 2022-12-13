@@ -29,7 +29,7 @@
 		border-radius: 25px;
 	}
 
-	.hashTableContainer {
+	.tableReadySection {
 		display: flex;
 		flex-direction: column;
 		gap: 50px;
@@ -55,11 +55,15 @@
 }
 
 @keyframes greenFade {
-	from {
+	0% {
 		background-color: rgba(3, 127, 3, 0.299);
 	}
 
-	to {
+	99% {
 		background-color: var(--color-bg);
+	}
+
+	100% {
+		background-color: none;
 	}
 }

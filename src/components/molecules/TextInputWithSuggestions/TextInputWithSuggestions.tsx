@@ -13,15 +13,20 @@ type Props = {
     options: string[]
     maxSuggestions?: number
 	className?: string
-	InputClassName?: string
+	containerClassName?: string
+	value: string
+	onChange: (text: string) => void
 } & TextInputProps
+
+
+
 
 const TextInputWithSuggestions: React.FC<Props> = ({
 	value,
 	options,
 	maxSuggestions = 3,
 	className,
-	InputClassName,
+	containerClassName,
 	onChange,
 	onKeyDown = () => { "" },
 	...props
@@ -33,7 +38,7 @@ const TextInputWithSuggestions: React.FC<Props> = ({
 		showSuggestions,
 		hideSuggestions,
 		keyHandler: suggestionKeyHandler,
-	} =useSuggestions(value, options, maxSuggestions)
+	} = useSuggestions(value, options, maxSuggestions)
 
 
 	const keyHandler = createKeyHandler({
@@ -42,23 +47,25 @@ const TextInputWithSuggestions: React.FC<Props> = ({
 			onKeyDown(e)
 		},
 		Enter(_, stopParent) {
-			if (!isVisible)
+			hideSuggestions()
+
+			if (!isVisible || focusedIndex === -1)
 				return
 			onChange(suggestions[focusedIndex])
-			hideSuggestions()
 			stopParent()
 		},
 	})
 
+
 	return (
-		<div className={`${styles.searchSection} ${className}`}>
+		<div className={`${styles.searchContainer} ${containerClassName}`}>
 			<TextInput
 				value={value}
 				onChange={(text) => { onChange(text); showSuggestions() }}
-				onFocus={showSuggestions}
+				onMouseDown={showSuggestions}
 				onBlur={hideSuggestions}
 				onKeyDown={keyHandler}
-				className={`${styles.textInput} ${InputClassName}`}
+				className={`${styles.textInput} ${className}`}
 				{...props}
 			/>
 			{isVisible &&
@@ -68,7 +75,7 @@ const TextInputWithSuggestions: React.FC<Props> = ({
 							key={idx}
 							className={`${styles.suggestion} ${focusedIndex === idx? styles.focused:""}`}
 							onMouseDown={() => {
-								onChange(suggestions[idx])
+								onChange(word)
 								hideSuggestions()
 							}}>
 							{word}

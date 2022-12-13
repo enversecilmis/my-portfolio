@@ -6,11 +6,11 @@ export type HashTableArray = [Word, Translation][]
 
 export type HashStringFunction = (input: string) => number
 
-export type OnCollisionNextIndexHandler = ( currentHashValue: number, input: string, iteration: number) => number
+export type CollisionHandler = ( currentHashValue: number, input: string, iteration: number) => number
 
 export type CreateHashTableOptions = {
     hashFunction?: HashStringFunction
-    collisionHandler?: OnCollisionNextIndexHandler
+    collisionHandler?: CollisionHandler
     hashTableSize?: number
     throwInfiniteLoopError?: boolean
 }
@@ -23,7 +23,7 @@ export type DictionaryHashTable = {
     allCollisions: number[]
 
     hashFunction: HashStringFunction
-    collisionHandler: OnCollisionNextIndexHandler
+    collisionHandler: CollisionHandler
     search: (searchWord: Word) => { translation: Translation | undefined, collisionCount: number }
     add: (wordTranslationPair: [Word, Translation], throwInfiniteLoopError?: boolean) => void
 }

@@ -76,6 +76,7 @@ const createHashTableFromDictionary = (
 			let hashIndex = this.hashFunction(searchWord) % this.hashTableArray.length
 			let collisionCount = 0
 
+
 			while (this.hashTableArray[hashIndex] && this.hashTableArray[hashIndex][0] !== searchWord){
 				collisionCount++
 				hashIndex = this.collisionHandler(hashIndex, searchWord, collisionCount) % this.hashTableArray.length

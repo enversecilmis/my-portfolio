@@ -1,16 +1,15 @@
-.searchSection {
+.searchContainer {
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 5px;
 	width: fit-content;
 	color: var(--color-txt-3);
-	background-color: var(--color-bg-2);
+	background-color: var(--color-bg);
+	transition: none;
 
 	.textInput {
 		width: 100%;
-		border-radius: 0px;
+		border-radius: inherit;
+		border: none;
+		background-color: inherit;
 	}
 
 	.suggestions {
@@ -24,6 +23,8 @@
 		color: inherit;
 		background-color: inherit;
 		border: inherit;
+
+
 
 		.suggestion {
 			text-align: start;

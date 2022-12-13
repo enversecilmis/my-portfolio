@@ -1,0 +1,30 @@
+.container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	background-color: var(--color-bg);
+
+	.heading {
+		text-align: center;
+		padding: 5px 20px;
+		border: 1px solid var(--color-txt-4);
+		border-radius: 30px;
+
+		background-color: inherit;
+		color: var(--color-txt-blue-2);
+
+		line-height: 50px;
+		font-size: 40px;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+		z-index: 1;
+	}
+
+	.headingLine {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		border-top: 1px solid var(--color-txt-4);
+	}
+}

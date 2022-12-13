@@ -40,5 +40,6 @@
 	"wordSeperator": "Word Seperator",
 	"wordSeperatorHelp": "Regexp for seperating word from its translation.",
 	"wordSeperatorInput": "Word Seperator Input",
-	"wordsFound": "words found"
+	"wordsFound": "words found",
+	"comparison": "comparison"
 }

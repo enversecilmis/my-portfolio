@@ -13,5 +13,14 @@
 	"dark": "koyu",
 	"light": "açık",
 	"system": "sistem",
-	"selectLanguage": "Dil Seç"
+	"selectLanguage": "Dil Seç",
+	"cookieNotification": "Bu site dil tercihi için çerez kullanıyor.",
+	"average": "ortalama",
+	"max": "max",
+	"min": "min",
+	"standardDeviation": "standart sapma",
+	"total": "toplam",
+	"collision": "çakışma",
+	"basicStats": "Temel İstatistikler",
+	"search": "ara"
 }

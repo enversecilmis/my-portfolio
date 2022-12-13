@@ -40,5 +40,6 @@
 	"wordSeperator": "Kelime Ayracı",
 	"wordSeperatorHelp": "Kelimeyi çevirisinden ayıran regexp",
 	"wordSeperatorInput": "Kelime Ayracı Girdisi",
-	"wordsFound": "kelime bulundu"
+	"wordsFound": "kelime bulundu",
+	"comparison": "karşılaştırma"
 }

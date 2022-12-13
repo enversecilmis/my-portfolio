@@ -13,5 +13,14 @@
 	"dark": "dark",
 	"light": "light",
 	"system": "system",
-	"selectLanguage": "Select Language"
+	"selectLanguage": "Select Language",
+	"cookieNotification": "This website uses a cookie for language prefference.",
+	"average": "average",
+	"max": "max",
+	"min": "min",
+	"standardDeviation": "standard deviation",
+	"total": "total",
+	"collision": "collision",
+	"basicStats": "Basic Statistics",
+	"search": "search"
 }

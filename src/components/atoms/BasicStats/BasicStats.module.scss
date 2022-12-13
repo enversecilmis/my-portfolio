@@ -1,0 +1,42 @@
+$border: var(--color-txt-4);
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: fit-content;
+
+	.title {
+		color: var(--color-txt-2);
+		text-align: center;
+		font-size: 25px;
+	}
+
+	.table {
+		display: flex;
+		align-items: center;
+		border: 1px solid $border;
+		border-radius: 5px;
+		color: var(--color-txt-2);
+
+		.column {
+			display: flex;
+			flex-direction: column;
+
+			.value {
+				width: 100%;
+				padding: 5px;
+				border-bottom: 1px solid $border;
+
+				&:last-child {
+					border: none;
+				}
+			}
+		}
+
+		.labelColumn {
+			border-right: 1px solid $border;
+		}
+
+	}
+}

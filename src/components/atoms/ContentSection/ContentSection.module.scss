@@ -1,0 +1,13 @@
+@import "@styles/mixins.scss";
+
+
+.container {
+	width: 100%;
+
+	.content {
+		width: 100%;
+		max-width: 1024px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

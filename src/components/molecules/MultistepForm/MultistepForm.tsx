@@ -7,7 +7,7 @@ import styles from "./MultistepForm.module.scss"
 
 
 
-
+// TODO: Remake this component with BoxSection component.
 
 type Props = {
     className?: string

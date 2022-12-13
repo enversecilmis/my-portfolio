@@ -1,13 +1,13 @@
 import Image from "next/legacy/image"
 import { useTranslation } from "next-i18next"
 
-import styles from "./IntroSection.module.scss"
+import styles from "./Greeting.module.scss"
 
 
 
 
 
-const IntroSection: React.FC = () => {
+const Greeting: React.FC = () => {
 	const { t } = useTranslation("home")
 
 	return (
@@ -30,4 +30,4 @@ const IntroSection: React.FC = () => {
 
 
 
-export default IntroSection
+export default Greeting

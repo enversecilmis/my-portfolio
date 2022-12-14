@@ -41,5 +41,11 @@
 	"wordSeperatorHelp": "Kelimeyi çevirisinden ayıran regexp",
 	"wordSeperatorInput": "Kelime Ayracı Girdisi",
 	"wordsFound": "kelime bulundu",
-	"comparison": "karşılaştırma"
+	"comparison": "karşılaştırma",
+	"compare": "karşılaştır",
+	"randomSearchComparison": "rasgele arama karşılaştırması",
+	"numberOfSearches": "arama sayısı",
+	"arrayDictionary": "dizi sözlük",
+	"hashDictionary": "hash tablosu sözlük",
+	"searchTimeInMs": "Milisaniye cinsinden arama süresi. (ne kadar az o kadar iyi)"
 }

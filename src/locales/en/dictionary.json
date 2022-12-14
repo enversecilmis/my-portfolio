@@ -41,5 +41,11 @@
 	"wordSeperatorHelp": "Regexp for seperating word from its translation.",
 	"wordSeperatorInput": "Word Seperator Input",
 	"wordsFound": "words found",
-	"comparison": "comparison"
+	"comparison": "comparison",
+	"compare": "compare",
+	"randomSearchComparison": "random search comparison",
+	"numberOfSearches": "number of searches",
+	"arrayDictionary": "array dictionary",
+	"hashDictionary": "hash table dictionary",
+	"searchTimeInMs": "Search time in miliseconds. (lesser the better)"
 }

@@ -35,6 +35,7 @@ import styles from "../../styles/dictionary.module.scss"
 
 
 
+// TODO: Simplify this code.
 
 const Dictionary: NextPageWithLayout = () => {
 	// Dictionaries
@@ -54,6 +55,7 @@ const Dictionary: NextPageWithLayout = () => {
 	const { t: commonT } = useTranslation("common")
 	const { pushNotification } = useNotification()
 	const toScrollElement = useRef<HTMLDivElement>(null)
+	const key = useRef(0)
 
 
 	useEffect(() => {
@@ -122,6 +124,7 @@ const Dictionary: NextPageWithLayout = () => {
 
 
 			setHashTableDictionary(hashTable)
+			key.current++
 		} catch (error) {
 			if (error instanceof DictionaryTypeException) {
 				const message = dictionaryT("createDictArrError")
@@ -196,7 +199,7 @@ const Dictionary: NextPageWithLayout = () => {
 
 
 				{hashTableDictionary && dictionary &&
-				<div ref={toScrollElement} className={styles.tableReadySection}>
+				<div key={key.current} ref={toScrollElement} className={styles.tableReadySection}>
 
 					<BoxSection className={styles.searchSection} heading={dictionaryT("searchInDictionaries")} hTag="h2">
 						<DictionarySearch

@@ -32,10 +32,6 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 		if (showed)
 			return
 
-		pushNotification(commonT("inConstruction"), {
-			type: "info",
-			source: "",
-		})
 		pushNotification(commonT("cookieNotification"), {
 			type: "info",
 			source: "",

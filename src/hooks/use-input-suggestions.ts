@@ -27,6 +27,7 @@ const useInputSuggestions = (
 	const indexInRange = (index: number) => inRange(index, minIndex, maxIndex)
 
 	const showSuggestions = () => {
+		setFocusedIndex(-1)
 		setIsVisible(true)
 	}
 	const hideSuggestions = () => {

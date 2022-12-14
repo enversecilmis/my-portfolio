@@ -36,10 +36,7 @@ const CodeInput: React.FC<Props> = ({
 	const editor = useRef<HTMLTextAreaElement>(null)
 
 	return (
-		<div
-			onClick={() => editor.current?.focus()}
-			className={`${styles.container} ${className}`}
-		>
+		<div className={`${styles.container} ${className}`}>
 			<div className={styles.topBar}>
 				<div className={styles.topBarLeft}>{topBarButtonLeft}</div>
 				<h4 className={styles.title}>{title}</h4>

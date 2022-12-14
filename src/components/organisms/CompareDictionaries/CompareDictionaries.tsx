@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next"
 import { Bar, BarChart, Legend, Tooltip, YAxis } from "recharts"
 
 import { DictionaryArray, DictionaryHashTable } from "../../../projects-src/hashtabledict/types"
-import compareDictionaries from "../../../projects-src/hashtabledict/workers/comparison.worker"
+import compareDictionaries from "../../../projects-src/hashtabledict/workers/comparison-worker"
 import ThemedButton from "../../atoms/ThemedButton/ThemedButton"
 
 import styles from "./CompareDictionaries.module.scss"

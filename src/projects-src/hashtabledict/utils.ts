@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { HashStringFunction, OnCollisionNextIndexHandler } from "./types"
+import { CollisionHandler, HashStringFunction } from "./types"
 
 
 
@@ -53,7 +53,7 @@ const defaultHashStringFunction: HashStringFunction = (input) => {
 
 
 // Quadratic probing.
-const defaultCollisionHandler: OnCollisionNextIndexHandler = (currentHashValue, input, iteration) => currentHashValue*input.length + iteration ** 2
+const defaultCollisionHandler: CollisionHandler = (currentHashValue, input, iteration) => currentHashValue*input.length + iteration ** 2
 
 
 const zDictionaryArray = z

@@ -20,15 +20,15 @@ const defaultCollisionHandlerString = "return currentHashValue*input.length + it
 type State<T> = [T, Dispatch<SetStateAction<T>>]
 type Props = {
     collisionHandlerStringState: State<string>
-    throwInfiniteLoopErrorState: State<boolean>
+    throwCollisionLoopErrorState: State<boolean>
 }
 
 const GetCollisionHandler: React.FC<Props> = ({
 	collisionHandlerStringState,
-	throwInfiniteLoopErrorState,
+	throwCollisionLoopErrorState,
 }) => {
 	const [collisionHandlerString, setCollisionHandlerString] = collisionHandlerStringState
-	const [throwInfiniteLoopError, setThrowInfiniteLoopError] = throwInfiniteLoopErrorState
+	const [throwCollisionLoopError, setThrowCollisionLoopError] = throwCollisionLoopErrorState
 	const { t: dictionaryT } = useTranslation("dictionary")
 
 
@@ -61,8 +61,8 @@ const GetCollisionHandler: React.FC<Props> = ({
 				<input
 					id={styles.throwLoopError}
 					type="checkbox"
-					checked={throwInfiniteLoopError}
-					onChange={(e) => setThrowInfiniteLoopError(e.target.checked)}
+					checked={throwCollisionLoopError}
+					onChange={(e) => setThrowCollisionLoopError(e.target.checked)}
 				/>
 			</div>
 		</div>

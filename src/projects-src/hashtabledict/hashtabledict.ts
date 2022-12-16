@@ -1,131 +1,146 @@
 import { DictionaryTypeException, TableSizeException } from "./exceptions"
-import { CreateHashTableOptions, DictionaryArray, DictionaryHashTable } from "./types"
-import { defaultCollisionHandler, defaultHashStringFunction, findAPrimeBiggerThan, zDictionaryArray } from "./utils"
+import { CollisionHandler, DictionaryArray, FromTextOptions, HashStringFunction, HashTableOptions, TranslationPair } from "./types"
+import { findAPrimeBiggerThan, zDictionaryArray } from "./utils"
 
 
 
-/**
- * Creates a dictionary array from a string.
- * String should have word and its translation with a seperator between them
- * and also a seperator between word-translation pairs.
- * @param text structure should be `"word /wordSeperator/ translation /pairSeperator/ ..."`
- * @param wordSeperator Defaults to `/ {2,}/`
- * @param pairSeperator Defaults to `"\r\n"`
- * @return `[Word,Translation][]`
- * @throws `DictionaryTypeException`
-*/
-const createDictionaryArrayFromString = (
-	text: string,
-	wordSeperator: string | RegExp = / {2,}/,
-	pairSeperator: string | RegExp = "\r\n",
-): DictionaryArray => {
-	const dictionary = text
-		.split(pairSeperator)
-		.map(pair => pair.split(wordSeperator))
 
 
-	if (!zDictionaryArray.safeParse(dictionary).success)
-		throw new DictionaryTypeException("Dictionary arguement doesn't fit the type [string,string][].")
+class ArrayDictionary {
+	dictArray: DictionaryArray
 
-	return dictionary as DictionaryArray
+	/**
+	 * @throws `DictionaryTypeException`
+	 */
+	constructor(
+		text: string,
+		wordSeperator: string | RegExp,
+		pairSeperator: string | RegExp,
+	) {
+		const dictionary = text
+			.split(pairSeperator)
+			.map(pair => pair.split(wordSeperator))
+
+		if (!zDictionaryArray.safeParse(dictionary).success)
+			throw new DictionaryTypeException("Created array doesn't fit the type [string,string][]. Check your file or seperators.")
+
+		this.dictArray = dictionary as DictionaryArray
+	}
+
+
+	search(searchWord: string) {
+		let translation: string | undefined
+
+		for (let i=0; i<this.dictArray.length; i++) {
+			if (searchWord === this.dictArray[i][0]) {
+				translation = this.dictArray[i][1]
+				break
+			}
+		}
+
+		return translation
+	}
 }
 
 
 
 
 
-/**
- * @throws `TableSizeException`
- * @throws `DictionaryTypeException`
- */
-const createHashTableFromDictionary = (
-	dictionary: DictionaryArray,
-	hashTableOptions?: CreateHashTableOptions,
-) => {
-	const defaults = {
-		hashFunction: defaultHashStringFunction,
-		collisionHandler: defaultCollisionHandler,
-		hashTableSize: findAPrimeBiggerThan(dictionary.length*4),
-		throwInfiniteLoopError: false,
+class HashTableDictionary {
+	tableArray: DictionaryArray
+	hashFunction: HashStringFunction
+	collisionHandler: CollisionHandler
+	throwCollisionLoopError: boolean
+	allCollisions: number[]
+
+
+	/**
+	 * @throws `DictionaryTypeException`
+	 * @throws `TableSizeException`
+	 */
+	constructor(
+		arrDict: ArrayDictionary,
+		{ collisionHandler, hashFunction, tableSize, throwCollisionLoopError }: HashTableOptions,
+	) {
+		const dictArr = arrDict.dictArray
+		const cTableSize = tableSize === "auto" ?
+			findAPrimeBiggerThan(dictArr.length):
+			tableSize
+
+		if (cTableSize <= dictArr.length)
+			throw new TableSizeException("Hash table size must be bigger than number of translations.")
+
+		this.tableArray = new Array(cTableSize)
+		this.throwCollisionLoopError = !!throwCollisionLoopError
+		this.hashFunction = hashFunction
+		this.collisionHandler = collisionHandler
+		this.allCollisions = []
+
+		for (const pair of dictArr)
+			this.add(pair)
 	}
-	const {
-		hashFunction,
-		collisionHandler,
-		hashTableSize,
-		throwInfiniteLoopError,
-	} = { ...defaults, ...hashTableOptions }
 
 
-	// Validate size.
-	if (hashTableSize <= dictionary.length)
-		throw new TableSizeException("Hash table size must be bigger than dictionary size.")
+	add(pair: TranslationPair) {
+		const [word, translation] = pair
+		let hashIndex = this.hashFunction(word) % this.tableArray.length
 
-	// Validate dictionary array.
-	if (!zDictionaryArray.safeParse(dictionary).success)
-		throw new DictionaryTypeException("Dictionary arguement doesn't fit the type [string,string][].")
+		const hashHistory: number[] = []
+		hashHistory.push(hashIndex)
 
+		// Collision handling loop
+		let collisionCount = 0
+		while (this.tableArray[hashIndex]) {
+			collisionCount++
+			hashIndex = this.collisionHandler(hashIndex, word, collisionCount) % this.tableArray.length
 
-	const dictionaryHashTable: DictionaryHashTable = {
-		hashTableArray: new Array(hashTableSize),
-		loadFactor: 0,
-		allCollisions: [],
-		hashFunction,
-		collisionHandler,
-
-		search(searchWord) {
-			let hashIndex = this.hashFunction(searchWord) % this.hashTableArray.length
-			let collisionCount = 0
-
-
-			while (this.hashTableArray[hashIndex] && this.hashTableArray[hashIndex][0] !== searchWord){
-				collisionCount++
-				hashIndex = this.collisionHandler(hashIndex, searchWord, collisionCount) % this.hashTableArray.length
-			}
-			const pair = this.hashTableArray[hashIndex]
-
-			return {
-				translation: pair? pair[1] : undefined,
-				collisionCount,
-			}
-		},
-
-		add(pair, throwInfiniteLoopError) {
-			const [word, translation] = pair
-			let hashIndex = this.hashFunction(word) % this.hashTableArray.length
-			const hashHistory: number[] = []
+			// Throw error on collision loop if the option is set.
+			if (this.throwCollisionLoopError && hashHistory.includes(hashIndex))
+				throw new Error("Infinite collision loop.")
 
 			hashHistory.push(hashIndex)
+		}
 
-			let collisionCount = 0
-
-			while (this.hashTableArray[hashIndex]) {
-				collisionCount++
-				hashIndex = this.collisionHandler(hashIndex, word, collisionCount) % this.hashTableArray.length
-
-				// Throw error on collision loop if the option is set.
-				if (throwInfiniteLoopError && hashHistory.includes(hashIndex))
-					throw new Error("Infinite collision loop.")
-				hashHistory.push(hashIndex)
-			}
-
-			this.hashTableArray[hashIndex] = [word, translation]
-			this.loadFactor += 1/this.hashTableArray.length
-			this.allCollisions.push(collisionCount)
-		},
+		this.tableArray[hashIndex] = [word, translation]
+		this.allCollisions.push(collisionCount)
 	}
 
-	for (const pair of dictionary) {
-		dictionaryHashTable.add(pair, throwInfiniteLoopError)
+
+	search(searchWord: string) {
+		let hashIndex = this.hashFunction(searchWord) % this.tableArray.length
+		let collisionCount = 0
+
+		while (this.tableArray[hashIndex] && this.tableArray[hashIndex][0] !== searchWord){
+			collisionCount++
+			hashIndex = this.collisionHandler(hashIndex, searchWord, collisionCount) % this.tableArray.length
+		}
+		const pair = this.tableArray[hashIndex]
+
+		return {
+			translation: pair? pair[1] : undefined,
+			collisionCount,
+		}
 	}
 
-	return dictionaryHashTable
+
+	static fromText(
+		text: string,
+		{ collisionHandler, hashFunction, pairSeperator, tableSize, wordSeperator, throwCollisionLoopError }: FromTextOptions,
+	) {
+		const arrDict = new ArrayDictionary(text, wordSeperator, pairSeperator)
+
+		return new HashTableDictionary(arrDict, {
+			hashFunction,
+			collisionHandler,
+			tableSize,
+			throwCollisionLoopError,
+		})
+	}
 }
-
-
 
 
 
 export {
-	createDictionaryArrayFromString,
-	createHashTableFromDictionary,
+	ArrayDictionary,
+	HashTableDictionary,
 }

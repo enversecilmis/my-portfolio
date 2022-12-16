@@ -1,22 +1,25 @@
 import webwork from "@kolodny/webwork"
 
-import { CollisionHandler, DictionaryArray, DictionaryHashTable, HashStringFunction } from "../types"
+import { ArrayDictionary, HashTableDictionary } from "../hashtabledict"
+import { CollisionHandler, DictionaryArray, HashStringFunction } from "../types"
+
+
+type wDataType = {
+	dictArr: DictionaryArray,
+	hashDictData: {
+		arr: DictionaryArray
+		hFString: string
+		cFString: string
+	},
+	iteration: number
+}
 
 
 const compareDictionaries = async (
-	dictionary: DictionaryArray,
-	hashDictionary: DictionaryHashTable,
+	arrDict: ArrayDictionary,
+	hashDict: HashTableDictionary,
 	iteration: number,
 ) => {
-	type wDataType = {
-		arrDict: DictionaryArray,
-		hashDictData: {
-			arr: DictionaryArray
-			hFString: string
-			cFString: string
-		},
-		iteration: number
-	}
 	const worker = webwork((data) => {
 		const rndNum = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min
 		const measureRunTime = (func: (iteration: number) => void, iterations = 1) => {
@@ -28,15 +31,24 @@ const compareDictionaries = async (
 
 			return runTime
 		}
-		const searchDict = (word: string) => {
-			for (let i=0; i<dat.arrDict.length; i++) {
-				if (dat.arrDict[i][0] === word)
-					return dat.arrDict[i][1]
-			}
-		}
+
 
 		const dat = data as wDataType
-		const arrDict = dat.arrDict
+		const arrDict = {
+			arr: dat.dictArr,
+			search(searchWord: string) {
+				let translation: string | undefined
+
+				for (let i=0; i<this.arr.length; i++) {
+					if (searchWord === this.arr[i][0]) {
+						translation = this.arr[i][1]
+						break
+					}
+				}
+
+				return translation
+			},
+		}
 		const hashDict = {
 			hashf: eval(dat.hashDictData.hFString) as HashStringFunction,
 			collisionf: eval(dat.hashDictData.cFString) as CollisionHandler,
@@ -57,11 +69,11 @@ const compareDictionaries = async (
 				}
 			},
 		}
-		const searchableWords = arrDict.map((pair) => pair[0])
-		const wordCount = arrDict.length
+		const searchableWords = arrDict.arr.map((pair) => pair[0])
+		const wordCount = arrDict.arr.length
 
-		const dictRunTime = measureRunTime(
-			() => searchDict(searchableWords[rndNum(0, wordCount)]),
+		const arrRunTime = measureRunTime(
+			() => arrDict.search(searchableWords[rndNum(0, wordCount)]),
 			dat.iteration,
 		)
 		const hashRunTime = measureRunTime(
@@ -70,17 +82,17 @@ const compareDictionaries = async (
 		)
 
 		return {
-			dictRandTime: dictRunTime,
-			hashRandTime: hashRunTime,
+			arrRunTime,
+			hashRunTime,
 		}
 	})
 
 	const wData: wDataType = {
-		arrDict: dictionary,
+		dictArr: arrDict.dictArray,
 		hashDictData: {
-			arr: hashDictionary.hashTableArray,
-			hFString: hashDictionary.hashFunction.toString(),
-			cFString: hashDictionary.collisionHandler.toString(),
+			arr: hashDict.tableArray,
+			hFString: hashDict.hashFunction.toString(),
+			cFString: hashDict.collisionHandler.toString(),
 		},
 		iteration: iteration,
 	}

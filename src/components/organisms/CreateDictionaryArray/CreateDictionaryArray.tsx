@@ -3,8 +3,7 @@ import { useTranslation } from "next-i18next"
 import { FileContent } from "use-file-picker"
 
 import { useNotification } from "../../../contexts/NotificationContext"
-import { createDictionaryArrayFromString } from "../../../projects-src/hashtabledict/hashtabledict"
-import { DictionaryArray } from "../../../projects-src/hashtabledict/types"
+import { ArrayDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
 import FileChooser from "../../atoms/FileChooser/FileChooser"
 import HoverHelp from "../../atoms/HoverHelp/HoverHelp"
 import TextInput from "../../atoms/TextInput/TextInput"
@@ -23,7 +22,7 @@ type Props = {
     fileContentState: State<FileContent | undefined>
     wordSeperatorState: State<string>
     pairSeperatorState: State<string>
-    dictionaryState: State<DictionaryArray | undefined>
+    arrDictState: State<ArrayDictionary | undefined>
 }
 
 
@@ -32,13 +31,13 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	fileContentState,
 	wordSeperatorState,
 	pairSeperatorState,
-	dictionaryState,
+	arrDictState,
 }) => {
 	const { pushNotification } = useNotification()
 	const [fileContent, setFileContent] = fileContentState
 	const [wordSeperator, setWordSeperator] = wordSeperatorState
 	const [pairSeperator, setPairSeperator] = pairSeperatorState
-	const [dictionary, setDictionary] = dictionaryState
+	const [arrDict, setArrDict] = arrDictState
 	const [settingDefaults, setSettingDefaults] = useState(false)
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const { t: commonT } = useTranslation("common")
@@ -91,13 +90,13 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		}
 		// Dictionary creation.
 		try {
-			const dictArr = createDictionaryArrayFromString(
+			const arrDict = new ArrayDictionary(
 				fileContent.content,
 				wordRegex,
 				pairRegex,
 			)
 
-			setDictionary(dictArr)
+			setArrDict(arrDict)
 		} catch (error) {
 			pushNotification(dictionaryT("createDictArrError"), {
 				type: "error",
@@ -105,7 +104,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 				source: dictionaryT("createDictArr"),
 			})
 
-			setDictionary(undefined)
+			setArrDict(undefined)
 		}
 	}
 
@@ -159,10 +158,10 @@ const CreateDictionaryArray: React.FC<Props> = ({
 					disabled={!fileContent || !wordSeperator || !pairSeperator}
 					onClick={createDictionaryArray}
 				/>
-				{dictionary && (
+				{arrDict && (
 					<div className={styles.createdArray}>
 						<p className={styles.createdText}>{dictionaryT("dictionaryCreated")}</p>
-						<p className={styles.infoText}>{dictionary.length} {dictionaryT("wordsFound")}</p>
+						<p className={styles.infoText}>{arrDict.dictArray.length} {dictionaryT("wordsFound")}</p>
 					</div>
 				)}
 			</div>

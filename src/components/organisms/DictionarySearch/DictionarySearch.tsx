@@ -3,57 +3,45 @@ import ThemedButton from "@components/atoms/ThemedButton/ThemedButton"
 import { createKeyHandler } from "@utils/create-key-handler"
 import { useTranslation } from "next-i18next"
 
-import { DictionaryArray, DictionaryHashTable } from "../../../projects-src/hashtabledict/types"
+import { ArrayDictionary, HashTableDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
 import TextInputWithSuggestions from "../../molecules/TextInputWithSuggestions/TextInputWithSuggestions"
 
 import styles from "./DictionarySearch.module.scss"
 
 
 
-const searchInDictionaryArray = (text: string, dictionary: DictionaryArray) => {
-	for (let i=0; i<dictionary.length; i++) {
-		if (dictionary[i][0] === text)
-			return dictionary[i][1]
-	}
-	return ""
-}
-
 type Props = {
-    hashDictionary: DictionaryHashTable
-    dictionary: DictionaryArray
+    hashDict: HashTableDictionary
+    arrDict: ArrayDictionary
 }
 
 const DictionarySearch: React.FC<Props> = ({
-	hashDictionary,
-	dictionary,
+	hashDict,
+	arrDict,
 }) => {
 	const [searchWord, setSearchWord] = useState("")
-	const [hashDictionaryTranslation, setHashDictionaryTranslation] = useState("")
-	const [dictionaryTranslation, setdictionaryTranslation] = useState("")
+	const [translation, setTranslation] = useState("")
 	const [dictTime, setDictTime] = useState(0)
 	const [hashTime, setHashTime] = useState(0)
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const { t: commonT } = useTranslation("common")
 
-	const searchableWords = useMemo(() => dictionary.map(pair => pair[0]), [dictionary])
+	const searchableWords = useMemo(() => arrDict.dictArray.map(pair => pair[0]), [arrDict])
 
 
 	const searchInDictionaries = () => {
 		let searchStart = Date.now()
-		const dictTranslation = searchInDictionaryArray(searchWord, dictionary)
-
-
+		const arrTranslation = arrDict.search(searchWord)
 		const dictSearchTime = Date.now() - searchStart
 
-		setdictionaryTranslation(dictTranslation)
-		setDictTime(dictSearchTime)
 
 		searchStart = Date.now()
-		const hashTranslation = hashDictionary.search(searchWord)
+		hashDict.search(searchWord)
 		const hashSearchTime = Date.now() - searchStart
 
-		setHashDictionaryTranslation(hashTranslation.translation || "")
+		setDictTime(dictSearchTime)
 		setHashTime(hashSearchTime)
+		setTranslation(arrTranslation || "*** no result ***")
 	}
 
 	const keyActions = createKeyHandler({
@@ -83,7 +71,7 @@ const DictionarySearch: React.FC<Props> = ({
 			</div>
 
 			<p className={styles.translationBox}>
-				{dictionaryTranslation}
+				{translation}
 			</p>
 
 			<div className={styles.performanceDisplay}>

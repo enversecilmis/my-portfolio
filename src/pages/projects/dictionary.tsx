@@ -22,11 +22,9 @@ import {
 	DictionaryTypeException,
 	TableSizeException,
 } from "../../projects-src/hashtabledict/exceptions"
-import { createHashTableFromDictionary } from "../../projects-src/hashtabledict/hashtabledict"
+import { ArrayDictionary, HashTableDictionary } from "../../projects-src/hashtabledict/hashtabledict"
 import {
 	CollisionHandler,
-	DictionaryArray,
-	DictionaryHashTable,
 	HashStringFunction,
 } from "../../projects-src/hashtabledict/types"
 import { NextPageWithLayout } from "../_app"
@@ -39,17 +37,17 @@ import styles from "../../styles/dictionary.module.scss"
 
 const Dictionary: NextPageWithLayout = () => {
 	// Dictionaries
-	const [dictionary, setDictionary] = useState<DictionaryArray>()
-	const [hashTableDictionary, setHashTableDictionary] = useState<DictionaryHashTable>()
+	const [arrDict, setArrDict] = useState<ArrayDictionary>()
+	const [hashDict, setHashDict] = useState<HashTableDictionary>()
 
 	// Input states
 	const [fileContent, setFileContent] = useState<FileContent>()
 	const [wordSeperator, setWordSeperator] = useState("")
 	const [pairSeperator, setPairSeperator] = useState("")
-	const [hashTableSize, setHashTableSize] = useState(0)
+	const [tableSize, setTableSize] = useState(0)
 	const [hashFunctionString, setHashFunctionString] = useState("")
 	const [collisionHandlerString, setCollisionHandlerString] = useState("")
-	const [throwInfiniteLoopError, setThrowInfiniteLoopError] = useState(false)
+	const [throwCollisionLoopError, setCollisionLoopError] = useState(false)
 
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const { t: commonT } = useTranslation("common")
@@ -62,7 +60,7 @@ const Dictionary: NextPageWithLayout = () => {
 		if (!toScrollElement.current)
 			return
 		toScrollElement.current.scrollIntoView({ behavior: "smooth" })
-	}, [hashTableDictionary])
+	}, [hashDict])
 
 
 
@@ -112,18 +110,18 @@ const Dictionary: NextPageWithLayout = () => {
 
 		// Try to create hash table dictionary.
 		try {
-			if (hashFunction === undefined || collisionHandler === undefined || dictionary === undefined)
+			if (hashFunction === undefined || collisionHandler === undefined || arrDict === undefined)
 				return
 
-			const hashTable = createHashTableFromDictionary(dictionary, {
+			const hashTableDict = new HashTableDictionary(arrDict, {
 				hashFunction,
 				collisionHandler,
-				hashTableSize,
-				throwInfiniteLoopError,
+				tableSize,
+				throwCollisionLoopError,
 			})
 
 
-			setHashTableDictionary(hashTable)
+			setHashDict(hashTableDict)
 			key.current++
 		} catch (error) {
 			if (error instanceof DictionaryTypeException) {
@@ -176,12 +174,12 @@ const Dictionary: NextPageWithLayout = () => {
 					className={styles.multiStepForm}
 					onFinish={validateInputsAndCreateHashTable}
 				>
-					<MultistepForm.Item disableNext={!dictionary}>
+					<MultistepForm.Item disableNext={!arrDict}>
 						<CreateDictionaryArray
 							fileContentState={[fileContent, setFileContent]}
 							wordSeperatorState={[wordSeperator, setWordSeperator]}
 							pairSeperatorState={[pairSeperator, setPairSeperator]}
-							dictionaryState={[dictionary, setDictionary]}
+							arrDictState={[arrDict, setArrDict]}
 						/>
 					</MultistepForm.Item>
 					<GetHashFunction
@@ -189,35 +187,35 @@ const Dictionary: NextPageWithLayout = () => {
 					/>
 					<GetCollisionHandler
 						collisionHandlerStringState={[collisionHandlerString, setCollisionHandlerString]}
-						throwInfiniteLoopErrorState={[throwInfiniteLoopError, setThrowInfiniteLoopError]}
+						throwCollisionLoopErrorState={[throwCollisionLoopError, setCollisionLoopError]}
 					/>
 					<GetTableSize
-						hashTableSizeState={[hashTableSize, setHashTableSize]}
-						dictionaryArray={dictionary}
+						hashTableSizeState={[tableSize, setTableSize]}
+						arrDict={arrDict}
 					/>
 				</MultistepForm>
 
 
-				{hashTableDictionary && dictionary &&
+				{hashDict && arrDict &&
 				<div key={key.current} ref={toScrollElement} className={styles.tableReadySection}>
 
 					<BoxSection className={styles.searchSection} heading={dictionaryT("searchInDictionaries")} hTag="h2">
 						<DictionarySearch
-							hashDictionary={hashTableDictionary}
-							dictionary={dictionary}
+							hashDict={hashDict}
+							arrDict={arrDict}
 						/>
 					</BoxSection>
 
 					<BoxSection className={styles.statSection} heading={dictionaryT("collisionStats")} hTag="h2">
 						<BasicStats
 							title={"Temel İstatistikler"}
-							array={hashTableDictionary.allCollisions}
+							array={hashDict.allCollisions}
 							postfix={commonT("collision")}
 							fractionDigits={3}
 						/>
 						<Histogram
 							title={dictionaryT("collisionsHistogram")}
-							array={hashTableDictionary.allCollisions}
+							array={hashDict.allCollisions}
 							tagX={dictionaryT("collisionsTag")}
 							tagY={dictionaryT("occurenceTag")}
 							fractionDigits={3}
@@ -226,8 +224,8 @@ const Dictionary: NextPageWithLayout = () => {
 
 					<BoxSection className={styles.searchSection} hTag="h2" heading={dictionaryT("comparison")}>
 						<CompareDictionaries
-							dictionary={dictionary}
-							hashDictionary={hashTableDictionary}
+							arrDict={arrDict}
+							hashDict={hashDict}
 						/>
 					</BoxSection>
 				</div>

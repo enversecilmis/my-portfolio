@@ -3,7 +3,7 @@ import NumberInput from "@components/atoms/NumberInput/NumberInput"
 import { useTranslation } from "next-i18next"
 import { Bar, BarChart, Legend, Tooltip, YAxis } from "recharts"
 
-import { DictionaryArray, DictionaryHashTable } from "../../../projects-src/hashtabledict/types"
+import { ArrayDictionary, HashTableDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
 import compareDictionaries from "../../../projects-src/hashtabledict/workers/comparison-worker"
 import ThemedButton from "../../atoms/ThemedButton/ThemedButton"
 
@@ -13,31 +13,48 @@ import styles from "./CompareDictionaries.module.scss"
 
 
 type Props = {
-    dictionary: DictionaryArray
-    hashDictionary: DictionaryHashTable
+    arrDict: ArrayDictionary
+    hashDict: HashTableDictionary
 }
 type RunTimes = {
-    dictRandTime: number
-    hashRandTime: number
+    arrRunTime: number
+    hashRunTime: number
 }
 
 const CompareDictionaries: React.FC<Props> = ({
-	dictionary,
-	hashDictionary,
+	arrDict,
+	hashDict,
 }) => {
-	const [runTimes, setRunTimes] = useState<RunTimes>({ dictRandTime: 0, hashRandTime: 0 })
+	const [runTimes, setRunTimes] = useState<RunTimes>({ arrRunTime: 0, hashRunTime: 0 })
 	const [iteration, setIteration] = useState(20000)
 	const [calculating, setCalculating] = useState(false)
 	const { t: dictionaryT } = useTranslation("dictionary")
 
 
 
-
-
 	const runComparisonWorker = async () => {
 		setCalculating(true)
 
-		const result = await compareDictionaries(dictionary, hashDictionary, iteration)
+		const result = await compareDictionaries(arrDict, hashDict, iteration)
+
+
+		// File worker. (better?)
+		// const wrkr = new Worker(new URL("../../../projects-src/hashtabledict/workers/compare-worker.ts", import.meta.url))
+		// wrkr.onmessage = (event: MessageEvent<{arrRunTime: number, hashRunTime: number }>) => {
+		// 	console.log("message from worker", event.data)
+		// 	setRunTimes(event.data)
+		// }
+		// const wData = {
+		// 	arrDict: dictionary,
+		// 	hashDictData: {
+		// 		arr: hashDict.tableArray,
+		// 		hFString: hashDict.hashFunction.toString(),
+		// 		cFString: hashDict.collisionHandler.toString(),
+		// 	},
+		// 	iteration: iteration,
+		// }
+		// wrkr.postMessage(wData)
+
 
 		setRunTimes(result)
 		setCalculating(false)
@@ -47,8 +64,8 @@ const CompareDictionaries: React.FC<Props> = ({
 	const hashDictDataKey = dictionaryT("hashDictionary")
 	const chartData = [
 		{
-			[arrDictDataKey]: runTimes.dictRandTime,
-			[hashDictDataKey]: runTimes.hashRandTime,
+			[arrDictDataKey]: runTimes.arrRunTime,
+			[hashDictDataKey]: runTimes.hashRunTime,
 		},
 	]
 

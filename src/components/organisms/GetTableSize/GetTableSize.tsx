@@ -3,7 +3,7 @@ import NumberInput from "@components/atoms/NumberInput/NumberInput"
 import ThemedButton from "@components/atoms/ThemedButton/ThemedButton"
 import { useTranslation } from "next-i18next"
 
-import { DictionaryArray } from "../../../projects-src/hashtabledict/types"
+import { ArrayDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
 import { findAPrimeBiggerThan } from "../../../projects-src/hashtabledict/utils"
 
 import styles from "./GetTableSize.module.scss"
@@ -13,17 +13,17 @@ import styles from "./GetTableSize.module.scss"
 type State<T> = [T, Dispatch<SetStateAction<T>>]
 type Props = {
     hashTableSizeState: State<number>
-    dictionaryArray: DictionaryArray | undefined
+    arrDict: ArrayDictionary | undefined
 }
 
 const GetTableSize: React.FC<Props> = ({
 	hashTableSizeState,
-	dictionaryArray,
+	arrDict,
 }) => {
 	const [hashTableSize, setHashTableSize] = hashTableSizeState
 	const { t: dictionaryT } = useTranslation("dictionary")
-	const loadFactor = dictionaryArray ?
-		(dictionaryArray.length / hashTableSize).toFixed(3):
+	const loadFactor = arrDict ?
+		(arrDict.dictArray.length / hashTableSize).toFixed(3):
 		0
 
 	return (
@@ -36,8 +36,8 @@ const GetTableSize: React.FC<Props> = ({
 					onChange={setHashTableSize}
 				/>
 				<ThemedButton label={dictionaryT("useRecommended")} onClick={() => {
-					if (dictionaryArray)
-						setHashTableSize(findAPrimeBiggerThan(dictionaryArray.length * 4))
+					if (arrDict)
+						setHashTableSize(findAPrimeBiggerThan(arrDict.dictArray.length * 4))
 				}} />
 			</div>
 			<div

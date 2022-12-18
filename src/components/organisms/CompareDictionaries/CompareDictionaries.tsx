@@ -1,10 +1,11 @@
 import { useState } from "react"
 import NumberInput from "@components/atoms/NumberInput/NumberInput"
+import averageObject from "@utils/average-object"
 import { useTranslation } from "next-i18next"
-import { Bar, BarChart, Legend, Tooltip, YAxis } from "recharts"
+import { Bar, BarChart, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 import { ArrayDictionary, HashTableDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
-import compareDictionaries from "../../../projects-src/hashtabledict/workers/comparison-worker"
+import runComparisonWorker from "../../../projects-src/hashtabledict/workers/utils/run-comparison-worker"
 import ThemedButton from "../../atoms/ThemedButton/ThemedButton"
 
 import styles from "./CompareDictionaries.module.scss"
@@ -21,60 +22,83 @@ type RunTimes = {
     hashRunTime: number
 }
 
+
+
 const CompareDictionaries: React.FC<Props> = ({
 	arrDict,
 	hashDict,
 }) => {
-	const [runTimes, setRunTimes] = useState<RunTimes>({ arrRunTime: 0, hashRunTime: 0 })
+	const { t: dictionaryT } = useTranslation("dictionary")
+	const arrDictDataKey = dictionaryT("arrayDictionary")
+	const hashDictDataKey = dictionaryT("hashDictionary")
+
 	const [iteration, setIteration] = useState(20000)
 	const [calculating, setCalculating] = useState(false)
-	const { t: dictionaryT } = useTranslation("dictionary")
+	const [samples, setSamples] = useState<RunTimes[]>([])
+
+
+	const samplesAverage: RunTimes = calculating ?
+		{ arrRunTime: 0, hashRunTime: 0 }:
+		averageObject(samples, 0)
+
+
+	const averageBarChartData = [
+		{
+			[arrDictDataKey]: samplesAverage.arrRunTime,
+			[hashDictDataKey]: samplesAverage.hashRunTime,
+		},
+	]
+	const samplesLineChartData = samples.map(sample => ({
+		[arrDictDataKey]: sample.arrRunTime,
+		[hashDictDataKey]: sample.hashRunTime,
+	}))
 
 
 
-	const runComparisonWorker = async () => {
+
+
+	const multiSampleComparison = async () => {
 		setCalculating(true)
+		setSamples([])
 
-		const result = await compareDictionaries(arrDict, hashDict, iteration)
+		const sampleSize = 20
+		for (let i=0; i<sampleSize; i++){
+			const result = await runComparisonWorker(hashDict, arrDict, iteration)
+			setSamples(p => [...p, result])
+		}
 
-
-		// File worker. (better?)
-		// const wrkr = new Worker(new URL("../../../projects-src/hashtabledict/workers/compare-worker.ts", import.meta.url))
-		// wrkr.onmessage = (event: MessageEvent<{arrRunTime: number, hashRunTime: number }>) => {
-		// 	console.log("message from worker", event.data)
-		// 	setRunTimes(event.data)
-		// }
-		// const wData = {
-		// 	arrDict: dictionary,
-		// 	hashDictData: {
-		// 		arr: hashDict.tableArray,
-		// 		hFString: hashDict.hashFunction.toString(),
-		// 		cFString: hashDict.collisionHandler.toString(),
-		// 	},
-		// 	iteration: iteration,
-		// }
-		// wrkr.postMessage(wData)
-
-
-		setRunTimes(result)
 		setCalculating(false)
 	}
 
-	const arrDictDataKey = dictionaryT("arrayDictionary")
-	const hashDictDataKey = dictionaryT("hashDictionary")
-	const chartData = [
-		{
-			[arrDictDataKey]: runTimes.arrRunTime,
-			[hashDictDataKey]: runTimes.hashRunTime,
-		},
-	]
+
+	const getFasterSlowerText = () => {
+		if (calculating)
+			return "Calculating..."
+		if (!samplesAverage || samplesAverage.arrRunTime === 0 || samplesAverage.hashRunTime === 0)
+			return null
+
+		const arrHashRatio = samplesAverage.arrRunTime / samplesAverage.hashRunTime
+		const hashFaster = arrHashRatio > 1
+
+		const ratio = hashFaster ?
+			arrHashRatio:
+			Math.pow(arrHashRatio, -1)
+
+		return hashFaster ?
+			`${dictionaryT("searchingInHashTable")} ${ratio.toFixed(0)} ${dictionaryT("timesFaster")}`:
+			`${dictionaryT("searchingInHashTable")} ${ratio.toFixed(0)} ${dictionaryT("timesSlower")}`
+	}
+
+
 
 	return (
 		<div className={styles.container}>
 
-			<h6 className={styles.testTitle}>{dictionaryT("randomSearchComparison")}</h6>
 
 			<div className={styles.comparisonContainer}>
+				<h6 className={styles.comparisonTitle}>
+					{dictionaryT("randomSearchComparison")}
+				</h6>
 				<div className={styles.iterationInput}>
 					<p>{dictionaryT("numberOfSearches")}:</p>
 					<NumberInput
@@ -84,19 +108,68 @@ const CompareDictionaries: React.FC<Props> = ({
 				</div>
 				<ThemedButton
 					label={dictionaryT("compare")}
-					onClick={runComparisonWorker}
+					onClick={multiSampleComparison}
 					loading={calculating}
 					className={styles.compareButton}
 				/>
-				<p className={styles.chartTitle}>{dictionaryT("searchTimeInMs")}</p>
-				<BarChart width={230} height={250} data={chartData} title="Milisaniye cinsinden arama hızları">
-					<YAxis />
-					<Tooltip cursor={{ fill: "var(--color-overlay)" }} labelStyle={{ display: "none" }} wrapperStyle={{ backgroundColor: "red" }}/>
-					<Legend />
-					<Bar dataKey={arrDictDataKey} fill="#68b384" />
-					<Bar dataKey={hashDictDataKey} fill="#8884d8" />
-				</BarChart>
+				<ResponsiveContainer width={"100%"} height={250}>
+					<LineChart
+						data={samplesLineChartData}
+						margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+					>
+						<XAxis/>
+						<YAxis />
+						<Tooltip />
+						<Legend />
+						<Line
+							dataKey={arrDictDataKey}
+							dot={false}
+							type="monotone"
+							stroke="#68b384"
+						/>
+						<Line
+							dataKey={hashDictDataKey}
+							dot={false}
+							type="monotone"
+							stroke="#8884d8"
+						/>
+					</LineChart>
+				</ResponsiveContainer>
 			</div>
+
+
+			<div className={styles.comparisonContainer}>
+				<p className={styles.chartTitle}>
+					{dictionaryT("searchTimeInMs")}
+				</p>
+				<ResponsiveContainer width={"100%"} height={250}>
+					<BarChart
+						data={averageBarChartData}
+					>
+						<YAxis />
+						<Tooltip
+							cursor={{ fill: "var(--color-overlay)" }}
+							labelStyle={{ display: "none" }}
+							wrapperStyle={{ backgroundColor: "red" }}
+						/>
+						<Legend />
+						<Bar
+							dataKey={arrDictDataKey}
+							fill="#68b384"
+						/>
+						<Bar
+							dataKey={hashDictDataKey}
+							fill="#8884d8"
+						/>
+					</BarChart>
+				</ResponsiveContainer>
+				<p className={styles.compareText}>
+					{getFasterSlowerText()}
+				</p>
+			</div>
+
+
+
 
 		</div>
 	)

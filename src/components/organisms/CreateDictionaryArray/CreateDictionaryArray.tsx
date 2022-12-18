@@ -90,7 +90,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		}
 		// Dictionary creation.
 		try {
-			const arrDict = new ArrayDictionary(
+			const arrDict = ArrayDictionary.fromText(
 				fileContent.content,
 				wordRegex,
 				pairRegex,

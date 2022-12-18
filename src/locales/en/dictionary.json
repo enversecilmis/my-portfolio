@@ -47,5 +47,8 @@
 	"numberOfSearches": "number of searches",
 	"arrayDictionary": "array dictionary",
 	"hashDictionary": "hash table dictionary",
-	"searchTimeInMs": "Search time in miliseconds. (lesser the better)"
+	"searchTimeInMs": "Search time in miliseconds. (lesser the better)",
+	"searchingInHashTable": "Searching in hash table",
+	"timesFaster": "times faster!",
+	"timesSlower": "times slower!"
 }

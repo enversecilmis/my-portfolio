@@ -12,19 +12,8 @@ class ArrayDictionary {
 	/**
 	 * @throws `DictionaryTypeException`
 	 */
-	constructor(
-		text: string,
-		wordSeperator: string | RegExp,
-		pairSeperator: string | RegExp,
-	) {
-		const dictionary = text
-			.split(pairSeperator)
-			.map(pair => pair.split(wordSeperator))
-
-		if (!zDictionaryArray.safeParse(dictionary).success)
-			throw new DictionaryTypeException("Created array doesn't fit the type [string,string][]. Check your file or seperators.")
-
-		this.dictArray = dictionary as DictionaryArray
+	constructor(dictArr?: DictionaryArray) {
+		this.dictArray = dictArr || []
 	}
 
 
@@ -37,10 +26,35 @@ class ArrayDictionary {
 				break
 			}
 		}
-
 		return translation
 	}
+
+	add(pair: TranslationPair) {
+		this.dictArray.push(pair)
+	}
+
+	remove(word: string) {
+		const newDictArr = this.dictArray.filter(pair => pair[0] !== word)
+		this.dictArray = newDictArr
+	}
+
+
+	static fromText(
+		text: string,
+		wordSeperator: string | RegExp,
+		pairSeperator: string | RegExp,
+	) {
+		const dictArr: DictionaryArray = text
+			.split(pairSeperator)
+			.map(pair => pair.split(wordSeperator) as TranslationPair)
+
+		if (!zDictionaryArray.safeParse(dictArr).success)
+			throw new DictionaryTypeException()
+
+		return new ArrayDictionary(dictArr)
+	}
 }
+
 
 
 
@@ -55,12 +69,16 @@ class HashTableDictionary {
 
 
 	/**
-	 * @throws `DictionaryTypeException`
 	 * @throws `TableSizeException`
 	 */
 	constructor(
 		arrDict: ArrayDictionary,
-		{ collisionHandler, hashFunction, tableSize, throwCollisionLoopError }: HashTableOptions,
+		{
+			collisionHandler,
+			hashFunction,
+			tableSize,
+			throwCollisionLoopError,
+		}: HashTableOptions,
 	) {
 		const dictArr = arrDict.dictArray
 		const cTableSize = tableSize === "auto" ?
@@ -68,7 +86,7 @@ class HashTableDictionary {
 			tableSize
 
 		if (cTableSize <= dictArr.length)
-			throw new TableSizeException("Hash table size must be bigger than number of translations.")
+			throw new TableSizeException()
 
 		this.tableArray = new Array(cTableSize)
 		this.throwCollisionLoopError = !!throwCollisionLoopError
@@ -81,8 +99,8 @@ class HashTableDictionary {
 	}
 
 
-	add(pair: TranslationPair) {
-		const [word, translation] = pair
+	add(translationPair: TranslationPair) {
+		const [word] = translationPair
 		let hashIndex = this.hashFunction(word) % this.tableArray.length
 
 		const hashHistory: number[] = []
@@ -101,7 +119,7 @@ class HashTableDictionary {
 			hashHistory.push(hashIndex)
 		}
 
-		this.tableArray[hashIndex] = [word, translation]
+		this.tableArray[hashIndex] = translationPair
 		this.allCollisions.push(collisionCount)
 	}
 
@@ -125,15 +143,15 @@ class HashTableDictionary {
 
 	static fromText(
 		text: string,
-		{ collisionHandler, hashFunction, pairSeperator, tableSize, wordSeperator, throwCollisionLoopError }: FromTextOptions,
+		options: FromTextOptions,
 	) {
-		const arrDict = new ArrayDictionary(text, wordSeperator, pairSeperator)
+		const arrDict = ArrayDictionary.fromText(text, options.wordSeperator, options.pairSeperator)
 
 		return new HashTableDictionary(arrDict, {
-			hashFunction,
-			collisionHandler,
-			tableSize,
-			throwCollisionLoopError,
+			hashFunction: options.hashFunction,
+			collisionHandler: options.collisionHandler,
+			tableSize: options.tableSize,
+			throwCollisionLoopError: options.throwCollisionLoopError,
 		})
 	}
 }

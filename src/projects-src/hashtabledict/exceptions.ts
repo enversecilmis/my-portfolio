@@ -1,11 +1,11 @@
 class TableSizeException extends Error {
-	constructor(message: string) {
-		super(message)
+	constructor() {
+		super("Hash table size must be bigger than number of translations.")
 	}
 }
 class DictionaryTypeException extends Error {
-	constructor(message: string){
-		super(message)
+	constructor(){
+		super("Created array doesn't fit the type [string,string][]. Check your file or seperators.")
 	}
 }
 

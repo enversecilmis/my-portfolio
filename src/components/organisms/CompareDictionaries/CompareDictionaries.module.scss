@@ -1,15 +1,16 @@
 .container {
 
-	.testTitle {
-		font-size: 24px;
-		text-transform: capitalize;
-		text-align: center;
-	}
-
 	.comparisonContainer {
 		display: flex;
 		flex-direction: column;
-		margin-top: 20px;
+		width: 100%;
+
+		.comparisonTitle {
+			font-size: 24px;
+			text-transform: capitalize;
+			text-align: center;
+			margin-bottom: 30px;
+		}
 
 		.iterationInput {
 			display: flex;
@@ -29,6 +30,12 @@
 
 		.chartTitle {
 			color: var(--color-txt-2);
+		}
+
+		.compareText {
+			color: var(--color-txt-2);
+			font-size: 20px;
+			height: 60px;
 		}
 	}
 

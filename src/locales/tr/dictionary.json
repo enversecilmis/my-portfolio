@@ -47,5 +47,8 @@
 	"numberOfSearches": "arama sayısı",
 	"arrayDictionary": "dizi sözlük",
 	"hashDictionary": "hash tablosu sözlük",
-	"searchTimeInMs": "Milisaniye cinsinden arama süresi. (ne kadar az o kadar iyi)"
+	"searchTimeInMs": "Milisaniye cinsinden arama süresi. (ne kadar az o kadar iyi)",
+	"searchingInHashTable": "Hash tablosunda arama",
+	"timesFaster": "kat daha hızlı!",
+	"timesSlower": "kat daha yavaş!"
 }

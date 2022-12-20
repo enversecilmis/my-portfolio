@@ -1,24 +1,25 @@
 // @ts-check
-import { z } from "zod";
+import { z } from "zod"
 
-/**
- * Specify your server-side environment variables schema here.
- * This way you can ensure the app isn't built with invalid env vars.
- */
+
+
+// server-side environment variables schema.
 export const serverSchema = z.object({
-  // FOO: z.string(),
-  ANALYZE: z.string()
-});
+	ANALYZE: z.union([
+		z.literal("true"),
+		z.literal("false"),
+	]),
+	NEXTAUTH_URL: z.string(),
+})
 
 
 /**
- * Specify your client-side environment variables schema here.
- * This way you can ensure the app isn't built with invalid env vars.
+ * client-side environment variables schema.
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  // NEXT_PUBLIC_BAR: z.string(),
-});
+	NEXT_PUBLIC_BAR: z.string(),
+})
 
 /**
  * You can't destruct `process.env` as a regular object, so you have to do
@@ -27,5 +28,5 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-  // NEXT_PUBLIC_BAR: process.env.NEXT_PUBLIC_BAR,
-};
+	NEXT_PUBLIC_BAR: "helo",
+}

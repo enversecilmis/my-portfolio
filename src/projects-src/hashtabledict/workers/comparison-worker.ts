@@ -1,8 +1,7 @@
-import { measureRunTime } from "@utils/measure-run-time"
-import { rndNum } from "@utils/random-number"
-
 import { ArrayDictionary, HashTableDictionary } from "../hashtabledict"
-import { DictionaryArray } from "../types"
+import { DictionaryArray, TableArray } from "../types"
+import measureRunTime from "../utils/measure-run-time"
+import { rndNum } from "../utils/random-number"
 
 
 
@@ -10,9 +9,9 @@ import { DictionaryArray } from "../types"
 export type ComparisonWorkerData = {
 	dictArr: DictionaryArray,
 	hashDictInitData: {
+		tableArray: TableArray
 		hFString: string
 		cFString: string
-		tableSize: number
 		throwCollisionLoopError: boolean
 	},
 	iteration: number
@@ -24,20 +23,18 @@ export type ComparisonWorkerReturnData = {
 }
 
 
-
 onmessage = function(event: MessageEvent<ComparisonWorkerData>) {
 	const { dictArr, hashDictInitData, iteration } = event.data
 
 	const hashDictOptions = {
 		hashFunction: eval(hashDictInitData.hFString),
 		collisionHandler: eval(hashDictInitData.cFString),
-		tableSize: hashDictInitData.tableSize,
 		throwCollisionLoopError: hashDictInitData.throwCollisionLoopError,
 	}
 
 	// Recreate objects.
 	const arrDict = new ArrayDictionary(dictArr)
-	const hashDict = new HashTableDictionary(arrDict, hashDictOptions)
+	const hashDict = new HashTableDictionary(hashDictInitData.tableArray, hashDictOptions)
 
 
 	const searchableWords = arrDict.dictArray.map((pair) => pair[0])

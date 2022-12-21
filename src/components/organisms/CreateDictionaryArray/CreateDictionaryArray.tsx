@@ -3,7 +3,9 @@ import { useTranslation } from "next-i18next"
 import { FileContent } from "use-file-picker"
 
 import { useNotification } from "../../../contexts/NotificationContext"
+import { DictionaryTypeError } from "../../../projects-src/hashtabledict/errors"
 import { ArrayDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
+import runCreateDictArrWorker from "../../../projects-src/hashtabledict/utils/run-create-dict-arr-worker"
 import FileChooser from "../../atoms/FileChooser/FileChooser"
 import HoverHelp from "../../atoms/HoverHelp/HoverHelp"
 import TextInput from "../../atoms/TextInput/TextInput"
@@ -12,9 +14,7 @@ import ThemedButton from "../../atoms/ThemedButton/ThemedButton"
 import styles from "./CreateDictionaryArray.module.scss"
 
 
-const DEFAULT_WORD_SEPERATOR = " {2,}"
-const DEFAULT_PAIR_SEPERATOR = "\\n"
-
+// TODO: Fix the ugliness.
 
 
 type State<T> = [T, Dispatch<SetStateAction<T>>]
@@ -26,6 +26,8 @@ type Props = {
 }
 
 
+const DEFAULT_WORD_SEPERATOR = " {2,}"
+const DEFAULT_PAIR_SEPERATOR = "\\n"
 
 const CreateDictionaryArray: React.FC<Props> = ({
 	fileContentState,
@@ -39,6 +41,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	const [pairSeperator, setPairSeperator] = pairSeperatorState
 	const [arrDict, setArrDict] = arrDictState
 	const [settingDefaults, setSettingDefaults] = useState(false)
+	const [creating, setCreating] = useState(false)
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const { t: commonT } = useTranslation("common")
 
@@ -60,9 +63,10 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	}
 
 
-	const createDictionaryArray = () => {
+	const createDictionaryArray = async () => {
 		if (!fileContent?.content)
 			return
+		setCreating(true)
 		let wordRegex: RegExp
 		let pairRegex: RegExp
 
@@ -75,6 +79,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 			if (error instanceof Error)
 				msg = `${msg}\r\n${error.toString()}`
 			pushNotification(msg, { type: "error", source: dictionaryT("wordSeperatorInput") })
+			setCreating(false)
 			return
 		}
 		// Pair seperator eval.
@@ -86,28 +91,35 @@ const CreateDictionaryArray: React.FC<Props> = ({
 			if (error instanceof Error)
 				msg = `${msg}\r\n${error.toString()}`
 			pushNotification(msg, { type: "error", source: dictionaryT("pairSeperatorInput") })
+			setCreating(false)
 			return
 		}
 		// Dictionary creation.
 		try {
-			const arrDict = ArrayDictionary.fromText(
+			const dictArr = await runCreateDictArrWorker(
 				fileContent.content,
 				wordRegex,
 				pairRegex,
 			)
 
-			setArrDict(arrDict)
-		} catch (error) {
-			pushNotification(dictionaryT("createDictArrError"), {
-				type: "error",
-				durationSeconds: 6000,
-				source: dictionaryT("createDictArr"),
-			})
+			const newArrDict = new ArrayDictionary(dictArr)
 
+			setArrDict(newArrDict)
+		} catch (error) {
+			if (error instanceof DictionaryTypeError) {
+				pushNotification(dictionaryT("createDictArrError"), {
+					type: "error",
+					durationSeconds: 6000,
+					source: dictionaryT("createDictArr"),
+				})
+			}
+			else {
+				throw error
+			}
 			setArrDict(undefined)
 		}
+		setCreating(false)
 	}
-
 
 
 	return (
@@ -156,6 +168,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 					className={styles.createArrayButton}
 					label={dictionaryT("create")}
 					disabled={!fileContent || !wordSeperator || !pairSeperator}
+					loading={creating}
 					onClick={createDictionaryArray}
 				/>
 				{arrDict && (

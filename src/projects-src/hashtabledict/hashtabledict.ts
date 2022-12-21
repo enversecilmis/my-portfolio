@@ -1,7 +1,7 @@
-import { DictionaryTypeException, TableSizeException } from "./exceptions"
-import { CollisionHandler, DictionaryArray, FromTextOptions, HashStringFunction, HashTableOptions, TranslationPair } from "./types"
-import { findAPrimeBiggerThan, zDictionaryArray } from "./utils"
-
+import createDictionaryArray from "./utils/create-dictionary-array"
+import createTableArray from "./utils/create-table-array"
+import { CollisionLoopError } from "./errors"
+import { CollisionHandler, DictionaryArray, FromDictArrOptions, FromTextOptions, HashStringFunction, HashTableOptions, TableArray, TranslationPair } from "./types"
 
 
 
@@ -9,24 +9,23 @@ import { findAPrimeBiggerThan, zDictionaryArray } from "./utils"
 class ArrayDictionary {
 	dictArray: DictionaryArray
 
-	/**
-	 * @throws `DictionaryTypeException`
-	 */
 	constructor(dictArr?: DictionaryArray) {
 		this.dictArray = dictArr || []
 	}
 
 
 	search(searchWord: string) {
-		let translation: string | undefined
-
 		for (let i=0; i<this.dictArray.length; i++) {
-			if (searchWord === this.dictArray[i][0]) {
-				translation = this.dictArray[i][1]
-				break
-			}
+			if (searchWord === this.dictArray[i][0])
+				return this.dictArray[i][1]
 		}
-		return translation
+	}
+
+	searchUnoptimized(searchWord: string) {
+		for (const [word, translation] of this.dictArray) {
+			if (searchWord === word)
+				return translation
+		}
 	}
 
 	add(pair: TranslationPair) {
@@ -39,17 +38,15 @@ class ArrayDictionary {
 	}
 
 
+	/**
+	 * @throws `DictionaryTypeError`
+	 */
 	static fromText(
 		text: string,
 		wordSeperator: string | RegExp,
 		pairSeperator: string | RegExp,
 	) {
-		const dictArr: DictionaryArray = text
-			.split(pairSeperator)
-			.map(pair => pair.split(wordSeperator) as TranslationPair)
-
-		if (!zDictionaryArray.safeParse(dictArr).success)
-			throw new DictionaryTypeException()
+		const dictArr = createDictionaryArray(text, wordSeperator, pairSeperator)
 
 		return new ArrayDictionary(dictArr)
 	}
@@ -59,43 +56,22 @@ class ArrayDictionary {
 
 
 
-
 class HashTableDictionary {
-	tableArray: DictionaryArray
+	tableArray: TableArray
 	hashFunction: HashStringFunction
 	collisionHandler: CollisionHandler
 	throwCollisionLoopError: boolean
 	allCollisions: number[]
 
-
 	/**
-	 * @throws `TableSizeException`
+	 * @throws `TableSizeError`
 	 */
-	constructor(
-		arrDict: ArrayDictionary,
-		{
-			collisionHandler,
-			hashFunction,
-			tableSize,
-			throwCollisionLoopError,
-		}: HashTableOptions,
-	) {
-		const dictArr = arrDict.dictArray
-		const cTableSize = tableSize === "auto" ?
-			findAPrimeBiggerThan(dictArr.length):
-			tableSize
-
-		if (cTableSize <= dictArr.length)
-			throw new TableSizeException()
-
-		this.tableArray = new Array(cTableSize)
-		this.throwCollisionLoopError = !!throwCollisionLoopError
-		this.hashFunction = hashFunction
-		this.collisionHandler = collisionHandler
-		this.allCollisions = []
-
-		for (const pair of dictArr)
-			this.add(pair)
+	constructor(tableArray: TableArray, options: HashTableOptions) {
+		this.tableArray = tableArray
+		this.hashFunction = options.hashFunction
+		this.collisionHandler = options.collisionHandler
+		this.throwCollisionLoopError = !!options.throwCollisionLoopError
+		this.allCollisions = options.allCollisions || []
 	}
 
 
@@ -114,7 +90,7 @@ class HashTableDictionary {
 
 			// Throw error on collision loop if the option is set.
 			if (this.throwCollisionLoopError && hashHistory.includes(hashIndex))
-				throw new Error("Infinite collision loop.")
+				throw new CollisionLoopError()
 
 			hashHistory.push(hashIndex)
 		}
@@ -123,12 +99,11 @@ class HashTableDictionary {
 		this.allCollisions.push(collisionCount)
 	}
 
-
 	search(searchWord: string) {
 		let hashIndex = this.hashFunction(searchWord) % this.tableArray.length
 		let collisionCount = 0
 
-		while (this.tableArray[hashIndex] && this.tableArray[hashIndex][0] !== searchWord){
+		while (this.tableArray[hashIndex]?.[0] !== searchWord){
 			collisionCount++
 			hashIndex = this.collisionHandler(hashIndex, searchWord, collisionCount) % this.tableArray.length
 		}
@@ -141,20 +116,52 @@ class HashTableDictionary {
 	}
 
 
+	/**
+	 * @throws `DictionaryTypeError`
+	 * @throws `TableSizeError`
+	 */
 	static fromText(
 		text: string,
 		options: FromTextOptions,
 	) {
-		const arrDict = ArrayDictionary.fromText(text, options.wordSeperator, options.pairSeperator)
+		const { wordSeperator, pairSeperator, ...hTableOptions } = options
 
-		return new HashTableDictionary(arrDict, {
-			hashFunction: options.hashFunction,
-			collisionHandler: options.collisionHandler,
-			tableSize: options.tableSize,
-			throwCollisionLoopError: options.throwCollisionLoopError,
-		})
+		const dictArr = createDictionaryArray(
+			text,
+			wordSeperator,
+			pairSeperator,
+		)
+
+		return HashTableDictionary.fromDictArr(dictArr, hTableOptions)
+	}
+
+
+	/**
+	 * @throws `TableSizeError`
+	 */
+	static fromDictArr(
+		dictArr: DictionaryArray,
+		options: FromDictArrOptions,
+	) {
+		const { tableArray, allCollisions } = createTableArray(dictArr, options)
+
+		return new HashTableDictionary(
+			tableArray,
+			{ allCollisions, ...options },
+		)
+	}
+
+
+	static loadFromSavedText(text: string){
+		text
+	}
+
+
+	static saveToText(hashDict: HashTableDictionary){
+		hashDict
 	}
 }
+
 
 
 

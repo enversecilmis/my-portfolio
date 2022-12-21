@@ -19,17 +19,19 @@ import GetHashFunction from "../../components/organisms/GetHashFunction/GetHashF
 import GetTableSize from "../../components/organisms/GetTableSize/GetTableSize"
 import { useNotification } from "../../contexts/NotificationContext"
 import {
-	DictionaryTypeException,
-	TableSizeException,
-} from "../../projects-src/hashtabledict/exceptions"
+	DictionaryTypeError,
+	TableSizeError,
+} from "../../projects-src/hashtabledict/errors"
 import { ArrayDictionary, HashTableDictionary } from "../../projects-src/hashtabledict/hashtabledict"
 import {
 	CollisionHandler,
 	HashStringFunction,
 } from "../../projects-src/hashtabledict/types"
+import runCreateTableArrWorker from "../../projects-src/hashtabledict/utils/run-create-table-arr-worker"
 import { NextPageWithLayout } from "../_app"
 
 import styles from "../../styles/dictionary.module.scss"
+
 
 
 
@@ -53,7 +55,7 @@ const Dictionary: NextPageWithLayout = () => {
 	const { t: commonT } = useTranslation("common")
 	const { pushNotification } = useNotification()
 	const toScrollElement = useRef<HTMLDivElement>(null)
-	const key = useRef(0)
+	const resetKey = useRef(0)
 
 
 	useEffect(() => {
@@ -64,7 +66,7 @@ const Dictionary: NextPageWithLayout = () => {
 
 
 
-	const validateInputsAndCreateHashTable = () => {
+	const validateInputsAndCreateHashTable = async () => {
 		let hashFunction: HashStringFunction | undefined
 		let collisionHandler: CollisionHandler | undefined
 
@@ -113,18 +115,25 @@ const Dictionary: NextPageWithLayout = () => {
 			if (hashFunction === undefined || collisionHandler === undefined || arrDict === undefined)
 				return
 
-			const hashTableDict = new HashTableDictionary(arrDict, {
+			const { tableArray, allCollisions } = await runCreateTableArrWorker(arrDict.dictArray, {
 				hashFunction,
 				collisionHandler,
 				tableSize,
 				throwCollisionLoopError,
 			})
 
+			const hashTableDict = new HashTableDictionary(tableArray, {
+				hashFunction,
+				collisionHandler,
+				allCollisions,
+				throwCollisionLoopError,
+			})
+
 
 			setHashDict(hashTableDict)
-			key.current++
+			resetKey.current++
 		} catch (error) {
-			if (error instanceof DictionaryTypeException) {
+			if (error instanceof DictionaryTypeError) {
 				const message = dictionaryT("createDictArrError")
 
 				pushNotification(message, {
@@ -134,7 +143,7 @@ const Dictionary: NextPageWithLayout = () => {
 				})
 				return
 			}
-			if (error instanceof TableSizeException) {
+			if (error instanceof TableSizeError) {
 				const message = `${error.message}\r\n${dictionaryT("hashTableSizeError")}`
 
 				pushNotification(message, {
@@ -161,7 +170,6 @@ const Dictionary: NextPageWithLayout = () => {
 			<Head>
 				<title>{dictionaryT("title")}</title>
 			</Head>
-
 			<ContentSection
 				heading={dictionaryT("title")}
 				hTag="h1"
@@ -197,8 +205,11 @@ const Dictionary: NextPageWithLayout = () => {
 
 
 				{hashDict && arrDict &&
-				<div key={key.current} ref={toScrollElement} className={styles.tableReadySection}>
-
+				<div
+					key={resetKey.current}
+					ref={toScrollElement}
+					className={styles.tableReadySection}
+				>
 					<BoxSection className={styles.searchSection} heading={dictionaryT("searchInDictionaries")} hTag="h2">
 						<DictionarySearch
 							hashDict={hashDict}

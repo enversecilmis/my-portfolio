@@ -4,7 +4,7 @@ import ThemedButton from "@components/atoms/ThemedButton/ThemedButton"
 import { useTranslation } from "next-i18next"
 
 import { ArrayDictionary } from "../../../projects-src/hashtabledict/hashtabledict"
-import { findAPrimeBiggerThan } from "../../../projects-src/hashtabledict/utils"
+import findPrimeBiggerThan from "../../../projects-src/hashtabledict/utils/find-prime"
 
 import styles from "./GetTableSize.module.scss"
 
@@ -23,7 +23,7 @@ const GetTableSize: React.FC<Props> = ({
 	const [hashTableSize, setHashTableSize] = hashTableSizeState
 	const { t: dictionaryT } = useTranslation("dictionary")
 	const loadFactor = arrDict ?
-		(arrDict.dictArray.length / hashTableSize).toFixed(3):
+		(arrDict.dictArray.length / hashTableSize).toFixed(2):
 		0
 
 	return (
@@ -37,7 +37,7 @@ const GetTableSize: React.FC<Props> = ({
 				/>
 				<ThemedButton label={dictionaryT("useRecommended")} onClick={() => {
 					if (arrDict)
-						setHashTableSize(findAPrimeBiggerThan(arrDict.dictArray.length * 4))
+						setHashTableSize(findPrimeBiggerThan(arrDict.dictArray.length * 4))
 				}} />
 			</div>
 			<div
@@ -45,7 +45,7 @@ const GetTableSize: React.FC<Props> = ({
 				style={loadFactor >= 1 ? { color: "red" }: {}}
 			>
 				<span>{dictionaryT("loadFactor")}:</span>
-				<span>{loadFactor}</span>
+				<span>{loadFactor !== "NaN" && loadFactor}</span>
 			</div>
 		</div>
 	)

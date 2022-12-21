@@ -57,7 +57,12 @@ const GetCollisionHandler: React.FC<Props> = ({
 			/>
 			<div className={styles.labeledInput}>
 				<HoverHelp message={dictionaryT("throwInfiniteLoopErrorHelp")} />
-				<label className={styles.label} htmlFor={styles.throwLoopError}>{dictionaryT("throwInfiniteLoopError")}:</label>
+				<label
+					className={styles.label}
+					htmlFor={styles.throwLoopError}
+				>
+					{dictionaryT("throwInfiniteLoopError")}:
+				</label>
 				<input
 					id={styles.throwLoopError}
 					type="checkbox"

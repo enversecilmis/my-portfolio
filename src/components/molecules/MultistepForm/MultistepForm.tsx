@@ -51,6 +51,7 @@ const MultistepForm: MultiStepForm = ({
 }) => {
 	const [stepIndex, setStepIndex] = useState(0)
 	const [direction, setDirection] = useState(0)
+	const [finishing, setFinishing] = useState(false)
 	const { t: commonT } = useTranslation("common")
 
 	const childrenArray = React.Children.toArray(children) as JSX.Element[]
@@ -59,11 +60,13 @@ const MultistepForm: MultiStepForm = ({
 
 
 
-	const nextOrFinish: FormEventHandler<HTMLFormElement> = (e) => {
+	const nextOrFinish: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
+		setFinishing(true)
 		stepIndex === lastIndex ?
-			onFinish():
+			await onFinish():
 			next()
+		setFinishing(false)
 	}
 	const next = () => {
 		setStepIndex(p => p >= lastIndex ? lastIndex : p + 1)
@@ -111,6 +114,7 @@ const MultistepForm: MultiStepForm = ({
 					label={stepIndex === lastIndex ? commonT("finish") : commonT("next")}
 					className={styles.button}
 					disabled={renderedChild.props.disableNext}
+					loading={finishing}
 				/>
 			</div>
 		</form>

@@ -31,7 +31,7 @@
 	"returnTypeNumberError": "Return type is not a number.",
 	"searchInDictionaries": "Search in Dictionaries",
 	"standardDeviation": "Standard Deviation",
-	"throwInfiniteLoopError": "Throw Infinite Loop Error",
+	"throwInfiniteLoopError": "Throw Collision Loop Error",
 	"throwInfiniteLoopErrorHelp": "Set this option if you don't use iteration parameter in collision handler function.",
 	"title": "Hash Table Dictionary",
 	"totalCollisions": "Total Collisions",

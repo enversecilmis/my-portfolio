@@ -31,7 +31,7 @@
 	"returnTypeNumberError": "Return tipi 'number' değil.",
 	"searchInDictionaries": "Sözlüklerde Arama Yap",
 	"standardDeviation": "Standart Sapma",
-	"throwInfiniteLoopError": "Sonsuz Döngü Hatası",
+	"throwInfiniteLoopError": "Çakışma Döngüsü Hatası",
 	"throwInfiniteLoopErrorHelp": "Çakışma fonksiyonunda 'iteration' parametresini kullanmazsanız bu seçeneği işaretleyin.",
 	"title": "Sözlük Hash Tablosu",
 	"totalCollisions": "Toplam Çakışma",

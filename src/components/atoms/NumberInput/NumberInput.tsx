@@ -1,40 +1,35 @@
-import { DetailedHTMLProps, InputHTMLAttributes, useRef } from "react"
+import { forwardRef, InputHTMLAttributes } from "react"
 
 import styles from "./NumberInput.module.scss"
 
+// TODO: Make it forward ref.
+// TODO: Create a base input field for this and TextInput component.
 
 
-type InputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
-type Props = Omit<InputProps, "onChange"> & {
-    title?: string
+type MyProps = {
     onChange: (number: number) => void
 }
 
-const NumberInput: React.FC<Props> = ({ onChange, title, ...rest }) => {
-	const input = useRef<HTMLInputElement>(null)
+type InputProps = InputHTMLAttributes<HTMLInputElement>
 
+type Props = MyProps & Omit<InputProps, "onChange" | "type">
+
+type NumberInputComponent = React.ForwardRefRenderFunction<HTMLInputElement, Props>
+
+
+const NumberInput: NumberInputComponent = ({
+	onChange,
+	...rest
+}, ref) => {
 	return (
-		<div className={styles.container}>
-			{title && <span className={styles.title}>{title} </span>}
-			<input
-				ref={input}
-				className={styles.input}
-				{...rest}
-				onChange={e => {
-					const numText = e.target.value.replace(/^0+/, "")
-					let value = parseInt(numText)*2/2
-
-					value = e.target.valueAsNumber
-
-
-					if (isNaN(value))
-						onChange(0)
-					else
-						onChange(value)
-				}}
-				type="number"
-			/>
-		</div>
+		<input
+			ref={ref}
+			className={styles.input}
+			onChange={e => onChange(e.target.valueAsNumber)}
+			onWheel={e => e.currentTarget.blur()}
+			type="number"
+			{...rest}
+		/>
 	)
 }
 
@@ -43,4 +38,4 @@ const NumberInput: React.FC<Props> = ({ onChange, title, ...rest }) => {
 
 
 
-export default NumberInput
+export default forwardRef(NumberInput)

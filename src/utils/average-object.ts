@@ -2,7 +2,10 @@ type NumberOnlyObject = {
 	[key: string]: number
 }
 
-
+/**
+ * Takes the average property values in an object array
+ * and returns same type of object with the average values.
+ */
 const averageObject = <T extends NumberOnlyObject>(
 	objectArray: Required<T>[],
 	fractionDigits?: number,

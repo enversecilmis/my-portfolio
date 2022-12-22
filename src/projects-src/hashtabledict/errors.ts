@@ -16,9 +16,16 @@ class CollisionLoopError extends Error {
 		this.name = "CollisionLoopError"
 	}
 }
+class ReturnTypeError extends Error {
+	constructor(){
+		super("Return type is not valid.")
+		this.name = "ReturnTypeError"
+	}
+}
 
 export {
 	CollisionLoopError,
 	DictionaryTypeError,
+	ReturnTypeError,
 	TableSizeError,
 }

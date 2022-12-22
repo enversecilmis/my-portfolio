@@ -21,7 +21,7 @@ class ArrayDictionary {
 		}
 	}
 
-	searchUnoptimized(searchWord: string) {
+	searchUnoptimal(searchWord: string) {
 		for (const [word, translation] of this.dictArray) {
 			if (searchWord === word)
 				return translation

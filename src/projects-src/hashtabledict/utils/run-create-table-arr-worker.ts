@@ -1,3 +1,4 @@
+import { TableSizeError } from "../errors"
 import { DictionaryArray, FromDictArrOptions } from "../types"
 import { CreateTableArrWorkerData, CreateTableArrWorkerReturnData } from "../workers/create-table-arr-worker"
 
@@ -25,7 +26,7 @@ const runCreateTableArrWorker = (
 		})
 
 		worker.onerror = () => {
-			reject(new Error())
+			reject(new TableSizeError())
 			worker.terminate()
 		}
 

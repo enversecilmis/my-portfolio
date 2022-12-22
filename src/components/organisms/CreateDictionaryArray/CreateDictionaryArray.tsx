@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react"
+import getErrorMessage from "@utils/get-error-message"
 import { useTranslation } from "next-i18next"
 import { FileContent } from "use-file-picker"
 
@@ -39,6 +40,7 @@ const CreateDictionaryArray: React.FC<Props> = ({
 	const [fileContent, setFileContent] = fileContentState
 	const [wordSeperator, setWordSeperator] = wordSeperatorState
 	const [pairSeperator, setPairSeperator] = pairSeperatorState
+
 	const [arrDict, setArrDict] = arrDictState
 	const [settingDefaults, setSettingDefaults] = useState(false)
 	const [creating, setCreating] = useState(false)
@@ -67,33 +69,47 @@ const CreateDictionaryArray: React.FC<Props> = ({
 		if (!fileContent?.content)
 			return
 		setCreating(true)
+
 		let wordRegex: RegExp
 		let pairRegex: RegExp
 
 		// Word seperator eval.
 		try {
 			wordRegex = new RegExp(wordSeperator)
-		} catch (error) {
-			let msg = commonT("regexEvalError")
+		}
+		catch (error) {
+			const msg = getErrorMessage(error, [
+				[Error, (er) => `${commonT("regexEvalError")} \r\n ${er.toString()}`],
+				["default", `${commonT("regexEvalError")}`],
+			])
 
-			if (error instanceof Error)
-				msg = `${msg}\r\n${error.toString()}`
-			pushNotification(msg, { type: "error", source: dictionaryT("wordSeperatorInput") })
+			pushNotification(msg, {
+				type: "error",
+				source: dictionaryT("wordSeperatorInput"),
+				duration: 6000,
+			})
 			setCreating(false)
 			return
 		}
 		// Pair seperator eval.
 		try {
 			pairRegex = new RegExp(pairSeperator)
-		} catch (error) {
-			let msg = commonT("regexEvalError")
+		}
+		catch (error) {
+			const msg = getErrorMessage(error, [
+				[Error, (er) => `${commonT("regexEvalError")} \r\n ${er.toString()}`],
+				["default", `${commonT("regexEvalError")}`],
+			])
 
-			if (error instanceof Error)
-				msg = `${msg}\r\n${error.toString()}`
-			pushNotification(msg, { type: "error", source: dictionaryT("pairSeperatorInput") })
+			pushNotification(msg, {
+				type: "error",
+				source: dictionaryT("pairSeperatorInput"),
+				duration: 6000,
+			})
 			setCreating(false)
 			return
 		}
+
 		// Dictionary creation.
 		try {
 			const dictArr = await runCreateDictArrWorker(
@@ -101,22 +117,21 @@ const CreateDictionaryArray: React.FC<Props> = ({
 				wordRegex,
 				pairRegex,
 			)
-
 			const newArrDict = new ArrayDictionary(dictArr)
-
 			setArrDict(newArrDict)
-		} catch (error) {
-			if (error instanceof DictionaryTypeError) {
-				pushNotification(dictionaryT("createDictArrError"), {
-					type: "error",
-					durationSeconds: 6000,
-					source: dictionaryT("createDictArr"),
-				})
-			}
-			else {
-				throw error
-			}
+		}
+		catch (error) {
 			setArrDict(undefined)
+			const msg = getErrorMessage(error, [
+				[DictionaryTypeError, `${dictionaryT("createDictArrError")}`],
+				["default", "Unknown Error"],
+			])
+
+			pushNotification(msg, {
+				type: "error",
+				duration: 6000,
+				source: dictionaryT("createDictArr"),
+			})
 		}
 		setCreating(false)
 	}
@@ -124,59 +139,70 @@ const CreateDictionaryArray: React.FC<Props> = ({
 
 	return (
 		<div className={styles.inputStep}>
-			<h3 className={styles.stepTitle}>{dictionaryT("createDictArr")}</h3>
-			<div className={styles.stepContent}>
+			<h3 className={styles.stepTitle}>
+				{dictionaryT("createDictArr")}
+			</h3>
 
+			<div className={styles.stepContent}>
 				<div className={styles.labeledInput}>
-					<HoverHelp message={dictionaryT("fileHelp")} />
-					<label className={styles.label}>{dictionaryT("file")}: </label>
+					<HoverHelp message={dictionaryT("fileHelp")}/>
+					<label className={styles.label}>
+						{dictionaryT("file")}:
+					</label>
 					<FileChooser
 						required
 						fileSelected={!!fileContent}
 						label={dictionaryT("chooseFile")}
 						accept=".txt"
 						multiple={false}
-						onChange={setFileContent}
-					/>
+						onChange={setFileContent}/>
 					{fileContent?.name}
 				</div>
+
 				<div className={styles.labeledInput}>
 					<HoverHelp message={dictionaryT("wordSeperatorHelp")} />
-					<label className={styles.label}>{dictionaryT("wordSeperator")}: </label>
+					<label className={styles.label}>
+						{dictionaryT("wordSeperator")}:
+					</label>
 					<TextInput
 						required
 						value={wordSeperator}
-						onChange={setWordSeperator}
-					/>
+						onChange={setWordSeperator}/>
 				</div>
+
 				<div className={styles.labeledInput}>
 					<HoverHelp message={dictionaryT("pairSeperatorHelp")} />
-					<label className={styles.label}>{dictionaryT("pairSeperator")}: </label>
+					<label className={styles.label}>
+						{dictionaryT("pairSeperator")}:
+					</label>
 					<TextInput
 						required
 						value={pairSeperator}
-						onChange={setPairSeperator}
-					/>
+						onChange={setPairSeperator}/>
 				</div>
+
 				<ThemedButton
 					label={dictionaryT("useDefault")}
-					className={styles.useDefaultButton}
 					onClick={setDefaultDictInputs}
-					loading={settingDefaults}
-				/>
+					className={styles.useDefaultButton}
+					loading={settingDefaults}/>
 				<ThemedButton
-					className={styles.createArrayButton}
 					label={dictionaryT("create")}
-					disabled={!fileContent || !wordSeperator || !pairSeperator}
-					loading={creating}
 					onClick={createDictionaryArray}
-				/>
-				{arrDict && (
+					className={styles.createArrayButton}
+					disabled={!fileContent || !wordSeperator || !pairSeperator}
+					loading={creating}/>
+
+				{arrDict &&
 					<div className={styles.createdArray}>
-						<p className={styles.createdText}>{dictionaryT("dictionaryCreated")}</p>
-						<p className={styles.infoText}>{arrDict.dictArray.length} {dictionaryT("wordsFound")}</p>
+						<p className={styles.createdText}>
+							{dictionaryT("dictionaryCreated")}
+						</p>
+						<p className={styles.infoText}>
+							{arrDict.dictArray.length} {dictionaryT("wordsFound")}
+						</p>
 					</div>
-				)}
+				}
 			</div>
 
 		</div>

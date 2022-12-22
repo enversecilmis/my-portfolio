@@ -2,6 +2,7 @@ import { ReactElement, useEffect } from "react"
 import { useNotification } from "@contexts/NotificationContext"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
+import { SessionProvider } from "next-auth/react"
 import { appWithTranslation, useTranslation } from "next-i18next"
 
 import { NotificationProvider } from "../contexts/NotificationContext"
@@ -22,35 +23,39 @@ type AppPropsWithLayout = AppProps & {
 
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-	const getLayout = Component.getLayout ?? ((page) => page)
 	const { pushNotification } = useNotification()
 	const { t: commonT } = useTranslation("common")
+	const getLayout = Component.getLayout ?? ((page) => page)
+
 
 	useEffect(() => {
-		const showed = window.sessionStorage.getItem("firstNotification")
-
-		if (showed)
+		if (window.sessionStorage.getItem("landingNotificationShowed"))
 			return
 
 		pushNotification(commonT("cookieNotification"), {
 			type: "info",
 			source: "",
 		})
-		window.sessionStorage.setItem("firstNotification", "true")
-	}, [commonT, pushNotification])
+		window.sessionStorage.setItem("landingNotificationShowed", "true")
+	}, [])
+
 
 	return (
 		getLayout(<Component {...pageProps} />)
 	)
 }
 
+
 const ProvidedApp = (props: AppPropsWithLayout) => (
-	<ThemePrefProvider>
-		<NotificationProvider>
-			<MyApp {...props}/>
-		</NotificationProvider>
-	</ThemePrefProvider>
+	<SessionProvider session={props.pageProps.session}>
+		<ThemePrefProvider>
+			<NotificationProvider>
+				<MyApp {...props}/>
+			</NotificationProvider>
+		</ThemePrefProvider>
+	</SessionProvider>
 )
+
 
 
 export default appWithTranslation(ProvidedApp)

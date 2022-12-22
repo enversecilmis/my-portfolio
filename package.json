@@ -16,6 +16,7 @@
     "@use-gesture/react": "^10.2.18",
     "framer-motion": "^7.6.1",
     "next": "^13.0.0",
+    "next-auth": "^4.18.6",
     "next-i18next": "^12.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

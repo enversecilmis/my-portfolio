@@ -14,8 +14,14 @@ type Props = {
     onFinish?: () => void
     children: JSX.Element | JSX.Element[]
 }
+type OnNextFunction = () => boolean | Promise<boolean> | void
 type ItemProps = {
     disableNext?: boolean
+	/**
+	 * Returned boolean value determines whether or not to go next.
+	 * If it doesn't return a value, proceeds to the next step.
+	 */
+	onNext?: OnNextFunction
     children?: ReactNode
 }
 type ItemType = React.FC<ItemProps>
@@ -59,9 +65,16 @@ const MultistepForm: MultiStepForm = ({
 	const lastIndex = childrenArray.length - 1
 
 
-
 	const nextOrFinish: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault()
+		const onNext: OnNextFunction | undefined = renderedChild.props.onNext
+		const val = onNext && await onNext()
+		const canProceed = val || val === undefined
+
+		// If true or undefined returned, proceed.
+		if (!canProceed)
+			return
+
 		setFinishing(true)
 		stepIndex === lastIndex ?
 			await onFinish():
@@ -111,7 +124,10 @@ const MultistepForm: MultiStepForm = ({
 				/>
 				<ThemedButton
 					type="submit"
-					label={stepIndex === lastIndex ? commonT("finish") : commonT("next")}
+					label={stepIndex === lastIndex ?
+						commonT("finish"):
+						commonT("next")
+					}
 					className={styles.button}
 					disabled={renderedChild.props.disableNext}
 					loading={finishing}

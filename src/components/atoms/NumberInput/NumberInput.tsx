@@ -19,12 +19,13 @@ type NumberInputComponent = React.ForwardRefRenderFunction<HTMLInputElement, Pro
 
 const NumberInput: NumberInputComponent = ({
 	onChange,
+	className,
 	...rest
 }, ref) => {
 	return (
 		<input
 			ref={ref}
-			className={styles.input}
+			className={`${styles.input} ${className}`}
 			onChange={e => onChange(e.target.valueAsNumber)}
 			onWheel={e => e.currentTarget.blur()}
 			type="number"

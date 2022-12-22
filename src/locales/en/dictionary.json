@@ -44,11 +44,13 @@
 	"comparison": "comparison",
 	"compare": "compare",
 	"randomSearchComparison": "random search comparison",
-	"numberOfSearches": "number of searches",
+	"numberOfSearches": "Number of Searches",
+	"numberOfIterations": "Number of Iterations",
 	"arrayDictionary": "array dictionary",
 	"hashDictionary": "hash table dictionary",
-	"searchTimeInMs": "Search time in miliseconds. (lesser the better)",
-	"searchingInHashTable": "Searching in hash table",
+	"allSearchTimeInMs": "All search results in miliseconds.",
+	"averageSearchTimeInMs": "Average search time in miliseconds. (lesser the better)",
+	"searchingInHashTable": "Searching in hash table is",
 	"timesFaster": "times faster!",
 	"timesSlower": "times slower!"
 }

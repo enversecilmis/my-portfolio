@@ -1,40 +1,75 @@
+@import "../../../styles/mixins.scss";
+
 .container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
 
-	.comparisonContainer {
-		display: flex;
-		flex-direction: column;
-		width: 100%;
+	.inputSection {
 
-		.comparisonTitle {
-			font-size: 24px;
-			text-align: center;
-			margin-bottom: 30px;
-		}
-
-		.iterationInput {
+		.labeledInputs {
 			display: flex;
-			gap: 5px;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
 
-			p {
-				font-size: 20px;
-				color: var(--color-txt-2);
-				text-transform: capitalize;
+			.labeledInput {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+
+				@include device(mobile) {
+					flex-direction: column;
+				}
+
+				.input {
+					width: 80px;
+				}
+
+				.label {
+					font-size: 18px;
+					color: var(--color-txt-2);
+				}
 			}
 		}
 
 		.compareButton {
-			margin-top: 10px;
-			margin-bottom: 20px;
-		}
-
-		.chartTitle {
-			color: var(--color-txt-2);
+			width: 300px;
+			max-width: 100%;
+			padding: 5px;
+			font-size: 18px;
+			text-transform: capitalize;
 		}
 
 		.compareText {
 			color: var(--color-txt-2);
-			font-size: 20px;
+			font-size: 24px;
+			text-align: center;
+			margin-top: 30px;
 			height: 60px;
+		}
+	}
+
+	.chartsContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 500px;
+		max-width: 100%;
+
+		.chartTitle {
+			text-align: center;
+			color: var(--color-txt-2);
+			margin-top: 30px;
+		}
+
+		.lineChart {
+			width: 100%;
+		}
+
+		.barChart {
+			width: 250px;
 		}
 	}
 

@@ -1,5 +1,3 @@
-import { DictionaryTypeError } from "../projects-src/hashtabledict/errors"
-
 type ConstructorOf<T> = (new () => T)
 
 type ErrMsgPair<T extends Error> = [ConstructorOf<T>, string | ((error: T) => string)]
@@ -17,7 +15,6 @@ const getErrorMessage = <T extends Error>(
 	const defaultMessage = errMessages.find(([e]) => e === "default")?.[1] as string
 	const filteredPairs = errMessages.filter(([e]) => e !== "default") as ErrMsgPair<T>[]
 
-	console.log(filteredPairs)
 	for (const [ErrConstructor, msg] of filteredPairs) {
 		if (err instanceof ErrConstructor) {
 			return msg instanceof Function ?
@@ -27,11 +24,10 @@ const getErrorMessage = <T extends Error>(
 	}
 
 
-
 	if (err instanceof Error)
-		return `${err.name} asdasdasd`
+		return err.toString()
 	else
-		return defaultMessage || "Unknown Error"
+		return defaultMessage || "Error"
 }
 
 

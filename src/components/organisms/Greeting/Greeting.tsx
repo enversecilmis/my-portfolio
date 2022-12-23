@@ -1,3 +1,4 @@
+import ppImage from "@public/images/pp.jpg"
 import Image from "next/legacy/image"
 import { useTranslation } from "next-i18next"
 
@@ -13,7 +14,7 @@ const Greeting: React.FC = () => {
 	return (
 		<section className={styles.container}>
 			<div className={styles.ppContainer}>
-				<Image src="/images/pp.jpg" alt="profile picture" layout={"fill"} objectFit={"contain"} className={styles.pp} />
+				<Image placeholder="blur" alt="client side rendering" src={ppImage} layout={"fill"} objectFit={"contain"} className={styles.pp} />
 			</div>
 			<div className={styles.introText}>
 				<p className={styles.title}>Hello World!</p>

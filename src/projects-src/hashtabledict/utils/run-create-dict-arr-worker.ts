@@ -25,10 +25,11 @@ const runCreateDictArrWorker = (
 		})
 
 		worker.onerror = (ev: ErrorEvent) => {
-			if (ev.message === `Uncaught ${DictionaryTypeError.name}`)
+			if (ev.message === `Uncaught ${DictionaryTypeError._name}`)
 				reject(new DictionaryTypeError())
 			else
 				reject(new Error())
+
 			worker.terminate()
 		}
 

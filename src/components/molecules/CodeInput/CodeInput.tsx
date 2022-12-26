@@ -52,6 +52,7 @@ const CodeInput: React.FC<Props> = ({
 					onChange={e => onChange && onChange(e.target.value)}
 					cols={cols}
 					rows={rows}
+					spellCheck={false}
 				/>
 				<pre>{boilerplateBottom}</pre>
 			</code>

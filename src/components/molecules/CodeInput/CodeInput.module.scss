@@ -52,7 +52,7 @@
 			outline: none;
 			resize: none;
 			background-color: var(--color-bg-code);
-			white-space: nowrap;
+			white-space: pre-wrap;
 
 			&::-webkit-scrollbar {
 				width: 9px;

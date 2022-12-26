@@ -139,7 +139,7 @@ const Dictionary: NextPageWithLayout = () => {
 		catch (error) {
 			const message = getErrorMessage(error, [
 				[DictionaryTypeError, `${dictionaryT("createDictArrError")}`],
-				[TableSizeError, (e) => `${e.message}\r\n${dictionaryT("hashTableSizeError")}`],
+				[TableSizeError, `${dictionaryT("hashTableSizeError")}`],
 			])
 
 			pushNotification(message, {

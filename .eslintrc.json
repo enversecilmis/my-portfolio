@@ -32,7 +32,8 @@
                   ]
                 }
               ],
-			  "@typescript-eslint/no-empty-function": "warn"
+			  "@typescript-eslint/no-empty-function": "warn",
+			  "@next/next/no-img-element": "off"
             }
           }
     ],

@@ -1,0 +1,17 @@
+.container {
+
+	.cards {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 200px;
+		height: 240px;
+
+		transform: perspective(1000px);
+
+		.card {
+			position: absolute;
+			transition: top .3s, left .3s;
+		}
+	}
+}

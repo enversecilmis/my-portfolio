@@ -1,0 +1,41 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: fit-content;
+	background-color: rgb(221, 185, 106);
+	border-radius: 10px;
+	cursor: grab;
+	overflow: hidden;
+	box-shadow: 0 0 50px -20px rgba(213, 242, 166, 0.778);
+	height: 300px;
+
+	&:active {
+		cursor: grabbing;
+	}
+
+	.imageContainer {
+		box-shadow: 0 -5px 35px 2px rgba(0, 0, 0, 0.49) inset;
+
+		width: 200px;
+		height: 200px;
+
+		.image {
+			image-rendering: pixelated;
+			width: 100%;
+			height: 100%;
+			object-fit: fill;
+
+		}
+	}
+
+	.name {
+		font-size: 20px;
+		background-color: rgb(115, 141, 175);
+		width: 100%;
+		text-align: center;
+		text-transform: capitalize;
+		box-shadow: 0 -5px 20px 0px rgba(0, 0, 0, 0.325) inset;
+		padding: 5px;
+	}
+}

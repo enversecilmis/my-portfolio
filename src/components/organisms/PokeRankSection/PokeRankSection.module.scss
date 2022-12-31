@@ -1,0 +1,81 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 100px;
+	margin-top: 30px;
+	height: 370px;
+
+	.trashBinArea {
+		width: 50px;
+
+		.trashBin {
+			color: var(--color-txt);
+			font-size: 50px;
+			scale: 1;
+			animation: scaleIn .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			z-index: 300;
+			transition: scale .3s;
+		}
+
+		.trashActive {
+			scale: 1.2;
+			color: red;
+		}
+	}
+
+	.ratingArea {
+		display: flex;
+		flex-direction: column-reverse;
+		justify-content: space-between;
+		height: 100%;
+		width: 40px;
+		padding: 5px;
+
+		.star {
+			font-size: 100px;
+			color: var(--color-txt);
+			transition: color .3s;
+			animation: scaleIn .3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+		}
+
+		.filled {
+			color: rgb(227, 160, 3);
+		}
+
+		:nth-child(1) {
+			position: relative;
+			left: 0px;
+		}
+
+		:nth-child(2) {
+			position: relative;
+			left: 26px;
+		}
+
+		:nth-child(3) {
+			position: relative;
+			left: 30px;
+		}
+
+		:nth-child(4) {
+			position: relative;
+			left: 26px;
+		}
+
+		:nth-child(5) {
+			position: relative;
+			left: 0px;
+		}
+	}
+}
+
+@keyframes scaleIn {
+	0% {
+		scale: 0.2;
+	}
+
+	100% {
+		scale: 1;
+	}
+}

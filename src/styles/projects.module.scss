@@ -1,19 +1,21 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-top: 50px;
-    
-    .pageDescription {
-        color: var(--color-txt-2);
-        font-size: 30px;
-    }
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 50px;
+	padding-bottom: 100px;
 
-    .projects {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+	.pageDescription {
+		color: var(--color-txt-2);
+		font-size: 30px;
+		margin-top: 50px;
+	}
+
+	.projects {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 30px;
+	}
 }

@@ -1,4 +1,5 @@
 import { ReactElement, useEffect } from "react"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { useNotification } from "@contexts/NotificationContext"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
@@ -10,8 +11,6 @@ import ThemePrefProvider from "../contexts/ThemeContext"
 
 import "../styles/globals.css"
 
-
-
 // eslint-disable-next-line @typescript-eslint/ban-types
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => JSX.Element
@@ -20,6 +19,8 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
+
+const queryClient = new QueryClient()
 
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
@@ -37,6 +38,7 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 			source: "",
 		})
 		window.sessionStorage.setItem("landingNotificationShowed", "true")
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 
@@ -48,11 +50,13 @@ const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
 
 const ProvidedApp = (props: AppPropsWithLayout) => (
 	<SessionProvider session={props.pageProps.session}>
-		<ThemePrefProvider>
-			<NotificationProvider>
-				<MyApp {...props}/>
-			</NotificationProvider>
-		</ThemePrefProvider>
+		<QueryClientProvider client={queryClient}>
+			<ThemePrefProvider>
+				<NotificationProvider>
+					<MyApp {...props}/>
+				</NotificationProvider>
+			</ThemePrefProvider>
+		</QueryClientProvider>
 	</SessionProvider>
 )
 

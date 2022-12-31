@@ -12,7 +12,7 @@
 	"create": "oluştur",
 	"createDictArr": "Sözlük Dizisi Oluştur",
 	"createDictArrError": "Oluşturulan sözlük dizisi tipi [string,string][] değil. Dosyanızı yada ayraçlarınızı kontrol edin.",
-	"description": "Bu projede kelime-çeviri şeklinde olan sözlük dizisi hash tablosuna çevriliyor. Böylece arama zaman karmaşıklığı O(n)'den O(1)'e düşürülmüş oluyor.",
+	"description": "Sözlük Hash Tablosu dönüştürücüsüne hoş geldiniz! Bu projede, kelimeler ve çevirilerini içeren bir metin dosyası girdi olarak verebilir ve bunu optimize edilmiş bir hash tablosuna dönüştürebilirsiniz. Çevirilerle birlikte bir metin dosyası sağlayın, tercih ettiğiniz hash fonksiyonunu ve çarpışma işleme yöntemini seçin, hash tablosu boyutunu belirtin. Program, daha sonra bir hash tablosu oluşturacak ve çarpışma istatistiklerini sağlayarak dizi ve hash tablosu arasındaki arama zamanlarını karşılaştıracaktır. Deneyin ve hash tablolarının gücünü görün!",
 	"dictionaryCreated": "Sözlük Oluşturuldu",
 	"file": "Dosya",
 	"fileHelp": "Aralarında ayraç olan kelime-çeviri çiftlerini içeren .txt dosyası.",

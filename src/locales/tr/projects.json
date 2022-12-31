@@ -1,4 +1,8 @@
 {
-    "title": "Projeler",
-    "intro": "Burada yaptığım bazı projeleri bulabilirsiniz."
+	"title": "Projeler",
+	"intro": "Burada yaptığım bazı projeleri bulabilirsiniz.",
+	"dictionaryDescription": "Sözlük Hash Tablosu dönüştürücüsüne hoş geldiniz! Bu projede, kelimeler ve çevirilerini içeren bir metin dosyası girdi olarak verebilir ve bunu optimize edilmiş bir hash tablosuna dönüştürebilirsiniz. Çevirilerle birlikte bir metin dosyası sağlayın, tercih ettiğiniz hash fonksiyonunu ve çarpışma işleme yöntemini seçin, hash tablosu boyutunu belirtin. Program, daha sonra bir hash tablosu oluşturacak ve çarpışma istatistiklerini sağlayarak dizi ve hash tablosu arasındaki arama zamanlarını karşılaştıracaktır. Deneyin ve hash tablolarının gücünü görün!",
+	"dictionaryTitle": "Hash Tablosu Sözlük",
+	"pokerankDescription": "Nihai Pokemon Havalılık Sıralaması'na Hoş Geldiniz! Bu projede, Pokemon'ları havalılık faktörlerine göre derecelendiriyoruz. Efsanevi yaratıklardan sevimli acemilere kadar hepsini kapsıyoruz. Hangisi tüm Pokemon'ların en havalısı olacak? Gelin ve sıralamalarımızla ne kadar katılıyor olduğunuzu görün!",
+	"pokerankTitle": "Pokemon Havalılık Sıralaması"
 }

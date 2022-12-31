@@ -12,7 +12,7 @@
 	"create": "create",
 	"createDictArr": "Create Dictionary Array",
 	"createDictArrError": "Created array structure is not [string,string][]. Check your text file or seperators.",
-	"description": "In this project, dictionary array is converted to a hash table so search time complexity would be O(1) instead of O(n).",
+	"description": "Welcome to the Dictionary Hash Table converter! In this project, you can input a text file with English-Turkish translations and convert it into a optimized hash table. Choose your preferred hash function and collision handling method, specify the size of the hash table, and provide the text file with the translations. The program will then generate a hash table and provide you with a comparison of search times between a regular array and the hash table and also collision statistics of the hash table. Try it out and see the power of hash tables in action!",
 	"dictionaryCreated": "Dictionary Created",
 	"file": "File",
 	"fileHelp": "A .txt file that has words and their translation with seperators.",

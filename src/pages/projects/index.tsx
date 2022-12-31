@@ -12,12 +12,15 @@ import styles from "@styles/projects.module.scss"
 
 
 
-
+const projects = [
+	"dictionary",
+	"pokerank",
+]
 
 
 const Projects: NextPageWithLayout = () => {
 	const { t: projectsT } = useTranslation("projects")
-	const { t: dictionaryT } = useTranslation("dictionary")
+
 
 
 	return (
@@ -31,11 +34,14 @@ const Projects: NextPageWithLayout = () => {
 				<p className={styles.pageDescription}>{projectsT("intro")}</p>
 
 				<div className={styles.projects}>
-					<ProjectCardLink
-						href="/projects/dictionary"
-						description={dictionaryT("description")}
-						title={dictionaryT("title")}
-					/>
+					{projects.map((pname, idx) => (
+						<ProjectCardLink
+							key={idx}
+							href={`/projects/${pname}`}
+							description={projectsT(`${pname}Description`)}
+							title={projectsT(`${pname}Title`)}
+						/>
+					))}
 				</div>
 
 
@@ -60,7 +66,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 			...(await serverSideTranslations(locale as string, [
 				"common",
 				"projects",
-				"dictionary",
 			])),
 		},
 	}

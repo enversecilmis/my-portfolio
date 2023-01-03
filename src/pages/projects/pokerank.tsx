@@ -1,13 +1,8 @@
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement } from "react"
 import ContentSection from "@components/atoms/ContentSection/ContentSection"
-import Star from "@components/atoms/Star/Star"
-import Trash from "@components/atoms/Trash/Trash"
 import BasicLayout from "@components/layouts/RootLayout"
-import PokemonDeck, { DeckDragHandler, DeckDropHandler } from "@components/organisms/PokemonDeck/PokemonDeck"
 import PokeRankSection from "@components/organisms/PokeRankSection/PokeRankSection"
-import interpolate from "@utils/interpolate"
-import { rndNum } from "@utils/random-number"
-import randomNumberArray from "@utils/random-number-array"
+import PokeScoreSection from "@components/organisms/PokeScoreSection/PokeScoreSection"
 import { GetStaticProps } from "next"
 import Head from "next/head"
 import { useTranslation } from "next-i18next"
@@ -45,6 +40,7 @@ const Pokerank: NextPageWithLayout = () => {
 				</p>
 
 				<PokeRankSection/>
+				{/* <PokeScoreSection/> */}
 
 
 			</ContentSection>

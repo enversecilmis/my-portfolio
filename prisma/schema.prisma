@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+}
+
+model PokerankVote {
+    voterEmail String
+    pokeId     Int    @db.UnsignedSmallInt()
+    vote       Int    @db.UnsignedTinyInt()
+
+    @@unique([voterEmail, pokeId])
+}
+
+model PokerankScore {
+    pokeId         Int   @id @db.UnsignedSmallInt()
+    averageStar    Float
+    oneStarCount   Int   @db.UnsignedTinyInt()
+    twoStarCount   Int   @db.UnsignedTinyInt()
+    threeStarCount Int   @db.UnsignedTinyInt()
+    fourStarCount  Int   @db.UnsignedTinyInt()
+    fiveStarCount  Int   @db.UnsignedTinyInt()
+}

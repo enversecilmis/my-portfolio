@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Modal from "react-modal"
+import AccountButton from "@components/atoms/AccountButton/AccountButton"
 import BurgerButton from "@components/atoms/BurgerButton/BurgerButton"
 import ThemeToggleButton from "@components/atoms/ThemeToggleButton/ThemeToggleButton"
 import LanguagePicker from "@components/molecules/LanguagePicker/LanguagePicker"
@@ -38,6 +39,7 @@ const HeaderNav: React.FC = () => {
 					</a>
 					<LanguagePicker className={styles.link}/>
 					<ThemeToggleButton className={styles.link}/>
+					<AccountButton className={styles.link} />
 				</nav>
 
 
@@ -64,6 +66,7 @@ const HeaderNav: React.FC = () => {
 						<div className={styles.configs}>
 							<LanguagePicker className={styles.link}/>
 							<ThemeToggleButton className={styles.link}/>
+							<AccountButton className={styles.link} />
 						</div>
 					</nav>
 				</Modal>

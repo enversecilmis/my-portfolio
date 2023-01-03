@@ -1,4 +1,7 @@
 {
+	"logoutSuccess": "Çıkış başarılı",
+	"welcome": "Hoşgeldiniz",
+	"signInRequired": "Bu işlemi gerçekleştirmek için giriş yapmalısınız.",
 	"greeting": "Merhaba Dünya",
 	"inConstruction": "Bu site hala geliştirme aşamasında",
 	"deleteNotification": "Bildirimi sil",

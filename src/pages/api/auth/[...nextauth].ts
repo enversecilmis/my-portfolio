@@ -1,39 +1,21 @@
-import NextAuth, { NextAuthOptions, User } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth, { NextAuthOptions } from "next-auth"
+import GithubProvider from "next-auth/providers/github"
+
+import { env } from "../../../env/server.mjs"
 
 
 
 
 export const authOptions: NextAuthOptions = {
 	providers: [
-		CredentialsProvider({
-			name: "credentials",
-			credentials: {
-				email: { label: "email", type: "email", placeholder: "jsmith" },
-				password: { label: "Password", type: "password" },
-			},
-			async authorize(cred, req) {
-				if (!cred)
-					return null
-
-				const { email, password } = cred
-
-				/**
-				 * Validate credentials.
-				 */
-
-				const user: User = {
-					id: "",
-					email: "",
-					image: "",
-					name: "",
-				}
-
-				// return user
-				return null
-			},
+		GithubProvider({
+			clientId: env.GITHUB_ID,
+			clientSecret: env.GITHUB_SECRET,
 		}),
 	],
+	jwt: {
+		maxAge: 60 * 60 * 24,
+	},
 }
 
 

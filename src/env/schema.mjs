@@ -10,6 +10,9 @@ export const serverSchema = z.object({
 		z.literal("false"),
 	]),
 	NEXTAUTH_URL: z.string(),
+	NEXTAUTH_SECRET: z.string(),
+	GITHUB_ID: z.string(),
+	GITHUB_SECRET: z.string(),
 })
 
 

@@ -29,4 +29,8 @@ export default defineNextConfig({
 		locales: ["en", "tr"],
 		defaultLocale: "tr",
 	},
+
+	images: {
+		domains: ["https://avatars.githubusercontent.com", "avatars.githubusercontent.com"],
+	},
 })

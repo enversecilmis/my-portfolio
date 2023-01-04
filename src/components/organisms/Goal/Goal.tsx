@@ -25,14 +25,14 @@ const Goal: React.FC = () => {
 			const centerX = left + width/2
 			const centerY = top + height/2
 
-			api({
+			api.start({
 				rotateX: -(py - centerY)/25,
 				rotateY: (px - centerX)/25,
 			})
 		},
 		onHover: ({ hovering }) => {
 			!hovering &&
-            api({ rotateX: 0, rotateY: 0 })
+            api.start({ rotateX: 0, rotateY: 0 })
 		},
 	}, { target: hoverContainer })
 

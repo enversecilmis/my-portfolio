@@ -1,12 +1,12 @@
-import { ReactElement, useEffect } from "react"
+import { ReactElement } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { useNotification } from "@contexts/NotificationContext"
+import FirstNotification from "@components/atoms/FirstNotification/FirstNotification"
 import { NextPage } from "next"
 import { AppProps } from "next/app"
 import { SessionProvider } from "next-auth/react"
-import { appWithTranslation, useTranslation } from "next-i18next"
+import { appWithTranslation } from "next-i18next"
 
-import { NotificationProvider } from "../contexts/NotificationContext"
+import NotificationProvider from "../contexts/NotificationContext"
 import ThemePrefProvider from "../contexts/ThemeContext"
 
 import "../styles/globals.css"
@@ -24,23 +24,7 @@ const queryClient = new QueryClient()
 
 
 const MyApp = ({ Component, pageProps }: AppPropsWithLayout) => {
-	const { pushNotification } = useNotification()
-	const { t: commonT } = useTranslation("common")
 	const getLayout = Component.getLayout ?? ((page) => page)
-
-
-	useEffect(() => {
-		if (window.sessionStorage.getItem("landingNotificationShowed"))
-			return
-
-		pushNotification(commonT("cookieNotification"), {
-			type: "info",
-			source: "",
-		})
-		window.sessionStorage.setItem("landingNotificationShowed", "true")
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [])
-
 
 	return (
 		getLayout(<Component {...pageProps} />)
@@ -54,6 +38,7 @@ const ProvidedApp = (props: AppPropsWithLayout) => (
 			<ThemePrefProvider>
 				<NotificationProvider>
 					<MyApp {...props}/>
+					<FirstNotification />
 				</NotificationProvider>
 			</ThemePrefProvider>
 		</QueryClientProvider>

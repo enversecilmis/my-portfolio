@@ -1,5 +1,9 @@
 import { createContext, ReactNode, useCallback, useContext, useRef, useState } from "react"
 
+// This re-renders even the components that only uses pushNotification.
+// That's mildly bad.
+// Should've used redux..
+
 // TODO: Put useNotification in hooks as well as useThemePref.
 
 type NotificationType = "error" | "warning" | "info"
@@ -37,19 +41,27 @@ const NotificationProvider: React.FC<{children?: ReactNode}> = ({ children }) =>
 
 		if (options?.duration) {
 			setTimeout(() => {
-				setNotifications(p => p.filter(val => val.key !== key))
+				deleteNotification(key)
 			}, options.duration)
 		}
 		itemKey.current += 1
 		return key
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 
-	const deleteNotification = useCallback<DeleteNotificationFunc>(key => setNotifications(p => p.filter(val => val.key !== key)), [])
+	const deleteNotification = useCallback<DeleteNotificationFunc>((key) => {
+		setNotifications(p => p.filter(val => val.key !== key))
+	}, [])
 
 
 	return (
-		<NotificationContext.Provider value={{ notifications, pushNotification, deleteNotification }}>
+		<NotificationContext.Provider
+			value={{
+				notifications,
+				pushNotification,
+				deleteNotification,
+			}}>
 			{children}
 		</NotificationContext.Provider>
 	)
@@ -65,8 +77,8 @@ const useNotification = () => {
 }
 
 
-export {
-	NotificationContext,
-	NotificationProvider,
-	useNotification,
-}
+
+
+export { useNotification }
+
+export default NotificationProvider

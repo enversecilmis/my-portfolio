@@ -1,5 +1,5 @@
 import { BiHelpCircle } from "react-icons/bi"
-import { autoPlacement, autoUpdate, shift, useFloating } from "@floating-ui/react-dom"
+import { autoPlacement, shift, useFloating } from "@floating-ui/react-dom"
 
 import styles from "./HoverHelp.module.scss"
 
@@ -32,6 +32,7 @@ const HoverHelp: React.FC<Props> = ({
 			</div>
 			<p
 				ref={floating}
+				role="tooltip"
 				className={`${styles.message} ${className}`}
 				style={{
 					top: y ?? 0,

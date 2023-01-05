@@ -4,19 +4,19 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai"
 // import styles from "./Star.module.scss"
 
 type Props = {
-	filled: boolean
-	filledClassName?: string
+	active: boolean
+	activeClassName?: string
 } & IconBaseProps
 
 
 const Star: React.FC<Props> = ({
-	filled,
-	filledClassName,
+	active,
+	activeClassName,
 	className,
 	...restProps
 }) => {
-	return filled?
-		<AiFillStar className={`${className} ${filledClassName}`} {...restProps} />:
+	return active?
+		<AiFillStar className={`${className} ${activeClassName}`} {...restProps} />:
 		<AiOutlineStar className={className} {...restProps} />
 }
 

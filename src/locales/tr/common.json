@@ -2,6 +2,8 @@
 	"logoutSuccess": "Çıkış başarılı",
 	"welcome": "Hoşgeldiniz",
 	"signInRequired": "Bu işlemi gerçekleştirmek için giriş yapmalısınız.",
+	"signOut": "Çıkış Yap",
+	"signIn": "Giriş Yap",
 	"greeting": "Merhaba Dünya",
 	"inConstruction": "Bu site hala geliştirme aşamasında",
 	"deleteNotification": "Bildirimi sil",

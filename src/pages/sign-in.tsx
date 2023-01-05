@@ -12,8 +12,8 @@ const SignInPage = () => {
 		}
 
 		if (!data)
-			void signIn("github")
-	}, [])
+			signIn("github")
+	}, [data, status])
 
 
 	return null

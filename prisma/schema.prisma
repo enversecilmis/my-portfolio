@@ -22,6 +22,7 @@ model PokerankVote {
 model PokerankScore {
     pokeId         Int   @id @db.UnsignedSmallInt()
     averageStar    Float
+    voteCount      Int   @db.UnsignedInt
     oneStarCount   Int   @db.UnsignedTinyInt()
     twoStarCount   Int   @db.UnsignedTinyInt()
     threeStarCount Int   @db.UnsignedTinyInt()

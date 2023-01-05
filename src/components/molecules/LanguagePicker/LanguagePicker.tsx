@@ -22,7 +22,7 @@ type Props = {
 }
 const LanguagePicker: React.FC<Props> = ({ className }) => {
 	const { asPath, locale } = useRouter()
-	const { t } = useTranslation("header")
+	const { t } = useTranslation("common")
 	const [isOpen, setIsOpen] = useState(false)
 
 
@@ -48,11 +48,12 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 			>
 				<div className={styles.arrowBox}></div>
 				<Link
+					key={"tr"}
 					onClick={() => {
 						document.cookie = "NEXT_LOCALE=tr; max-age=31536000; path=/"
 					}}
 					replace={true}
-					key={"tr"}
+					passHref
 					href={asPath}
 					locale={"tr"}
 					scroll={false}
@@ -64,11 +65,12 @@ const LanguagePicker: React.FC<Props> = ({ className }) => {
 					<span>Türkçe</span>
 				</Link>
 				<Link
+					key={"en"}
 					onClick={() => {
 						document.cookie = "NEXT_LOCALE=en; max-age=31536000; path=/"
 					}}
+					passHref
 					replace={true}
-					key={"en"}
 					href={asPath}
 					locale={"en"}
 					scroll={false}

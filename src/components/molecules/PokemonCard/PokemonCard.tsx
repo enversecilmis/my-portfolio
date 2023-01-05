@@ -27,7 +27,13 @@ const PokemonCard: React.FC<Props> = ({
 	enableDrag,
 	...restAttributes
 }) => {
-	const { data, isLoading } = useQuery([pokeId], () => pokeFetch(pokeId))
+	const { data, isLoading } = useQuery({
+		queryKey: `pokemon${pokeId}`,
+		queryFn: () => pokeFetch(pokeId),
+		staleTime: Infinity,
+		cacheTime: Infinity,
+	})
+
 	const [springs, api] = useSpring(() => ({ x: 0, y: 0 }))
 	const divRef = useRef<HTMLDivElement>(null)
 
@@ -48,7 +54,6 @@ const PokemonCard: React.FC<Props> = ({
 		rubberband: 0.18,
 		enabled: enableDrag,
 	})
-
 
 	const imgSrc = isLoading? "/images/question-mark.png" : data?.image
 

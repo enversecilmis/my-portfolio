@@ -38,7 +38,6 @@ const PokemonDeck: React.FC<Props> = ({
 						className={styles.card}
 						onDrag={(dragAmount) => onDrag && onDrag(pokeId, dragAmount)}
 						onDrop={(dragAmount) => onDrop && onDrop(pokeId, dragAmount)}
-						onDragStart={() => console.log("drag started")}
 						style={{
 							top: idx*5,
 							left: idx*5 + expandSpace*idx,

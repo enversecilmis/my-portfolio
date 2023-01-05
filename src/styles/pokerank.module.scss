@@ -4,6 +4,9 @@
 }
 
 .container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
 	.description {
 		font-size: 20px;
@@ -11,6 +14,10 @@
 		color: var(--color-txt-2);
 	}
 
-
+	.scoreboardHeading {
+		color: var(--color-txt-blue);
+		font-size: 44px;
+		margin-top: 170px;
+	}
 
 }

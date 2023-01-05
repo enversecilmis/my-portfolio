@@ -10,6 +10,8 @@
 	box-shadow: 0 0 50px -20px rgba(213, 242, 166, 0.778);
 	height: 300px;
 
+	user-select: none;
+
 	&:active {
 		cursor: grabbing;
 	}

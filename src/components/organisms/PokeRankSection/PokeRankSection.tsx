@@ -6,6 +6,7 @@ import interpolate from "@utils/interpolate"
 import { rndNum } from "@utils/random-number"
 import randomNumberArray from "@utils/random-number-array"
 import { useSession } from "next-auth/react"
+import { useTranslation } from "next-i18next"
 
 import PokemonDeck, { DeckDragHandler, DeckDropHandler } from "../PokemonDeck/PokemonDeck"
 
@@ -21,21 +22,24 @@ type Props = {
 
 // TODO: Use tRPC
 
+const MIN_ID = 1
+const MAX_ID = 10
 
 const PokeRankSection: React.FC<Props> = () => {
-	const { data } = useSession()
-	const { pushNotification } = useNotification()
-	const [pokeIds, setPokeIds] = useState(() => randomNumberArray(6, 1, 700))
+	const [pokeIds, setPokeIds] = useState(() => randomNumberArray(6, MIN_ID, MAX_ID, true))
 	const [draggedPokemon, setDraggedPokemon] = useState<number>()
 	const [rating, setRating] = useState<number>(0)
 	const [trashing, setTrashing] = useState(false)
+	const { data } = useSession()
 
+	const { pushNotification } = useNotification()
+	const { t: commonT } = useTranslation("common")
 
 
 
 	const ratePokemon = () => {
 		if (!data) {
-			pushNotification("You have to be signed to perform this action.", {
+			pushNotification(commonT("signInRequired"), {
 				type: "error",
 				source: "Rate Pokemon",
 				duration: 4000,
@@ -58,9 +62,14 @@ const PokeRankSection: React.FC<Props> = () => {
 	}
 
 	const removePokemon = () => {
+		let newId = rndNum(MIN_ID, MAX_ID)
+
+		while (pokeIds.includes(newId))
+			newId = rndNum(MIN_ID, MAX_ID)
+
 		setPokeIds(p => {
 			const filtered = p.filter(val => val !== draggedPokemon)
-			return [rndNum(1, 700), ...filtered]
+			return [newId, ...filtered]
 		})
 	}
 
@@ -70,7 +79,9 @@ const PokeRankSection: React.FC<Props> = () => {
 		const inTrashArea = dragAmount[0] < -50
 
 		if (inRatingArea){
-			const rate = interpolate(dragAmount[1], [150, -150], [1, 5])
+			const rvalue = interpolate(dragAmount[1], [150, -150], [1, 5])
+			const rate = Math.min(5, Math.max(rvalue, 1))
+
 			setRating(Math.round(rate))
 			return
 		}
@@ -116,11 +127,11 @@ const PokeRankSection: React.FC<Props> = () => {
 			<div className={styles.ratingArea}>
 				{draggedPokemon &&
 					<>
-						<Star className={styles.star} filledClassName={styles.filled} filled={rating > 0}/>
-						<Star className={styles.star} filledClassName={styles.filled} filled={rating > 1}/>
-						<Star className={styles.star} filledClassName={styles.filled} filled={rating > 2}/>
-						<Star className={styles.star} filledClassName={styles.filled} filled={rating > 3}/>
-						<Star className={styles.star} filledClassName={styles.filled} filled={rating > 4}/>
+						<Star className={styles.star} activeClassName={styles.filled} active={rating > 0}/>
+						<Star className={styles.star} activeClassName={styles.filled} active={rating > 1}/>
+						<Star className={styles.star} activeClassName={styles.filled} active={rating > 2}/>
+						<Star className={styles.star} activeClassName={styles.filled} active={rating > 3}/>
+						<Star className={styles.star} activeClassName={styles.filled} active={rating > 4}/>
 					</>
 				}
 			</div>

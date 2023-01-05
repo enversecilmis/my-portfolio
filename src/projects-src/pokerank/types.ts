@@ -1,4 +1,5 @@
 export type Poke = {
-	name: string,
+	name: string
 	image: string
+	text: string
 }

@@ -1,0 +1,18 @@
+.container {
+	display: flex;
+	gap: 2px;
+	font-size: 20px;
+
+	background: linear-gradient(90deg, rgb(227, 160, 3) var(--rating-percentage), var(--color-light-3) var(--rating-percentage));
+
+
+	font-family: Times;
+	background-clip: text;
+
+	.star {
+		display: flex;
+		justify-content: space-between;
+		-webkit-text-fill-color: transparent;
+		width: 100%;
+	}
+}

@@ -1,5 +1,100 @@
+@import "@styles/mixins.scss";
+
 .container {
-	background-color: red;
-	width: 100px;
-	height: 100px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 40px;
+	width: fit-content;
+	justify-items: center;
+
+	padding: 0 10px;
+
+	@include device(tablet) {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	@include device(mobile) {
+		grid-template-columns: 1fr;
+		gap: 19px;
+	}
+
+
+
+
+	.scoreItem {
+		max-width: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+		background-color: var(--color-overlay);
+		padding: 10px 10px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.571);
+
+		.cardDescription {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+
+			@include device(mobile) {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.card {
+				flex-shrink: 0;
+			}
+		}
+
+		.stars {
+			width: fit-content;
+			font-size: 25px;
+			letter-spacing: 5px;
+		}
+
+		.scoreDetails {
+			display: flex;
+			width: 100%;
+			gap: 10px;
+
+			.starNumbers {
+				display: flex;
+				flex-direction: column;
+				gap: 7px;
+
+				.number {
+					line-height: 10px;
+					color: var(--color-txt-3);
+					font-size: 14px;
+				}
+			}
+
+			.barsContainer {
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+				gap: 7px;
+
+
+				.bar {
+					border-radius: 10px;
+					background-color: var(--color-overlay-2);
+					overflow: hidden;
+
+					.starBar {
+						height: 10px;
+						background-color: rgb(41, 99, 52);
+					}
+				}
+
+			}
+		}
+	}
+
+	.item0 {
+		grid-column: 1 / -1;
+		flex-shrink: 0;
+	}
 }

@@ -12,7 +12,7 @@ const SignInPage = () => {
 		}
 
 		if (!data)
-			signIn("github")
+			signIn("github", { callbackUrl: "/sign-in" })
 	}, [data, status])
 
 

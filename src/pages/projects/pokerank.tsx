@@ -66,7 +66,7 @@ const Pokerank: NextPageWithLayout = () => {
 
 				<PokeRankSection/>
 
-				<h2 className={styles.scoreboardHeading}>Scoreboard</h2>
+				<h2 className={styles.scoreboardHeading}>{pokerankT("topPoke")}</h2>
 
 				<PokeScoreSection/>
 

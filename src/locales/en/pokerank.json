@@ -1,4 +1,5 @@
 {
 	"title": "Pokemon Coolness Ranking",
-	"description": "Welcome to the ultimate Pokemon Coolness Ranking! In this project, we rate each Pokemon based on their coolness factor. From legendary beasts to adorable starters, we cover them all. Who will come out on top as the coolest Pokemon of them all? Come find out and see if you agree with our rankings!"
+	"description": "Welcome to the ultimate Pokemon Coolness Ranking! In this project, we rate each Pokemon based on their coolness factor. From legendary beasts to adorable starters, we cover them all. Who will come out on top as the coolest Pokemon of them all? Come find out and see if you agree with our rankings!",
+	"topPoke": "top rated pokemons"
 }

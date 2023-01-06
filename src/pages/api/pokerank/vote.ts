@@ -43,8 +43,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		.then(() => res.status(200).json({
 			succes: true,
 		}))
-		.catch(() => res.status(409).json({
+		.catch((err) => res.status(409).json({
 			succes: false,
 			cause: "Problem on the Database",
+			error: JSON.stringify(err),
 		}))
 }
